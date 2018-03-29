@@ -2,7 +2,7 @@
 
 Before you start using your Network Load Balancer, you must add one or more *listeners*\. A listener is a process that checks for connection requests, using the protocol and port that you configure\. The rules that you define for a listener determine how the load balancer routes requests to the targets in one or more target groups\.
 
-
+**Topics**
 + [Listener Configuration](#listener-configuration)
 + [Listener Rules](#listener-rules)
 + [Create a Listener for Your Network Load Balancer](create-listener.md)
@@ -12,9 +12,7 @@ Before you start using your Network Load Balancer, you must add one or more *lis
 ## Listener Configuration<a name="listener-configuration"></a>
 
 Listeners support the following protocols and ports:
-
 + **Protocols**: TCP
-
 + **Ports**: 1\-65535
 
 You can use WebSockets with your TCP listeners\.

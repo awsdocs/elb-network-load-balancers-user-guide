@@ -6,7 +6,7 @@ CloudTrail logs calls to the AWS APIs, including the Elastic Load Balancing API,
 
 To learn more about CloudTrail, including how to configure and enable it, see the [AWS CloudTrail User Guide](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\. For the complete list of Elastic Load Balancing API actions, see the [Elastic Load Balancing API Reference version 2015\-12\-01](http://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/)\.
 
-
+**Topics**
 + [Enable CloudTrail Event Logging](#enable-cloudtrail-logging)
 + [Elastic Load Balancing Event Records in CloudTrail Log Files](#cloudtrail-event-records)
 

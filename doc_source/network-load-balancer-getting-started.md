@@ -2,7 +2,7 @@
 
 This tutorial provides a hands\-on introduction to Network Load Balancers through the AWS Management Console, a web\-based interface\. To create your first Network Load Balancer, complete the following steps\.
 
-
+**Topics**
 + [Before You Begin](#prerequisites)
 + [Step 1: Choose a Load Balancer Type](#select-load-balancer-type)
 + [Step 2: Configure Your Load Balancer and Listener](#configure-load-balancer)
@@ -14,9 +14,7 @@ This tutorial provides a hands\-on introduction to Network Load Balancers throug
 Alternatively, to create an Application Load Balancer, see [Getting Started with Application Load Balancers](http://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancer-getting-started.html) in the *User Guide for Application Load Balancers*\. To create a Classic Load Balancer, see [Create a Classic Load Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-getting-started.html) in the *User Guide for Classic Load Balancers*\.
 
 ## Before You Begin<a name="prerequisites"></a>
-
-+ Decide which Availability Zones you will use for your EC2 instances\. Configure your virtual private cloud \(VPC\) with at least one public subnet in each of these Availability Zones\.
-
++ Decide which Availability Zones you will use for your EC2 instances\. Configure your virtual private cloud \(VPC\) with at least one public subnet in each of these Availability Zones\. These public subnets are used to configure the load balancer\. You can launch your EC2 instances in other subnets of these Availability Zones instead\.
 + Launch at least one EC2 instance in each Availability Zone\. Ensure that the security groups for these instances allow TCP access from clients on the listener port and health check requests from your VPC\. For more information, see [Target Security Groups](target-group-register-targets.md#target-security-groups)\.
 
 ## Step 1: Choose a Load Balancer Type<a name="select-load-balancer-type"></a>
@@ -43,7 +41,7 @@ On the **Configure Load Balancer** page, complete the following procedure\.
 
 1. For **Name**, type a name for your load balancer\.
 
-   The name of your Network Load Balancer must be unique within your set of Application Load Balancers and Network Load Balancers for the region, can have a maximum of 32 characters, can contain only alphanumeric characters and hyphens, and must not begin or end with a hyphen\.
+   The name of your Network Load Balancer must be unique within your set of Application Load Balancers and Network Load Balancers for the region, can have a maximum of 32 characters, can contain only alphanumeric characters and hyphens, must not begin or end with a hyphen, and must not begin with "internal\-"\.
 
 1. For **Scheme**, keep the default value, **internet\-facing**\.
 

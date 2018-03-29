@@ -3,11 +3,8 @@
 This tutorial provides a hands\-on introduction to Network Load Balancers through the AWS CLI\.
 
 ## Before You Begin<a name="prerequisites-aws-cli"></a>
-
 + Install the AWS CLI or update to the current version of the AWS CLI if you are using a version that does not support Network Load Balancers\. For more information, see [Installing the AWS Command Line Interface](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) in the *AWS Command Line Interface User Guide*\.
-
 + Decide which Availability Zones you will use for your EC2 instances\. Configure your virtual private cloud \(VPC\) with at least one public subnet in each of these Availability Zones\.
-
 + Launch at least one EC2 instance in each Availability Zone\. Ensure that the security groups for these instances allow TCP access from clients on the listener port and health check requests from your VPC\. For more information, see [Target Security Groups](target-group-register-targets.md#target-security-groups)\.
 
 ## Create Your Load Balancer<a name="create-load-balancer-aws-cli"></a>

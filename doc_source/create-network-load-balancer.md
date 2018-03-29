@@ -8,7 +8,7 @@ To create a load balancer using the AWS CLI, see [Tutorial: Create a Network Loa
 
 To create a load balancer using the AWS Management Console, complete the following tasks\.
 
-
+**Topics**
 + [Step 1: Configure a Load Balancer and a Listener](#configure-load-balancer)
 + [Step 2: Configure a Target Group](#configure-target-group)
 + [Step 3: Register Targets with the Target Group](#select-targets)

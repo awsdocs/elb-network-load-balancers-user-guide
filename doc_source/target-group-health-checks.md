@@ -2,7 +2,7 @@
 
 Your Network Load Balancer periodically sends requests to its registered targets to test their status\. These tests are called *health checks*\.
 
-Each load balancer node routes requests only to the healthy targets in its Availability Zone\. Each load balancer node checks the health of each target, using the health check settings for the target group with which the target is registered\. After your target is registered, it must pass one health check to be considered healthy\. After each health check is completed, the load balancer node closes the connection that was established for the health check\.
+Each load balancer node routes requests only to the healthy targets in its Availability Zone\. Each load balancer node checks the health of each target, using the health check settings for the target group with which the target is registered\. After each health check is completed, the load balancer node closes the connection that was established for the health check\.
 
 If one or more target groups does not have a healthy target in an enabled Availability Zone, we remove the IP address for the corresponding subnet from DNS so that requests cannot be routed to targets in that Availability Zone\. If there are no enabled Availability Zones with a healthy target in each target group, requests are routed to targets in all enabled Availability Zones\.
 
@@ -24,7 +24,7 @@ You configure health checks for the targets in a target group using the followin
 
 ## Target Health Status<a name="target-health-states"></a>
 
-Before the load balancer sends a health check request to a target, you must register it with a target group, specify its target group in a listener rule, and ensure that the Availability Zone of the target is enabled for the load balancer\. Before a target can receive requests from the load balancer, it must pass the initial health checks\. After a target passes the initial health checks, its status is `Healthy`\.
+Before the load balancer sends a health check request to a target, you must register it with a target group, specify its target group in a listener rule, and ensure that the Availability Zone of the target is enabled for the load balancer\.
 
 The following table describes the possible values for the health status of a registered target\.
 

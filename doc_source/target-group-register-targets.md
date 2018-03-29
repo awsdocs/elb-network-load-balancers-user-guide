@@ -15,10 +15,8 @@ If you are registering targets by instance ID, you can use your load balancer wi
 When you register EC2 instances as targets, you must ensure that the security groups for these instances allow traffic on both the listener port and the health check port\.
 
 **Limits**
-
 + Network Load Balancers do not have associated security groups\. Therefore, the security groups for your targets must use IP addresses to allow traffic from the load balancer\.
-
-+ You cannot allow traffic from clients to targets through the load balancer using the security groups for the clients in the security groups for the targets\.
++ You cannot allow traffic from clients to targets through the load balancer using the security groups for the clients in the security groups for the targets\. Use the client CIDR blocks in the target security groups instead\.
 
 
 **Recommended Rules**  
@@ -44,17 +42,16 @@ If you do not want to grant access to the entire VPC CIDR, you can grant access 
 
 ## Targets and Internet\-facing Load Balancers<a name="target-connectivity"></a>
 
-With an Internet\-facing load balancer, targets in a private subnet must have a route to the Internet to provide connectivity\. For example, the route table for the private subnet should have a route to a NAT gateway or a bastion host\.
+With an Internet\-facing load balancer, targets that are registered by instance ID must have a route to the Internet to provide connectivity\. The targets in a public subnet have a route to the Internet through the Internet gateway\. If a target in a private subnet is registered by instance ID, ensure that the route table for the subnet has a route to the Internet \(for example, through a NAT gateway or an EC2 instance\)\.
 
 ## Register or Deregister Targets<a name="register-deregister-targets"></a>
 
 When you create a target group, you specify whether you must register targets by instance ID or IP address\.
 
 **Limits**
-
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
-
-+ You cannot register targets in a peered VPC or linked through an [AWS managed VPN](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpn-connections.html)\.
++ The only targets that you can register in a peered VPC are C5 and M5 instances\.
++ You cannot register targets linked through an [AWS managed VPN](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpn-connections.html)\.
 
 ### Register or Deregister Targets by Instance ID<a name="register-instances"></a>
 

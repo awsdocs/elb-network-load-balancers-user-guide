@@ -3,7 +3,6 @@
 A listener is a process that checks for connection requests\. You define a listener when you create your load balancer, and you can add listeners to your load balancer at any time\.
 
 ## Prerequisites<a name="listener-prereqs"></a>
-
 + You must specify a target group for the listener rule\. For more information, see [Create a Target Group for Your Network Load Balancer](create-target-group.md)\.
 
 ## Add a Listener<a name="add-listener"></a>

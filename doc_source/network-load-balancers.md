@@ -2,11 +2,11 @@
 
 A *load balancer* serves as the single point of contact for clients\. Clients send requests to the load balancer, and the load balancer sends them to targets, such as EC2 instances, in one or more Availability Zones\.
 
-To configure your load balancer, you create target groups, and then register targets with your target groups\. Your load balancer is most effective if you ensure that each enabled Availability Zone has at least one registered target\. You also create listeners to check for connection requests from clients and route requests from clients to the targets in your target groups\.
+To configure your load balancer, you create [target groups](load-balancer-target-groups.md), and then register targets with your target groups\. Your load balancer is most effective if you ensure that each enabled Availability Zone has at least one registered target\. You also create [listeners](load-balancer-listeners.md) to check for connection requests from clients and route requests from clients to the targets in your target groups\.
 
-Connectivity to your load balancer is not supported over VPN connections or VPC peering connections\.
+Connectivity from clients to your load balancer is not supported over AWS managed VPN connections or VPC peering\.
 
-
+**Topics**
 + [Load Balancer State](#load-balancer-state)
 + [Load Balancer Attributes](#load-balancer-attributes)
 + [Availability Zones](#availability-zones)
@@ -34,17 +34,37 @@ The load balancer could not be set up\.
 The following are the load balancer attributes:
 
 `deletion_protection.enabled`  
-Indicates whether deletion protection is enabled\.
+Indicates whether deletion protection is enabled\. The default is `false`\.
+
+`load_balancing.cross_zone.enabled`  
+Indicates whether cross\-zone load balancing is enabled\. The default is `false`\.
 
 ## Availability Zones<a name="availability-zones"></a>
 
-You enable one or more Availability Zones for your load balancer when you create it\. You cannot enable or disable Availability Zones for a Network Load Balancer after you create it\.
+You enable one or more Availability Zones for your load balancer when you create it\. You cannot enable or disable Availability Zones for a Network Load Balancer after you create it\. If you enable multiple Availability Zones for your load balancer, this increases the fault tolerance of your applications\.
 
 When you enable an Availability Zone, you specify one subnet from that Availability Zone\. The subnet must have at least 8 available IP addresses\. Elastic Load Balancing creates a load balancer node in the Availability Zone and a network interface for the subnet \(the description starts with "ELB net" and includes the name of the load balancer\)\. Each load balancer node in the Availability Zone uses this network interface to get a static IP address\. Note that you can view this network interface but you cannot modify it\.
 
 When you create an Internet\-facing load balancer, you can optionally associate one Elastic IP address per subnet\. You cannot add or change Elastic IP addresses for your subnets after you create the load balancer\.
 
-Each load balancer node distributes traffic across the registered targets in its Availability Zone only\. If you enable multiple Availability Zones for your load balancer, this increases the fault tolerance of your applications\.
+### Cross\-Zone Load Balancing<a name="cross-zone-load-balancing"></a>
+
+By default, each load balancer node distributes traffic across the registered targets in its Availability Zone only\. If you enable cross\-zone load balancing, each load balancer node distributes traffic across the registered targets in all enabled Availability Zones\. For more information, see [Cross\-Zone Load Balancing](http://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#cross-zone-load-balancing) in the *Elastic Load Balancing User Guide*\.
+
+**To enable cross\-zone load balancing using the console**
+
+1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
+
+1. In the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
+
+1. Select the load balancer\.
+
+1. Choose **Description**, **Edit attributes**\.
+
+1. On the **Edit load balancer attributes** page, select **Enable** for **Cross\-Zone Load Balancing**, and choose **Save**\.
+
+**To enable cross\-zone load balancing using the AWS CLI**  
+Use the [modify\-load\-balancer\-attributes](http://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-load-balancer-attributes.html) command with the `load_balancing.cross_zone.enabled` attribute\.
 
 ## Deletion Protection<a name="deletion-protection"></a>
 
@@ -62,7 +82,7 @@ If you enable deletion protection for your load balancer, you must disable it be
 
 1. Choose **Description**, **Edit attributes**\.
 
-1. On the **Edit load balancer attributes** page, select **Enable delete protection** and choose **Save**\.
+1. On the **Edit load balancer attributes** page, select **Enable** for **Delete Protection**, and choose **Save**\.
 
 **To disable deletion protection using the console**
 
@@ -77,7 +97,7 @@ If you enable deletion protection for your load balancer, you must disable it be
 1. On the **Edit load balancer attributes** page, clear **Enable delete protection** and choose **Save**\.
 
 **To enable or disable deletion protection using the AWS CLI**  
-Use the [modify\-load\-balancer\-attributes](http://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-load-balancer-attributes.html) command\.
+Use the [modify\-load\-balancer\-attributes](http://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-load-balancer-attributes.html) command with the `deletion_protection.enabled` attribute\.
 
 ## Connection Idle Timeout<a name="connection-idle-timeout"></a>
 

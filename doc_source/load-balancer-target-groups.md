@@ -4,7 +4,7 @@ Each *target group* is used to route requests to one or more registered targets\
 
 You define health check settings for your load balancer on a per target group basis\. Each target group uses the default health check settings, unless you override them when you create the target group or modify them later on\. After you specify a target group in a rule for a listener, the load balancer continually monitors the health of all targets registered with the target group that are in an Availability Zone enabled for the load balancer\. The load balancer routes requests to the registered targets that are healthy\.
 
-
+**Topics**
 + [Routing Configuration](#target-group-routing-configuration)
 + [Target Type](#target-type)
 + [Registered Targets](#registered-targets)
@@ -22,9 +22,7 @@ You define health check settings for your load balancer on a per target group ba
 By default, a load balancer routes requests to its targets using the protocol and port number that you specified when you created the target group\. Alternatively, you can override the port used for routing traffic to a target when you register it with the target group\.
 
 Target groups for Network Load Balancers support the following protocols and ports:
-
 + **Protocols**: TCP
-
 + **Ports**: 1\-65535
 
 ## Target Type<a name="target-type"></a>
@@ -40,15 +38,10 @@ The targets are specified by instance ID\.
 The targets are specified by IP address\.
 
 When the target type is `ip`, you can specify IP addresses from one of the following CIDR blocks:
-
 + The subnets of the VPC for the target group
-
 + 10\.0\.0\.0/8 \(RFC 1918\)
-
 + 100\.64\.0\.0/10 \(RFC 6598\)
-
 + 172\.16\.0\.0/12 \(RFC 1918\)
-
 + 192\.168\.0\.0/16 \(RFC 1918\)
 
 These supported CIDR blocks enable you to register the following with a target group: ClassicLink instances, AWS resources that are addressable by IP address and port \(for example, databases\), and on\-premises resources linked to AWS through AWS Direct Connect or a software VPN connection\.
@@ -64,17 +57,16 @@ If you specify targets using an instance ID, the source IP addresses of the clie
 
 Your load balancer serves as a single point of contact for clients and distributes incoming traffic across its healthy registered targets\. Each target group must have at least one registered target in each Availability Zone that is enabled for the load balancer\. You can register each target with one or more target groups\. You can register each EC2 instance or IP address with the same target group multiple times using different ports, which enables the load balancer to route requests to microservices\.
 
-If demand on your application increases, you can register additional targets with one or more target groups in order to handle the demand\. The load balancer starts routing traffic to a newly registered target as soon as the registration process completes and the target passes the initial health checks\.
+If demand on your application increases, you can register additional targets with one or more target groups in order to handle the demand\. The load balancer starts routing traffic to a newly registered target as soon as the registration process completes\.
 
 If demand on your application decreases, or you need to service your targets, you can deregister targets from your target groups\. Deregistering a target removes it from your target group, but does not affect the target otherwise\. The load balancer stops routing traffic to a target as soon as it is deregistered\. The target enters the `draining` state until in\-flight requests have completed\. You can register the target with the target group again when you are ready for it to resume receiving traffic\.
 
 If you are registering targets by instance ID, you can use your load balancer with an Auto Scaling group\. After you attach a target group to an Auto Scaling group, Auto Scaling registers your targets with the target group for you when it launches them\. For more information, see [Attaching a Load Balancer to Your Auto Scaling Group](http://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-load-balancer-asg.html) in the *Amazon EC2 Auto Scaling User Guide*\.
 
 **Limits**
-
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
-
-+ You cannot register targets in a peered VPC or linked through an [AWS managed VPN](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpn-connections.html)\.
++ The only targets that you can register in a peered VPC are C5 and M5 instances\.
++ You cannot register targets linked through an [AWS managed VPN](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpn-connections.html)\.
 
 ## Target Group Attributes<a name="target-group-attributes"></a>
 
