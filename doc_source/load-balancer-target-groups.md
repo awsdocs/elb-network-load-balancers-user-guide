@@ -32,10 +32,10 @@ When you create a target group, you specify its target type, which determines ho
 The following are the possible target types:
 
 `instance`  
-The targets are specified by instance ID\.
+The targets are specified by instance ID\, and the source is the client IP address and port\.
 
 `ip`  
-The targets are specified by IP address\.
+The targets are specified by IP address\, and the source is the private IP addresses of the load balancer nodes\.
 
 When the target type is `ip`, you can specify IP addresses from one of the following CIDR blocks:
 + The subnets of the VPC for the target group
@@ -51,7 +51,7 @@ You can't specify publicly routable IP addresses\.
 
 If you specify targets using an instance ID, traffic is routed to instances using the primary private IP address specified in the primary network interface for the instance\. If you specify targets using IP addresses, you can route traffic to an instance using any private IP address from one or more network interfaces\. This enables multiple applications on an instance to use the same port\. Note that each network interface can have its own security group\.
 
-If you specify targets using an instance ID, the source IP addresses of the clients are preserved and provided to your applications\. If you specify targets by IP address, the source IP addresses are the private IP addresses of the load balancer nodes\.
+If you specify targets using an instance ID, the source IP addresses of the clients are preserved and provided to your applications\. If you specify targets by IP address, the source IP addresses are the private IP addresses of the load balancer nodes,\ allowing multiple applications on the same instance to communicate with each other using the load balancer\.
 
 ## Registered Targets<a name="registered-targets"></a>
 
