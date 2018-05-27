@@ -18,5 +18,5 @@ You can update the listener port and the listener rule\. Rules determine how you
 
 1. Choose **Save**\.
 
-**To update the default rule for your listener using the AWS CLI**  
-Use the [modify\-rule](http://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-rule.html) command\.
+**To update your listener using the AWS CLI**  
+Use the [modify\-listener](http://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-listener.html) command\.

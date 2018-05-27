@@ -65,7 +65,7 @@ If you are registering targets by instance ID, you can use your load balancer wi
 
 **Limits**
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
-+ The only targets that you can register in a peered VPC are C5 and M5 instances\.
++ The only targets that you can register in a peered VPC are C5 and M5 instances\. The instances must be in the same region as the load balancer\.
 + You cannot register targets linked through an [AWS managed VPN](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpn-connections.html)\.
 
 ## Target Group Attributes<a name="target-group-attributes"></a>

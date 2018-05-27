@@ -44,13 +44,17 @@ If you do not want to grant access to the entire VPC CIDR, you can grant access 
 
 With an Internet\-facing load balancer, targets that are registered by instance ID must have a route to the Internet to provide connectivity\. The targets in a public subnet have a route to the Internet through the Internet gateway\. If a target in a private subnet is registered by instance ID, ensure that the route table for the subnet has a route to the Internet \(for example, through a NAT gateway or an EC2 instance\)\.
 
+## Network ACLs<a name="network-acls"></a>
+
+The default network access control list \(ACL\) for a VPC allows all inbound and outbound traffic\. If you create custom network ACLs, they must allow the load balancer and instances to communicate in both directions on the listener port, health check port, and ephemeral ports \(1024\-65535\)\.
+
 ## Register or Deregister Targets<a name="register-deregister-targets"></a>
 
 When you create a target group, you specify whether you must register targets by instance ID or IP address\.
 
 **Limits**
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
-+ The only targets that you can register in a peered VPC are C5 and M5 instances\.
++ The only targets that you can register in a peered VPC are C5 and M5 instances\. The instances must be in the same region as the load balancer\.
 + You cannot register targets linked through an [AWS managed VPN](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpn-connections.html)\.
 
 ### Register or Deregister Targets by Instance ID<a name="register-instances"></a>

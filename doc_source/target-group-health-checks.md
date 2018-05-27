@@ -1,14 +1,16 @@
 # Health Checks for Your Target Groups<a name="target-group-health-checks"></a>
 
-Your Network Load Balancer periodically sends requests to its registered targets to test their status\. These tests are called *health checks*\.
+Network Load Balancers use active and passive health checks to determine whether a target is available to handle requests\. By default, each load balancer node routes requests only to the healthy targets in its Availability Zone\. If you enable cross\-zone load balancing, each load balancer node routes requests to the healthy targets in all enabled Availability Zones\. For more information, see [Cross\-Zone Load Balancing](network-load-balancers.md#cross-zone-load-balancing)\.
 
-Each load balancer node routes requests only to the healthy targets in its Availability Zone\. Each load balancer node checks the health of each target, using the health check settings for the target group with which the target is registered\. After each health check is completed, the load balancer node closes the connection that was established for the health check\.
+With active health checks, the load balancer periodically sends a request to each registered target to check its status\. Each load balancer node checks the health of each target, using the health check settings for the target group with which the target is registered\. After each health check is completed, the load balancer node closes the connection that was established for the health check\.
+
+With passive health checks, the load balancer observes how targets respond to connections\. Passive health checks enable the load balancer to detect an unhealthy target before it is reported as unhealthy by the active health checks\. You cannot disable, configure, or monitor passive health checks\.
 
 If one or more target groups does not have a healthy target in an enabled Availability Zone, we remove the IP address for the corresponding subnet from DNS so that requests cannot be routed to targets in that Availability Zone\. If there are no enabled Availability Zones with a healthy target in each target group, requests are routed to targets in all enabled Availability Zones\.
 
 ## Health Check Settings<a name="health-check-settings"></a>
 
-You configure health checks for the targets in a target group using the following settings\. The load balancer sends a health check request to each registered target every **HealthCheckIntervalSeconds** seconds, using the specified port, protocol, and ping path\. It waits for the target to respond within the response timeout period\. If the health checks exceed the threshold for consecutive failed responses, the load balancer takes the target out of service\. When the health checks exceed the threshold for consecutive successful responses, the load balancer puts the target back in service\.
+You configure active health checks for the targets in a target group using the following settings\. The load balancer sends a health check request to each registered target every **HealthCheckIntervalSeconds** seconds, using the specified port, protocol, and ping path\. It waits for the target to respond within the response timeout period\. If the health checks exceed the threshold for consecutive failed responses, the load balancer takes the target out of service\. When the health checks exceed the threshold for consecutive successful responses, the load balancer puts the target back in service\.
 
 
 | Setting | Description | 
@@ -17,7 +19,7 @@ You configure health checks for the targets in a target group using the followin
 | **HealthCheckPort** |  The port the load balancer uses when performing health checks on targets\. The default is to use the port on which each target receives traffic from the load balancer\.  | 
 | **HealthCheckPath** |  \[HTTP/HTTPS health checks\] The ping path that is the destination on the targets for health checks\. The default is /\.  | 
 | **HealthCheckTimeoutSeconds** |  The amount of time, in seconds, during which no response from a target means a failed health check\. This is 10 seconds for TCP and HTTPS health checks and 6 seconds for HTTP health checks\.  | 
-| **HealthCheckIntervalSeconds** |  The approximate amount of time, in seconds, between health checks of an individual target\. This value can be 10 seconds or 30 seconds\. The default is 30 seconds\.  | 
+| **HealthCheckIntervalSeconds** |  The approximate amount of time, in seconds, between health checks of an individual target\. This value can be 10 seconds or 30 seconds\. The default is 30 seconds\.  Health checks for a Network Load Balancer are distributed and use a consensus mechanism to determine target health\. Therefore, targets can receive more than the configured number of health checks\. To reduce the number of health checks to your targets, use a static HTML file as the HTTP target or use TCP health checks\.   | 
 | **HealthyThresholdCount** |  The number of consecutive successful health checks required before considering an unhealthy target healthy\. The range is 2 to 10\. The default is 3\.  | 
 | **UnhealthyThresholdCount** |  The number of consecutive failed health checks required before considering a target unhealthy\. This value must be the same as the healthy threshold count\.  | 
 | **Matcher** |  \[HTTP/HTTPS health checks\] The HTTP codes to use when checking for a successful response from a target\. This value must be 200 to 399\.  | 
