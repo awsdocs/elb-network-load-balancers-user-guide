@@ -76,9 +76,9 @@ Use the [describe\-target\-health](http://docs.aws.amazon.com/cli/latest/referen
 
 ## Modify the Health Check Settings of a Target Group<a name="modify-health-check-settings"></a>
 
-You can modify the health check settings for your target group at any time\.
+You can modify some of the health check settings for your target group\.
 
-**To modify the health check settings of a target group using the console**
+**To modify health check settings for a target group using the console**
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
@@ -90,5 +90,5 @@ You can modify the health check settings for your target group at any time\.
 
 1. On the **Edit target group** page, modify the settings as needed, and then choose **Save**\.
 
-**To modify the health check settings of a target group using the AWS CLI**  
+**To modify health check settings for a target group using the AWS CLI**  
 Use the [modify\-target\-group](http://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-target-group.html) command\.

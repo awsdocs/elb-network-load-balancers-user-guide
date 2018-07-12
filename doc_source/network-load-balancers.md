@@ -4,7 +4,7 @@ A *load balancer* serves as the single point of contact for clients\. Clients se
 
 To configure your load balancer, you create [target groups](load-balancer-target-groups.md), and then register targets with your target groups\. Your load balancer is most effective if you ensure that each enabled Availability Zone has at least one registered target\. You also create [listeners](load-balancer-listeners.md) to check for connection requests from clients and route requests from clients to the targets in your target groups\.
 
-Connectivity from clients to your load balancer is not supported over AWS managed VPN connections or VPC peering\.
+Network Load Balancers do not support connections from clients to your load balancer over VPC peering or AWS managed VPN unless the clients are C5, `i3.metal`, or M5 instances\. For VPC peering, both VPCs must be in the same region\.
 
 **Topics**
 + [Load Balancer State](#load-balancer-state)

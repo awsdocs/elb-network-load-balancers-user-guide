@@ -49,11 +49,17 @@ These supported CIDR blocks enable you to register the following with a target g
 **Important**  
 You can't specify publicly routable IP addresses\.
 
+### Request Routing and IP Addresses<a name="request-routing-ip-addresses"></a>
+
 If you specify targets using an instance ID, traffic is routed to instances using the primary private IP address specified in the primary network interface for the instance\. If you specify targets using IP addresses, you can route traffic to an instance using any private IP address from one or more network interfaces\. This enables multiple applications on an instance to use the same port\. Note that each network interface can have its own security group\.
 
-If you specify targets using an instance ID, the source IP addresses of the clients are preserved and provided to your applications\. If you specify targets by IP address, the source IP addresses are the private IP addresses of the load balancer nodes\.
+### Source IP Preservation<a name="source-ip-preservation"></a>
 
-If you have micro services on instances registered with a Network Load Balancer, you cannot use the load balancer to provide communication between them unless the load balancer is internet-facing or the instances are registered by IP address.
+If you specify targets using an instance ID, the source IP addresses of the clients are preserved and provided to your applications\.
+
+If you specify targets by IP address, the source IP addresses are the private IP addresses of the load balancer nodes\. If you need the IP addresses of the clients, enable Proxy Protocol and get the client IP addresses from the Proxy Protocol header\.
+
+If you have micro services on instances registered with a Network Load Balancer, you cannot use the load balancer to provide communication between them unless the load balancer is internet\-facing or the instances are registered by IP address\. For more information, see [Connections time out for requests from a target to it's load balancer](load-balancer-troubleshooting.md#loopback-timeout)\.
 
 ## Registered Targets<a name="registered-targets"></a>
 
@@ -67,7 +73,7 @@ If you are registering targets by instance ID, you can use your load balancer wi
 
 **Limits**
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
-+ The only targets that you can register in a peered VPC are C5 and M5 instances\. The instances must be in the same region as the load balancer\.
++ The only targets that you can register in a peered VPC are C5, `i3.metal`, and M5 instances\. The instances must be in the same region as the load balancer\.
 + You cannot register targets linked through an [AWS managed VPN](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpn-connections.html)\.
 
 ## Target Group Attributes<a name="target-group-attributes"></a>
