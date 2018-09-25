@@ -33,7 +33,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Delete a Target Group](delete-target-group.md)
 + [Monitor Your Network Load Balancers](load-balancer-monitoring.md)
    + [CloudWatch Metrics for Your Network Load Balancer](load-balancer-cloudwatch-metrics.md)
-   + [AWS CloudTrail Logging for Your Network Load Balancer](load-balancer-cloudtrail-logs.md)
+   + [Logging API Calls for Your Network Load Balancer Using AWS CloudTrail](load-balancer-cloudtrail-logs.md)
 + [Troubleshoot Your Network Load Balancer](load-balancer-troubleshooting.md)
 + [Limits for Your Network Load Balancers](load-balancer-limits.md)
 + [Document History for Network Load Balancers](doc-history.md)

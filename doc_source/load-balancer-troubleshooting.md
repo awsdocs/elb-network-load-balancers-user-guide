@@ -15,7 +15,7 @@ The security groups associated with an instance must allow traffic from the load
 The network ACL associated with the subnets for your instances must allow inbound traffic on the health check port and outbound traffic on the ephemeral ports \(1024\-65535\)\. The network ACL associated with the subnets for your load balancer nodes must allow inbound traffic on the ephemeral ports and outbound traffic on the health check and ephemeral ports\.
 
 **The instance is not supported in a peered VPC**  
-The only targets that you can register in a peered VPC are C5, `i3.metal`, and M5 instances\.
+The only targets that you can register in a peered VPC are Nitro instances in the same region as the load balancer\.
 
 ## Requests are not routed to targets<a name="requests-not-routed"></a>
 
@@ -31,16 +31,14 @@ The network ACLs associated with the subnets for your VPC must allow the load ba
 If you register targets in an Availability Zone but do not enable the Availability Zone, these registered targets do not receive traffic from the load balancer\.
 
 **There is no return route for traffic**  
-The targets registered with an Internet\-facing load balancer must have a route to the Internet\. Targets in public subnets can route 0\.0\.0\.0/0 to the Internet gateway\. Targets in private subnets can route 0\.0\.0\.0/0 to a NAT gateway or an EC2 instance in a public subnet\.
+The targets registered with an Internet\-facing load balancer must have a route to the Internet\. Targets in public subnets need a route for 0\.0\.0\.0/0 to the Internet gateway\. If cross\-zone load balancing is enabled, targets in private subnets need a local route for 0\.0\.0\.0/0\. If cross\-zone load balancing is not enabled, targets in private subnets need a route for 0\.0\.0\.0/0 to a NAT gateway or an EC2 instance in a public subnet\.
 
-**The client is in a peered VPC or AWS managed VPN**  
-Network Load Balancers do not support connections from clients to your load balancer over VPC peering or AWS managed VPN unless the clients are C5, `i3.metal`, or M5 instances\. For VPC peering, both VPCs must be in the same region\.
+**The client is in a peered VPC**  
+Network Load Balancers do not support connections from clients to your load balancer over VPC peering unless the clients are Nitro instances and both VPCs are in the same region\.
 
 ## Targets receive more health check requests than expected<a name="health-check-interval"></a>
 
 Health checks for a Network Load Balancer are distributed and use a consensus mechanism to determine target health\. Therefore, targets can receive more than the number of health checks configured through the `HealthCheckIntervalSeconds` setting\.
-
-To reduce the number of health checks to your targets, use a static HTML file as the HTTP target or use TCP health checks\.
 
 ## Targets receive fewer health check requests than expected<a name="too-few-health-checks"></a>
 

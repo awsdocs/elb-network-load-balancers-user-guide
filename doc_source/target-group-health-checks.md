@@ -76,7 +76,7 @@ Use the [describe\-target\-health](http://docs.aws.amazon.com/cli/latest/referen
 
 ## Modify the Health Check Settings of a Target Group<a name="modify-health-check-settings"></a>
 
-You can modify some of the health check settings for your target group\.
+You can modify some of the health check settings for your target group\. If the protocol of the target group is TCP, you can't modify the health check protocol, interval, timeout, or success codes\.
 
 **To modify health check settings for a target group using the console**
 

@@ -73,8 +73,7 @@ If you are registering targets by instance ID, you can use your load balancer wi
 
 **Limits**
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
-+ The only targets that you can register in a peered VPC are C5, `i3.metal`, and M5 instances\. The instances must be in the same region as the load balancer\.
-+ You cannot register targets linked through an [AWS managed VPN](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpn-connections.html)\.
++ The only targets that you can register in a peered VPC are Nitro instances in the same region as the load balancer\.
 
 ## Target Group Attributes<a name="target-group-attributes"></a>
 
@@ -88,7 +87,7 @@ Indicates whether Proxy Protocol version 2 is enabled\. By default, Proxy Protoc
 
 ## Deregistration Delay<a name="deregistration-delay"></a>
 
-Elastic Load Balancing stops sending requests to instances that are deregistering\. Connection draining ensures that in\-flight requests complete before existing connections are closed\. The initial state of a deregistering target is `draining`\. By default, the state of a deregistering target changes to `unused` after 300 seconds\. To change the amount of time that Elastic Load Balancing waits before changing the state to `unused`, update the deregistration delay value\.
+Elastic Load Balancing stops sending requests to instances that are deregistering\. Connection draining ensures that in\-flight requests complete before existing connections are closed\. The initial state of a deregistering target is `draining`\. By default, the state of a deregistering target changes to `unused` after 300 seconds\. To change the amount of time that Elastic Load Balancing waits before changing the state to `unused`, update the deregistration delay value\. We recommend that you specify a value of at least 120 seconds to ensure that requests are completed\.
 
 **To update the deregistration delay value using the console**
 
@@ -119,7 +118,7 @@ After you enable Proxy Protocol, the Proxy Protocol header is also included in h
 
 ### VPC Endpoint Services<a name="custom-tlv"></a>
 
-For traffic coming from service consumers through a [VPC endpoint service](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/endpoint-service.html), the source IP addresses provided to your applications are the private IP addresses of the load balancer nodes\. If your applications need the IP addresses of the service consumers, enable Proxy Protocol and get them from the Proxy Protocol header\.
+For traffic coming from service consumers through a [VPC endpoint service](http://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html), the source IP addresses provided to your applications are the private IP addresses of the load balancer nodes\. If your applications need the IP addresses of the service consumers, enable Proxy Protocol and get them from the Proxy Protocol header\.
 
 The Proxy Protocol header also includes the ID of the endpoint\. This information is encoded using a custom Type\-Length\-Value \(TLV\) vector as follows\.
 

@@ -11,8 +11,8 @@ Your AWS account has the following limits related to Network Load Balancers\.
 **Load Balancer Limits**
 + Listeners per load balancer: 50
 + Subnets per Availability Zone per load balancer: 1
-+ \[Cross\-zone load balancing disabled\] Targets per Availability Zone per load balancer: 200
-+ \[Cross\-zone load balancing enabled\] Targets per load balancer: 200
++ \[Cross\-zone load balancing disabled\] Targets per Availability Zone per load balancer: 500
++ \[Cross\-zone load balancing enabled\] Targets per load balancer: 500
 + Load balancers per target group: 1
 
 **\*** This limit is shared by target groups for your Application Load Balancers and Network Load Balancers\.
