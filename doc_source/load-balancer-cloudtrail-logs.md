@@ -54,11 +54,13 @@ The following are example CloudTrail log records for Elastic Load Balancing for 
         "subnets": ["subnet-8360a9e7","subnet-b7d581c0"],
         "securityGroups": ["sg-5943793c"],
         "name": "my-load-balancer",
-        "scheme": "internet-facing"
+        "scheme": "internet-facing",
+        "type": "network"
     },
     "responseElements": {
         "loadBalancers":[{
-            "type": "application",
+            "type": "network",
+            "ipAddressType": "ipv4",
             "loadBalancerName": "my-load-balancer",
             "vpcId": "vpc-3ac0fb5f",
             "securityGroups": ["sg-5943793c"],
@@ -70,7 +72,7 @@ The following are example CloudTrail log records for Elastic Load Balancing for 
             "dNSName": "my-load-balancer-1836718677.us-west-2.elb.amazonaws.com",
             "canonicalHostedZoneId": "Z2P70J7HTTTPLU",
             "createdTime": "Apr 11, 2016 5:23:50 PM",
-            "loadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/ffcddace1759e1d0",
+            "loadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/net/my-load-balancer/ffcddace1759e1d0",
             "scheme": "internet-facing"
         }]
     },
@@ -102,7 +104,7 @@ The following are example CloudTrail log records for Elastic Load Balancing for 
     "sourceIPAddress": "198.51.100.1",
     "userAgent": "aws-cli/1.10.10 Python/2.7.9 Windows/7 botocore/1.4.1",
     "requestParameters": {
-        "loadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/ffcddace1759e1d0"
+        "loadBalancerArn": "arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/net/my-load-balancer/ffcddace1759e1d0"
     },
     "responseElements": null,
     "requestID": "349598b3-000e-11e6-a82b-298133eEXAMPLE",
