@@ -1,6 +1,6 @@
 # What Is a Network Load Balancer?<a name="introduction"></a>
 
-Elastic Load Balancing supports the following types of load balancers: Application Load Balancers, Network Load Balancers, and Classic Load Balancers\. This guide discusses Network Load Balancers\. For more information about the other load balancers, see the [User Guide for Application Load Balancers](http://docs.aws.amazon.com/elasticloadbalancing/latest/application/) and the [User Guide for Classic Load Balancers](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/)\.
+Elastic Load Balancing supports the following types of load balancers: Application Load Balancers, Network Load Balancers, and Classic Load Balancers\. This guide discusses Network Load Balancers\. For more information about the other load balancers, see the [User Guide for Application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/) and the [User Guide for Classic Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/)\.
 
 ## Network Load Balancer Components<a name="network-load-balancer-components"></a>
 
@@ -19,7 +19,7 @@ For more information, see the following documentation:
 
 A Network Load Balancer functions at the fourth layer of the Open Systems Interconnection \(OSI\) model\. It can handle millions of requests per second\. After the load balancer receives a connection request, it selects a target from the target group for the default rule\. It attempts to open a TCP connection to the selected target on the port specified in the listener configuration\.
 
-When you enable an Availability Zone for the load balancer, Elastic Load Balancing creates a load balancer node in the Availability Zone\. By default, each load balancer node distributes traffic across the registered targets in its Availability Zone only\. If you enable cross\-zone load balancing, each load balancer node distributes traffic across the registered targets in all enabled Availability Zones\. For more information, see [Cross\-Zone Load Balancing](http://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#cross-zone-load-balancing) in the *Elastic Load Balancing User Guide*\.
+When you enable an Availability Zone for the load balancer, Elastic Load Balancing creates a load balancer node in the Availability Zone\. By default, each load balancer node distributes traffic across the registered targets in its Availability Zone only\. If you enable cross\-zone load balancing, each load balancer node distributes traffic across the registered targets in all enabled Availability Zones\. For more information, see [Cross\-Zone Load Balancing](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#cross-zone-load-balancing) in the *Elastic Load Balancing User Guide*\.
 
 If you enable multiple Availability Zones for your load balancer and ensure that each target group has at least one target in each enabled Availability Zone, this increases the fault tolerance of your applications\. For example, if one or more target groups does not have a healthy target in an Availability Zone, we remove the IP address for the corresponding subnet from DNS, but the load balancer nodes in the other Availability Zones are still available to route traffic\. If a client doesn't honor the time\-to\-live \(TTL\) and sends requests to the IP address after it is removed from DNS, the requests fail\.
 
@@ -33,7 +33,7 @@ You can add and remove targets from your load balancer as your needs change, wit
 
 You can configure health checks, which are used to monitor the health of the registered targets so that the load balancer can send requests only to the healthy targets\.
 
-For more information, see [How Elastic Load Balancing Works](http://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html) in the *Elastic Load Balancing User Guide*\.
+For more information, see [How Elastic Load Balancing Works](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html) in the *Elastic Load Balancing User Guide*\.
 
 ## Benefits of Migrating from a Classic Load Balancer<a name="network-load-balancer-benefits"></a>
 

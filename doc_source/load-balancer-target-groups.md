@@ -69,11 +69,12 @@ If demand on your application increases, you can register additional targets wit
 
 If demand on your application decreases, or you need to service your targets, you can deregister targets from your target groups\. Deregistering a target removes it from your target group, but does not affect the target otherwise\. The load balancer stops routing traffic to a target as soon as it is deregistered\. The target enters the `draining` state until in\-flight requests have completed\. You can register the target with the target group again when you are ready for it to resume receiving traffic\.
 
-If you are registering targets by instance ID, you can use your load balancer with an Auto Scaling group\. After you attach a target group to an Auto Scaling group, Auto Scaling registers your targets with the target group for you when it launches them\. For more information, see [Attaching a Load Balancer to Your Auto Scaling Group](http://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-load-balancer-asg.html) in the *Amazon EC2 Auto Scaling User Guide*\.
+If you are registering targets by instance ID, you can use your load balancer with an Auto Scaling group\. After you attach a target group to an Auto Scaling group, Auto Scaling registers your targets with the target group for you when it launches them\. For more information, see [Attaching a Load Balancer to Your Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-load-balancer-asg.html) in the *Amazon EC2 Auto Scaling User Guide*\.
 
 **Limits**
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
-+ The only targets that you can register in a peered VPC are Nitro instances in the same region as the load balancer\.
++ You cannot register instances by instance ID if they are in a peered VPC that is in a different region than the load balancer unless they are [Nitro instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances)\. You can register non\-Nitro instances in a peered VPC that is in a different region than the load balancer by IP address\.
++ You cannot register instances in a peered VPC that is in the same region as the load balancer unless they are Nitro instances\.
 
 ## Target Group Attributes<a name="target-group-attributes"></a>
 
@@ -102,7 +103,7 @@ Elastic Load Balancing stops sending requests to instances that are deregisterin
 1. Change the value of **Deregistration delay** as needed, and then choose **Save**\.
 
 **To update the deregistration delay value using the AWS CLI**  
-Use the [modify\-target\-group\-attributes](http://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-target-group-attributes.html) command\.
+Use the [modify\-target\-group\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-target-group-attributes.html) command\.
 
 ## Proxy Protocol<a name="proxy-protocol"></a>
 
@@ -118,7 +119,7 @@ After you enable Proxy Protocol, the Proxy Protocol header is also included in h
 
 ### VPC Endpoint Services<a name="custom-tlv"></a>
 
-For traffic coming from service consumers through a [VPC endpoint service](http://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html), the source IP addresses provided to your applications are the private IP addresses of the load balancer nodes\. If your applications need the IP addresses of the service consumers, enable Proxy Protocol and get them from the Proxy Protocol header\.
+For traffic coming from service consumers through a [VPC endpoint service](https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html), the source IP addresses provided to your applications are the private IP addresses of the load balancer nodes\. If your applications need the IP addresses of the service consumers, enable Proxy Protocol and get them from the Proxy Protocol header\.
 
 The Proxy Protocol header also includes the ID of the endpoint\. This information is encoded using a custom Type\-Length\-Value \(TLV\) vector as follows\.
 
@@ -143,4 +144,4 @@ Before you enable Proxy Protocol on a target group, make sure that your applicat
 1. Select **Enable proxy protocol v2**, and then choose **Save**\.
 
 **To enable Proxy Protocol using the AWS CLI**  
-Use the [modify\-target\-group\-attributes](http://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-target-group-attributes.html) command\.
+Use the [modify\-target\-group\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-target-group-attributes.html) command\.

@@ -4,7 +4,7 @@ A *load balancer* serves as the single point of contact for clients\. Clients se
 
 To configure your load balancer, you create [target groups](load-balancer-target-groups.md), and then register targets with your target groups\. Your load balancer is most effective if you ensure that each enabled Availability Zone has at least one registered target\. You also create [listeners](load-balancer-listeners.md) to check for connection requests from clients and route requests from clients to the targets in your target groups\.
 
-Network Load Balancers support connections from clients to your load balancer over intra\-region VPC peering only if those clients are Nitro instances\. Network Load Balancers do not support connections from clients to your load balancer over inter\-region VPC peering\.
+Network Load Balancers support connections from clients over inter\-region VPC peering, AWS managed VPN, and third\-party VPN solutions\. Network Load Balancers support connections from clients over intra\-region VPC peering only if those clients are [Nitro instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances)\.
 
 **Topics**
 + [Load Balancer State](#load-balancer-state)
@@ -49,7 +49,7 @@ When you create an Internet\-facing load balancer, you can optionally associate 
 
 ### Cross\-Zone Load Balancing<a name="cross-zone-load-balancing"></a>
 
-By default, each load balancer node distributes traffic across the registered targets in its Availability Zone only\. If you enable cross\-zone load balancing, each load balancer node distributes traffic across the registered targets in all enabled Availability Zones\. For more information, see [Cross\-Zone Load Balancing](http://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#cross-zone-load-balancing) in the *Elastic Load Balancing User Guide*\.
+By default, each load balancer node distributes traffic across the registered targets in its Availability Zone only\. If you enable cross\-zone load balancing, each load balancer node distributes traffic across the registered targets in all enabled Availability Zones\. For more information, see [Cross\-Zone Load Balancing](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#cross-zone-load-balancing) in the *Elastic Load Balancing User Guide*\.
 
 **To enable cross\-zone load balancing using the console**
 
@@ -64,7 +64,7 @@ By default, each load balancer node distributes traffic across the registered ta
 1. On the **Edit load balancer attributes** page, select **Enable** for **Cross\-Zone Load Balancing**, and choose **Save**\.
 
 **To enable cross\-zone load balancing using the AWS CLI**  
-Use the [modify\-load\-balancer\-attributes](http://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-load-balancer-attributes.html) command with the `load_balancing.cross_zone.enabled` attribute\.
+Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-load-balancer-attributes.html) command with the `load_balancing.cross_zone.enabled` attribute\.
 
 ## Deletion Protection<a name="deletion-protection"></a>
 
@@ -97,7 +97,7 @@ If you enable deletion protection for your load balancer, you must disable it be
 1. On the **Edit load balancer attributes** page, clear **Enable delete protection** and choose **Save**\.
 
 **To enable or disable deletion protection using the AWS CLI**  
-Use the [modify\-load\-balancer\-attributes](http://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-load-balancer-attributes.html) command with the `deletion_protection.enabled` attribute\.
+Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-load-balancer-attributes.html) command with the `deletion_protection.enabled` attribute\.
 
 ## Connection Idle Timeout<a name="connection-idle-timeout"></a>
 

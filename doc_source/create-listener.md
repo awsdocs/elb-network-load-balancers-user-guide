@@ -28,4 +28,4 @@ You configure a listener with a protocol and a port for connections from clients
 1. Choose **Create**\.
 
 **To add a listener using the AWS CLI**  
-Use the [create\-listener](http://docs.aws.amazon.com/cli/latest/reference/elbv2/create-listener.html) command to create the listener\.
+Use the [create\-listener](https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-listener.html) command to create the listener\.

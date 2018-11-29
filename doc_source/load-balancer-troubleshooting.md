@@ -14,8 +14,9 @@ The security groups associated with an instance must allow traffic from the load
 **A network access control list \(ACL\) does not allow traffic**  
 The network ACL associated with the subnets for your instances must allow inbound traffic on the health check port and outbound traffic on the ephemeral ports \(1024\-65535\)\. The network ACL associated with the subnets for your load balancer nodes must allow inbound traffic on the ephemeral ports and outbound traffic on the health check and ephemeral ports\.
 
-**The instance is not supported in a peered VPC**  
-The only targets that you can register in a peered VPC are Nitro instances in the same region as the load balancer\.
+**The instance is in a peered VPC**  
+If the peered VPC is in a different region than the load balancer, you can register [Nitro instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances) by IP address or instance ID, but you must register non\-Nitro instances by IP address\.  
+If the peered VPC is in the same region as the load balancer, you can register Nitro instances by IP address or instance ID, but you cannot register non\-Nitro instances\.
 
 ## Requests are not routed to targets<a name="requests-not-routed"></a>
 
@@ -31,10 +32,7 @@ The network ACLs associated with the subnets for your VPC must allow the load ba
 If you register targets in an Availability Zone but do not enable the Availability Zone, these registered targets do not receive traffic from the load balancer\.
 
 **There is no return route for traffic**  
-The targets registered with an Internet\-facing load balancer must have a route to the Internet\. Targets in public subnets need a route for 0\.0\.0\.0/0 to the Internet gateway\. If cross\-zone load balancing is enabled, targets in private subnets need a local route for 0\.0\.0\.0/0\. If cross\-zone load balancing is not enabled, targets in private subnets need a route for 0\.0\.0\.0/0 to a NAT gateway or an EC2 instance in a public subnet\.
-
-**The client is in a peered VPC**  
-Network Load Balancers do not support connections from clients to your load balancer over VPC peering unless the clients are Nitro instances and both VPCs are in the same region\.
+The targets registered with an Internet\-facing load balancer must have a route to the internet\.
 
 ## Targets receive more health check requests than expected<a name="health-check-interval"></a>
 

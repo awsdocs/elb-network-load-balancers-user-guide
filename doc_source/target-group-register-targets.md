@@ -8,7 +8,7 @@ If demand on your registered targets decreases, or you need to service a target,
 
 When you deregister a target, Elastic Load Balancing waits until in\-flight requests have completed\. This is known as *connection draining*\. The status of a target is `draining` while connection draining is in progress\.
 
-If you are registering targets by instance ID, you can use your load balancer with an Auto Scaling group\. After you attach a target group to an Auto Scaling group and the group scales out, the instances launched by the Auto Scaling group are automatically registered with the target group\. If you detach the load balancer from the Auto Scaling group, the instances are automatically deregistered from the target group\. For more information, see [Attaching a Load Balancer to Your Auto Scaling Group](http://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-load-balancer-asg.html) in the *Amazon EC2 Auto Scaling User Guide*\.
+If you are registering targets by instance ID, you can use your load balancer with an Auto Scaling group\. After you attach a target group to an Auto Scaling group and the group scales out, the instances launched by the Auto Scaling group are automatically registered with the target group\. If you detach the load balancer from the Auto Scaling group, the instances are automatically deregistered from the target group\. For more information, see [Attaching a Load Balancer to Your Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-load-balancer-asg.html) in the *Amazon EC2 Auto Scaling User Guide*\.
 
 ## Target Security Groups<a name="target-security-groups"></a>
 
@@ -54,7 +54,8 @@ When you create a target group, you specify whether you must register targets by
 
 **Limits**
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
-+ The only targets that you can register in a peered VPC are Nitro instances in the same region as the load balancer\.
++ You cannot register instances by instance ID if they are in a peered VPC that is in a different region than the load balancer unless they are [Nitro instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances)\. You can register non\-Nitro instances in a peered VPC that is in a different region than the load balancer by IP address\.
++ You cannot register instances in a peered VPC that is in the same region as the load balancer unless they are Nitro instances\.
 
 ### Register or Deregister Targets by Instance ID<a name="register-instances"></a>
 
@@ -96,4 +97,4 @@ The IP addresses that you register must be from the subnets of the VPC for the t
 
 ### To register or deregister targets using the AWS CLI<a name="register-cli"></a>
 
-Use the [register\-targets](http://docs.aws.amazon.com/cli/latest/reference/elbv2/register-targets.html) command to add targets and the [deregister\-targets](http://docs.aws.amazon.com/cli/latest/reference/elbv2/deregister-targets.html) command to remove targets\.
+Use the [register\-targets](https://docs.aws.amazon.com/cli/latest/reference/elbv2/register-targets.html) command to add targets and the [deregister\-targets](https://docs.aws.amazon.com/cli/latest/reference/elbv2/deregister-targets.html) command to remove targets\.

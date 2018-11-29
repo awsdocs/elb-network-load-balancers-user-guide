@@ -72,7 +72,7 @@ You can check the health status of the targets registered with your target group
 1. Choose **Targets**, and view the status of each target in the **Status** column\. If the status is any value other than `Healthy`, view the tooltip for more information\.
 
 **To check the health of your targets using the AWS CLI**  
-Use the [describe\-target\-health](http://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-target-health.html) command\. The output of this command contains the target health state\. It includes a reason code if the status is any value other than `Healthy`\.
+Use the [describe\-target\-health](https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-target-health.html) command\. The output of this command contains the target health state\. It includes a reason code if the status is any value other than `Healthy`\.
 
 ## Modify the Health Check Settings of a Target Group<a name="modify-health-check-settings"></a>
 
@@ -91,4 +91,4 @@ You can modify some of the health check settings for your target group\. If the 
 1. On the **Edit target group** page, modify the settings as needed, and then choose **Save**\.
 
 **To modify health check settings for a target group using the AWS CLI**  
-Use the [modify\-target\-group](http://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-target-group.html) command\.
+Use the [modify\-target\-group](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-target-group.html) command\.
