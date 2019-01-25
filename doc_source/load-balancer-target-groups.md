@@ -44,10 +44,12 @@ When the target type is `ip`, you can specify IP addresses from one of the follo
 + 172\.16\.0\.0/12 \(RFC 1918\)
 + 192\.168\.0\.0/16 \(RFC 1918\)
 
-These supported CIDR blocks enable you to register the following with a target group: ClassicLink instances, AWS resources that are addressable by IP address and port \(for example, databases\), and on\-premises resources linked to AWS through AWS Direct Connect or a software VPN connection\.
-
 **Important**  
 You can't specify publicly routable IP addresses\.
+
+These supported CIDR blocks enable you to register the following with a target group: ClassicLink instances, AWS resources that are addressable by IP address and port \(for example, databases\), and on\-premises resources linked to AWS through AWS Direct Connect or a software VPN connection\.
+
+When the target type is `ip`, the load balancer can support 55,000 simultaneous connections or about 55,000 connections per minute to each unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors\. If you get port allocation errors, add more targets to the target group\.
 
 ### Request Routing and IP Addresses<a name="request-routing-ip-addresses"></a>
 
@@ -73,8 +75,7 @@ If you are registering targets by instance ID, you can use your load balancer wi
 
 **Limits**
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
-+ You cannot register instances by instance ID if they are in a peered VPC that is in a different region than the load balancer unless they are [Nitro instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances)\. You can register non\-Nitro instances in a peered VPC that is in a different region than the load balancer by IP address\.
-+ You cannot register instances in a peered VPC that is in the same region as the load balancer unless they are Nitro instances\.
++ You cannot register instances in a peered VPC by instance ID, you must register them by IP address\. If the peered VPC is in the same region as the load balancer, the instances must be [Nitro\-based instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances)\.
 
 ## Target Group Attributes<a name="target-group-attributes"></a>
 

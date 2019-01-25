@@ -50,12 +50,11 @@ The default network access control list \(ACL\) for a VPC allows all inbound and
 
 ## Register or Deregister Targets<a name="register-deregister-targets"></a>
 
-When you create a target group, you specify whether you must register targets by instance ID or IP address\.
+The target type of your target group determines how you register targets with that target group\. For more information, see [Target Type](load-balancer-target-groups.md#target-type)\.
 
 **Limits**
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
-+ You cannot register instances by instance ID if they are in a peered VPC that is in a different region than the load balancer unless they are [Nitro instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances)\. You can register non\-Nitro instances in a peered VPC that is in a different region than the load balancer by IP address\.
-+ You cannot register instances in a peered VPC that is in the same region as the load balancer unless they are Nitro instances\.
++ You cannot register instances in a peered VPC by instance ID, you must register them by IP address\. If the peered VPC is in the same region as the load balancer, the instances must be [Nitro\-based instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances)\.
 
 ### Register or Deregister Targets by Instance ID<a name="register-instances"></a>
 

@@ -4,7 +4,7 @@ As soon as your load balancer becomes available, you are billed for each hour or
 
 You can't delete a load balancer if deletion protection is enabled\. For more information, see [Deletion Protection](network-load-balancers.md#deletion-protection)\.
 
-Note that deleting a load balancer does not affect its registered targets\. For example, your EC2 instances continue to run and are still registered to their target groups\. To delete your target groups, see [Delete a Target Group](delete-target-group.md)\.
+Deleting a load balancer also deletes its listeners\. Deleting a load balancer does not affect its registered targets\. For example, your EC2 instances continue to run and are still registered to their target groups\. To delete your target groups, see [Delete a Target Group](delete-target-group.md)\.
 
 **To delete a load balancer using the console**
 

@@ -1,14 +1,14 @@
 # Delete a Listener for Your Network Load Balancer<a name="delete-listener"></a>
 
-You can delete a listener at any time\. When you delete a load balancer, its listeners are deleted\.
+You can delete a listener at any time\.
 
 **To delete a listener using the console**
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. In the navigation pane, under **LOAD BALANCING**, choose **Load Balancers** and select the load balancer\.
+1. In the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
 
-1. Choose **Listener**, select the check box for the listener, and then choose **Actions**, **Delete**\.
+1. Select the load balancer and choose **Listeners**\. Select the check box for the listener, and then choose **Delete**\.
 
 1. When prompted for confirmation, choose **Yes, Delete**\.
 

@@ -8,6 +8,8 @@ With passive health checks, the load balancer observes how targets respond to co
 
 If one or more target groups does not have a healthy target in an enabled Availability Zone, we remove the IP address for the corresponding subnet from DNS so that requests cannot be routed to targets in that Availability Zone\. If there are no enabled Availability Zones with a healthy target in each target group, requests are routed to targets in all enabled Availability Zones\.
 
+If you add a TLS listener to your Network Load Balancer, we perform a listener connectivity test\. As TLS termination also terminates a TCP connection, a new TCP connection is established between your load balancer and your targets\. Therefore, you might see the TCP pings for this test sent from your load balancer to the targets that are registered with your TLS listener\. You can identify these TCP pings because they have the source IP address of your Network Load Balancer and the connections do not contain data packets\.
+
 ## Health Check Settings<a name="health-check-settings"></a>
 
 You configure active health checks for the targets in a target group using the following settings\. The load balancer sends a health check request to each registered target every **HealthCheckIntervalSeconds** seconds, using the specified port, protocol, and ping path\. It waits for the target to respond within the response timeout period\. If the health checks exceed the threshold for consecutive failed responses, the load balancer takes the target out of service\. When the health checks exceed the threshold for consecutive successful responses, the load balancer puts the target back in service\.

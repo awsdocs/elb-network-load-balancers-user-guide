@@ -4,7 +4,7 @@ A *load balancer* serves as the single point of contact for clients\. Clients se
 
 To configure your load balancer, you create [target groups](load-balancer-target-groups.md), and then register targets with your target groups\. Your load balancer is most effective if you ensure that each enabled Availability Zone has at least one registered target\. You also create [listeners](load-balancer-listeners.md) to check for connection requests from clients and route requests from clients to the targets in your target groups\.
 
-Network Load Balancers support connections from clients over inter\-region VPC peering, AWS managed VPN, and third\-party VPN solutions\. Network Load Balancers support connections from clients over intra\-region VPC peering only if those clients are [Nitro instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances)\.
+Network Load Balancers support connections from clients over VPC peering, AWS managed VPN, and third\-party VPN solutions\. If the peered VPC is in the same region as the load balancer, the clients must be [Nitro instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances)\.
 
 **Topics**
 + [Load Balancer State](#load-balancer-state)
@@ -43,9 +43,14 @@ Indicates whether cross\-zone load balancing is enabled\. The default is `false`
 
 You enable one or more Availability Zones for your load balancer when you create it\. You cannot enable or disable Availability Zones for a Network Load Balancer after you create it\. If you enable multiple Availability Zones for your load balancer, this increases the fault tolerance of your applications\.
 
-When you enable an Availability Zone, you specify one subnet from that Availability Zone\. The subnet must have at least 8 available IP addresses\. Elastic Load Balancing creates a load balancer node in the Availability Zone and a network interface for the subnet \(the description starts with "ELB net" and includes the name of the load balancer\)\. Each load balancer node in the Availability Zone uses this network interface to get a static IP address\. Note that you can view this network interface but you cannot modify it\.
+When you enable an Availability Zone, you specify one subnet from that Availability Zone\. Elastic Load Balancing creates a load balancer node in the Availability Zone and a network interface for the subnet \(the description starts with "ELB net" and includes the name of the load balancer\)\. Each load balancer node in the Availability Zone uses this network interface to get a static IP address\. Note that you can view this network interface but you cannot modify it\.
 
 When you create an Internet\-facing load balancer, you can optionally associate one Elastic IP address per subnet\. You cannot add or change Elastic IP addresses for your subnets after you create the load balancer\.
+
+**Requirements**
++ The subnets that you specify must have at least 8 available IP addresses\.
++ You can't specify subnets that were shared with you by another AWS account\.
++ You can't specify a subnet in a constrained Availability Zone\. The error message is "Load balancers with type 'network' are not supported in *az\_name*"\. You can specify a subnet in another Availability Zone that is not constrained and use cross\-zone load balancing to distribute traffic to targets in the constrained Availability Zone\.
 
 ### Cross\-Zone Load Balancing<a name="cross-zone-load-balancing"></a>
 

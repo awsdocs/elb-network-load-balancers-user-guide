@@ -4,6 +4,7 @@ A listener is a process that checks for connection requests\. You define a liste
 
 ## Prerequisites<a name="listener-prereqs"></a>
 + You must specify a target group for the listener rule\. For more information, see [Create a Target Group for Your Network Load Balancer](create-target-group.md)\.
++ You must specify an SSL certificate for a TLS listener\. The load balancer uses the certificate to terminate the connection and decrypt requests from clients before routing them to targets\. For more information, see [Server Certificates](create-tls-listener.md#tls-listener-certificates)\.
 
 ## Add a Listener<a name="add-listener"></a>
 
@@ -15,17 +16,21 @@ You configure a listener with a protocol and a port for connections from clients
 
 1. In the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
 
-1. Select the load balancer\.
+1. Select the load balancer and choose **Listeners**\.
 
-1. Choose **Listener**, **Add listener**\.
+1. Choose **Add listener**\.
 
-1. For **Protocol**, keep **TCP**\.
+1. For **Protocol : port**, choose **TCP** or **TLS**\. Keep the default port or type a different port\.
 
-1. For **Port**, type the listener port\.
+1. For **Default actions**, choose **Add action**, **Forward to** and then choose an available target group\.
 
-1. For **Default target group**, select an available target group with the TCP protocol\.
+1. \[TLS listeners\] For **Security policy**, we recommend that you keep the default security policy\.
 
-1. Choose **Create**\.
+1. \[TLS listeners\] For **Default SSL certificate**, do one of the following:
+   + If you created or imported a certificate using AWS Certificate Manager, choose **From ACM** and choose the certificate\.
+   + If you uploaded a certificate using IAM, choose **From IAM** and choose the certificate\.
+
+1. Choose **Save**\.
 
 **To add a listener using the AWS CLI**  
 Use the [create\-listener](https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-listener.html) command to create the listener\.

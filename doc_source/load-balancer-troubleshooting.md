@@ -14,10 +14,6 @@ The security groups associated with an instance must allow traffic from the load
 **A network access control list \(ACL\) does not allow traffic**  
 The network ACL associated with the subnets for your instances must allow inbound traffic on the health check port and outbound traffic on the ephemeral ports \(1024\-65535\)\. The network ACL associated with the subnets for your load balancer nodes must allow inbound traffic on the ephemeral ports and outbound traffic on the health check and ephemeral ports\.
 
-**The instance is in a peered VPC**  
-If the peered VPC is in a different region than the load balancer, you can register [Nitro instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances) by IP address or instance ID, but you must register non\-Nitro instances by IP address\.  
-If the peered VPC is in the same region as the load balancer, you can register Nitro instances by IP address or instance ID, but you cannot register non\-Nitro instances\.
-
 ## Requests are not routed to targets<a name="requests-not-routed"></a>
 
 Check for the following:
@@ -33,6 +29,9 @@ If you register targets in an Availability Zone but do not enable the Availabili
 
 **There is no return route for traffic**  
 The targets registered with an Internet\-facing load balancer must have a route to the internet\.
+
+**The instance is in a peered VPC**  
+If you have instances in a peered VPC, you must register them with your load balancer by IP address, not by instance ID\. If the peered VPC is in the same region as the load balancer, the instances must be [Nitro\-based instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances)\.
 
 ## Targets receive more health check requests than expected<a name="health-check-interval"></a>
 
