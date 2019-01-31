@@ -110,7 +110,7 @@ When you enable access logging, you must specify an S3 bucket for the access log
           "Service": [ "delivery.logs.amazonaws.com" ]
         },
         "Action": [ "s3:GetBucketAcl" ],
-        "Resource": "arn:aws:s3:::bucket_name*",
+        "Resource": "arn:aws:s3:::bucket_name"
       }
     ]
   }
