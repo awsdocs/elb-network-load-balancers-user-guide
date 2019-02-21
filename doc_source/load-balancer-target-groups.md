@@ -61,7 +61,7 @@ If you specify targets using an instance ID, the source IP addresses of the clie
 
 If you specify targets by IP address, the source IP addresses are the private IP addresses of the load balancer nodes\. If you need the IP addresses of the clients, enable Proxy Protocol and get the client IP addresses from the Proxy Protocol header\.
 
-If you have micro services on instances registered with a Network Load Balancer, you cannot use the load balancer to provide communication between them unless the load balancer is internet\-facing or the instances are registered by IP address\. For more information, see [Connections time out for requests from a target to it's load balancer](load-balancer-troubleshooting.md#loopback-timeout)\.
+If you have micro services on instances registered with a Network Load Balancer, you cannot use the load balancer to provide communication between them unless the load balancer is internet\-facing or the instances are registered by IP address\. For more information, see [Connections time out for requests from a target to its load balancer](load-balancer-troubleshooting.md#loopback-timeout)\.
 
 ## Registered Targets<a name="registered-targets"></a>
 

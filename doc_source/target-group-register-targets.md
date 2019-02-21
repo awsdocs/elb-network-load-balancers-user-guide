@@ -56,6 +56,11 @@ The target type of your target group determines how you register targets with th
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
 + You cannot register instances in a peered VPC by instance ID, you must register them by IP address\. If the peered VPC is in the same region as the load balancer, the instances must be [Nitro\-based instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances)\.
 
+**Topics**
++ [Register or Deregister Targets by Instance ID](#register-instances)
++ [Register or Deregister Targets by IP Address](#register-ip-addresses)
++ [Register or Deregister Targets Using the AWS CLI](#register-cli)
+
 ### Register or Deregister Targets by Instance ID<a name="register-instances"></a>
 
 The instance must be in the `running` state when you register it\.
@@ -78,7 +83,12 @@ The instance must be in the `running` state when you register it\.
 
 ### Register or Deregister Targets by IP Address<a name="register-ip-addresses"></a>
 
-The IP addresses that you register must be from the subnets of the VPC for the target group, the RFC 1918 range \(10\.0\.0\.0/8, 172\.16\.0\.0/12, and 192\.168\.0\.0/16\), and the RFC 6598 range \(100\.64\.0\.0/10\)\. You cannot register publicly routable IP addresses\.
+The IP addresses that you register must be from one of the following CIDR blocks:
++ The subnets of the VPC for the target group
++ 10\.0\.0\.0/8 \(RFC 1918\)
++ 100\.64\.0\.0/10 \(RFC 6598\)
++ 172\.16\.0\.0/12 \(RFC 1918\)
++ 192\.168\.0\.0/16 \(RFC 1918\)
 
 **To register or deregister targets by IP address**
 
@@ -94,6 +104,6 @@ The IP addresses that you register must be from the subnets of the VPC for the t
 
 1. To leave this screen, choose the **Back to target group** icon \(the back button\) in the menu bar\.
 
-### To register or deregister targets using the AWS CLI<a name="register-cli"></a>
+### Register or Deregister Targets Using the AWS CLI<a name="register-cli"></a>
 
 Use the [register\-targets](https://docs.aws.amazon.com/cli/latest/reference/elbv2/register-targets.html) command to add targets and the [deregister\-targets](https://docs.aws.amazon.com/cli/latest/reference/elbv2/deregister-targets.html) command to remove targets\.

@@ -45,7 +45,7 @@ Check whether `net.ipv4.tcp_tw_recycle` is enabled\. This setting is known to ca
 
 If there is at least one healthy registered target for your load balancer, the load balancer routes requests only to its healthy registered targets\. If there are only unhealthy registered targets, the load balancer routes requests to all registered targets\.
 
-## Connections time out for requests from a target to it's load balancer<a name="loopback-timeout"></a>
+## Connections time out for requests from a target to its load balancer<a name="loopback-timeout"></a>
 
 Check whether you have an internal load balancer with targets registered by instance ID\. Internal load balancers do not support hairpinning or loopback\. When you register targets by instance ID, the source IP addresses of clients are preserved\. If an instance is a client of an internal load balancer that it's registered with by instance ID, the connection succeeds only if the request is routed to a different instance\. Otherwise, the source and destination IP addresses are the same and the connection times out\.
 
