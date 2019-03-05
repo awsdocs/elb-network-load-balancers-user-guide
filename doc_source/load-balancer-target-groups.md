@@ -37,6 +37,9 @@ The targets are specified by instance ID\.
 `ip`  
 The targets are specified by IP address\.
 
+**Important**
+Network Load Balancers do not support the target type `lambda`.
+
 When the target type is `ip`, you can specify IP addresses from one of the following CIDR blocks:
 + The subnets of the VPC for the target group
 + 10\.0\.0\.0/8 \(RFC 1918\)
