@@ -54,7 +54,7 @@ The target type of your target group determines how you register targets with th
 
 **Limits**
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
-+ You cannot register instances in a peered VPC by instance ID, you must register them by IP address\. If the peered VPC is in the same region as the load balancer, the instances must be [Nitro\-based instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances)\.
++ You cannot register instances in a peered VPC by instance ID, you must register them by IP address\.
 
 **Topics**
 + [Register or Deregister Targets by Instance ID](#register-instances)

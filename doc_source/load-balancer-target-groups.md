@@ -77,7 +77,7 @@ If you are registering targets by instance ID, you can use your load balancer wi
 
 **Limits**
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
-+ You cannot register instances in a peered VPC by instance ID, you must register them by IP address\. If the peered VPC is in the same region as the load balancer, the instances must be [Nitro\-based instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances)\.
++ You cannot register instances in a peered VPC by instance ID, you must register them by IP address\.
 
 ## Target Group Attributes<a name="target-group-attributes"></a>
 
@@ -110,7 +110,7 @@ Use the [modify\-target\-group\-attributes](https://docs.aws.amazon.com/cli/late
 
 ## Proxy Protocol<a name="proxy-protocol"></a>
 
-Network Load Balancers use Proxy Protocol version 2 to send additional connection information such as the source and destination\. Proxy Protocol version 2 provides a binary encoding of the Proxy Protocol header\.
+Network Load Balancers use Proxy Protocol version 2 to send additional connection information such as the source and destination\. Proxy Protocol version 2 provides a binary encoding of the Proxy Protocol header\. The load balancer prepends a proxy protocol header to the TCP data\. It does not discard or overwrite any existing data, including any proxy protocol headers sent by the client or any other proxies, load balancers, or servers in the network path\. Therefore, it is possible to receive more than one proxy protocol header\. Also, if there is another network path to your targets outside of your Network Load Balancer, the first proxy protocol header might not be the one from your Network Load Balancer\.
 
 If you specify targets by IP address, the source IP addresses provided to your applications are the private IP addresses of the load balancer nodes\. If your applications need the IP addresses of the clients, enable Proxy Protocol and get the client IP addresses from the Proxy Protocol header\.
 

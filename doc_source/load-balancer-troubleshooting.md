@@ -31,7 +31,7 @@ If you register targets in an Availability Zone but do not enable the Availabili
 The targets registered with an Internet\-facing load balancer must have a route to the internet\.
 
 **The instance is in a peered VPC**  
-If you have instances in a peered VPC, you must register them with your load balancer by IP address, not by instance ID\. If the peered VPC is in the same region as the load balancer, the instances must be [Nitro\-based instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances)\.
+If you have instances in a peered VPC, you must register them with your load balancer by IP address, not by instance ID\.
 
 ## Targets receive more health check requests than expected<a name="health-check-interval"></a>
 
