@@ -37,9 +37,6 @@ The targets are specified by instance ID\.
 `ip`  
 The targets are specified by IP address\.
 
-**Important**
-Network Load Balancers do not support the target type `lambda`.
-
 When the target type is `ip`, you can specify IP addresses from one of the following CIDR blocks:
 + The subnets of the VPC for the target group
 + 10\.0\.0\.0/8 \(RFC 1918\)
@@ -53,6 +50,8 @@ You can't specify publicly routable IP addresses\.
 These supported CIDR blocks enable you to register the following with a target group: ClassicLink instances, AWS resources that are addressable by IP address and port \(for example, databases\), and on\-premises resources linked to AWS through AWS Direct Connect or a software VPN connection\.
 
 When the target type is `ip`, the load balancer can support 55,000 simultaneous connections or about 55,000 connections per minute to each unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors\. If you get port allocation errors, add more targets to the target group\.
+
+Network Load Balancers do not support the `lambda` target type, only Application Load Balancers support the `lambda` target type\. For more information, see [Lambda Functions as Targets](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/lambda-functions.html) in the *User Guide for Application Load Balancers*\.
 
 ### Request Routing and IP Addresses<a name="request-routing-ip-addresses"></a>
 
