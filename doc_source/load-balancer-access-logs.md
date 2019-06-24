@@ -151,5 +151,5 @@ The access log files are compressed\. If you open the files using the Amazon S3 
 If there is a lot of demand on your website, your load balancer can generate log files with gigabytes of data\. You might not be able to process such a large amount of data using line\-by\-line processing\. Therefore, you might have to use analytical tools that provide parallel processing solutions\. For example, you can use the following analytical tools to analyze and process access logs:
 + Amazon Athena is an interactive query service that makes it easy to analyze data in Amazon S3 using standard SQL\. For more information, see [Querying Network Load Balancer Logs](https://docs.aws.amazon.com/athena/latest/ug/networkloadbalancer-classic-logs.html) in the *Amazon Athena User Guide*\.
 + [Loggly](https://www.loggly.com/docs/s3-ingestion-auto/)
-+ [Splunk](http://apps.splunk.com/app/1731/)
-+ [Sumo Logic](http://sumologic.com/applications/aws-elastic-load-balancing/)
++ [Splunk](https://splunkbase.splunk.com/app/1274/)
++ [Sumo Logic](https://www.sumologic.com/application/elb/)

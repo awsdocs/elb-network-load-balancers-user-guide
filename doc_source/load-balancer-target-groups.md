@@ -22,8 +22,18 @@ You define health check settings for your load balancer on a per target group ba
 By default, a load balancer routes requests to its targets using the protocol and port number that you specified when you created the target group\. Alternatively, you can override the port used for routing traffic to a target when you register it with the target group\.
 
 Target groups for Network Load Balancers support the following protocols and ports:
-+ **Protocols**: TCP
++ **Protocols**: TCP, TLS, UDP, TCP\_UDP
 + **Ports**: 1\-65535
+
+The following table summarizes the supported combinations of listener protocol and target group settings\.
+
+
+| Listener Protocol | Target Group Protocol | Target Group Type | Health Check Protocol | 
+| --- | --- | --- | --- | 
+| TCP | TCP \| TCP\_UDP | instance \| ip | HTTP \| HTTPS \| TCP | 
+| TLS | TCP \| TLS | instance \| ip | HTTP \| HTTPS \| TCP | 
+| UDP | UDP \| TCP\_UDP | instance | HTTP \| HTTPS \| TCP | 
+| TCP\_UDP | TCP\_UDP | instance | HTTP \| HTTPS \| TCP | 
 
 ## Target Type<a name="target-type"></a>
 
@@ -50,6 +60,8 @@ You can't specify publicly routable IP addresses\.
 These supported CIDR blocks enable you to register the following with a target group: ClassicLink instances, AWS resources that are addressable by IP address and port \(for example, databases\), and on\-premises resources linked to AWS through AWS Direct Connect or a software VPN connection\.
 
 When the target type is `ip`, the load balancer can support 55,000 simultaneous connections or about 55,000 connections per minute to each unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors\. If you get port allocation errors, add more targets to the target group\.
+
+If the target group protocol is UDP or TCP\_UDP, the target type must be `instance`\.
 
 Network Load Balancers do not support the `lambda` target type, only Application Load Balancers support the `lambda` target type\. For more information, see [Lambda Functions as Targets](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/lambda-functions.html) in the *User Guide for Application Load Balancers*\.
 

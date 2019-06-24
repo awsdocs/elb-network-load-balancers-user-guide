@@ -34,18 +34,18 @@ The load balancer could not be set up\.
 The following are the load balancer attributes:
 
 `deletion_protection.enabled`  
-Indicates whether deletion protection is enabled\. The default is `false`\.
+Indicates whether [deletion protection](#deletion-protection) is enabled\. The default is `false`\.
 
 `load_balancing.cross_zone.enabled`  
-Indicates whether cross\-zone load balancing is enabled\. The default is `false`\.
+Indicates whether [cross\-zone load balancing](#cross-zone-load-balancing) is enabled\. The default is `false`\.
 
 ## Availability Zones<a name="availability-zones"></a>
 
 You enable one or more Availability Zones for your load balancer when you create it\. You cannot enable or disable Availability Zones for a Network Load Balancer after you create it\. If you enable multiple Availability Zones for your load balancer, this increases the fault tolerance of your applications\.
 
-When you enable an Availability Zone, you specify one subnet from that Availability Zone\. Elastic Load Balancing creates a load balancer node in the Availability Zone and a network interface for the subnet \(the description starts with "ELB net" and includes the name of the load balancer\)\. Each load balancer node in the Availability Zone uses this network interface to get a static IP address\. Note that you can view this network interface but you cannot modify it\.
+When you enable an Availability Zone, you specify one subnet from that Availability Zone\. Elastic Load Balancing creates a load balancer node in the Availability Zone and a network interface for the subnet \(the description starts with "ELB net" and includes the name of the load balancer\)\. Each load balancer node in the Availability Zone uses this network interface to get an IPv4 address\. Note that you can view this network interface but you cannot modify it\.
 
-When you create an Internet\-facing load balancer, you can optionally associate one Elastic IP address per subnet\. You cannot add or change Elastic IP addresses for your subnets after you create the load balancer\.
+When you create an Internet\-facing load balancer, you can optionally specify one Elastic IP address per subnet\. This provides your load balancer with static IP addresses\. You cannot add or change the Elastic IP addresses for your subnets after you create the load balancer\.
 
 **Requirements**
 + The subnets that you specify must have at least 8 available IP addresses\.
@@ -106,6 +106,8 @@ Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/lat
 
 ## Connection Idle Timeout<a name="connection-idle-timeout"></a>
 
-For each request that a client makes through a Network Load Balancer, the state of that connection is tracked\. The connection is terminated by the target\. If no data is sent through the connection by either the client or target for longer than the idle timeout, the connection is closed\. If a client sends data after the idle timeout period elapses, it receives a TCP RST packet to indicate that the connection is no longer valid\.
+For each TCP request that a client makes through a Network Load Balancer, the state of that connection is tracked\. If no data is sent through the connection by either the client or target for longer than the idle timeout, the connection is closed\. If a client sends data after the idle timeout period elapses, it receives a TCP RST packet to indicate that the connection is no longer valid\.
 
-Elastic Load Balancing sets the idle timeout value to 350 seconds\. You cannot modify this value\. Your targets can use TCP keepalive packets to reset the idle timeout\.
+Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds\. You cannot modify this value\. The targets of a TCP listener can use TCP keepalive packets to reset the idle timeout\. TCP keepalive packets are not supported for the targets of a TLS listener\.
+
+While UDP is connectionless, the load balancer maintains UDP flow state based on the source and destination IP addresses and ports, ensuring that packets that belong to the same flow are consistently sent to the same target\. After the idle timeout period elapses, the load balancer considers the incoming UDP packet as a new flow and routes it to a new target\. Elastic Load Balancing sets the idle timeout value for UDP flows to 120 seconds\.

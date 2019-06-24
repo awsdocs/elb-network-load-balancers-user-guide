@@ -47,9 +47,9 @@ On the **Configure Load Balancer** page, complete the following procedure\.
 
 1. For **Listeners**, keep the default, which is a listener that accepts TCP traffic on port 80\.
 
-1. For **Availability Zones**, select the VPC that you used for your EC2 instances\. For each Availability Zone that you used to launch your EC2 instances, select the Availability Zone and then select the public subnet for that Availability Zone\.
+1. For **Availability Zones**, select the VPC that you used for your EC2 instances\. For each Availability Zone that you used to launch your EC2 instances, select the Availability Zone and then select one public subnet for that Availability Zone\.
 
-   When you create an internet\-facing load balancer, you can optionally select an Elastic IP address from **Elastic IP**\. This provides your load balancer node with a static IPv4 address\.
+   By default, AWS assigns an IPv4 address to each load balancer node from the subnet for its Availability Zone\. Alternatively, if you create an internet\-facing load balancer, you can select an Elastic IP address for each Availability Zone\. This provides your load balancer with static IP addresses\.
 
 1. Choose **Next: Configure Routing**\.
 

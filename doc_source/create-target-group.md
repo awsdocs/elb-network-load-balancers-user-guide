@@ -4,7 +4,7 @@ You register targets for your Network Load Balancer with a target group\. By def
 
 After you create a target group, you can add tags\.
 
-To route traffic to the targets in a target group, create a TCP listener and specify the target group in the default action for the listener\. For more information, see [Listener Rules](load-balancer-listeners.md#listener-rules)\.
+To route traffic to the targets in a target group, create a listener and specify the target group in the default action for the listener\. For more information, see [Listener Rules](load-balancer-listeners.md#listener-rules)\.
 
 You can add or remove targets from your target group at any time\. For more information, see [Register Targets with Your Target Group](target-group-register-targets.md)\. You can also modify the health check settings for your target group\. For more information, see [Modify the Health Check Settings of a Target Group](target-group-health-checks.md#modify-health-check-settings)\.
 
@@ -18,11 +18,15 @@ You can add or remove targets from your target group at any time\. For more info
 
 1. For **Target group name**, type a name for the target group\.
 
-1. For **Protocol**, select **TCP**\.
+1. For **Protocol**, choose a protocol as follows:
+   + If the listener protocol is TCP, choose **TCP** or **TCP\_UDP**\.
+   + If the listener protocol is TLS, choose **TCP** or **TLS**\.
+   + If the listener protocol is UDP, choose **UDP** or **TCP\_UDP**\.
+   + If the listener protocol is TCP\_UDP, choose **TCP\_UDP**\.
 
 1. \(Optional\) For **Port**, modify the default value as needed\.
 
-1. For **Target type**, select `instance` to specify targets by instance ID or `ip` to specify targets by IP address\.
+1. For **Target type**, select `instance` to specify targets by instance ID or `ip` to specify targets by IP address\. If the target group protocol is UDP or TCP\_UDP, you must select `instance`\.
 
 1. For **VPC**, select a virtual private cloud \(VPC\)\.
 

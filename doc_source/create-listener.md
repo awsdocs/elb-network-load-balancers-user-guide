@@ -20,7 +20,7 @@ You configure a listener with a protocol and a port for connections from clients
 
 1. Choose **Add listener**\.
 
-1. For **Protocol : port**, choose **TCP** or **TLS**\. Keep the default port or type a different port\.
+1. For **Protocol : port**, choose **TCP**, **UDP**, **TCP\_UDP**, or **TLS**\. Keep the default port or type a different port\.
 
 1. For **Default actions**, choose **Add action**, **Forward to** and then choose an available target group\.
 

@@ -40,10 +40,6 @@ If you do not want to grant access to the entire VPC CIDR, you can grant access 
 
 1. On the **Details** tab for each network interface, copy the address from **Primary private IPv4 IP**\.
 
-## Targets and Internet\-facing Load Balancers<a name="target-connectivity"></a>
-
-With an Internet\-facing load balancer, targets that are registered by instance ID must have a route to the Internet to provide connectivity\. The targets in a public subnet have a route to the Internet through the Internet gateway\. If a target in a private subnet is registered by instance ID, ensure that the route table for the subnet has a route to the Internet \(for example, through a NAT gateway or an EC2 instance\)\.
-
 ## Network ACLs<a name="network-acls"></a>
 
 The default network access control list \(ACL\) for a VPC allows all inbound and outbound traffic\. If you create custom network ACLs, they must allow the load balancer and instances to communicate in both directions on the listener port, health check port, and ephemeral ports \(1024\-65535\)\.

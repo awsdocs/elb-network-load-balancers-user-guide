@@ -51,7 +51,7 @@ To filter the metrics for your load balancer, use the following dimensions\.
 
 CloudWatch provides statistics based on the metric data points published by Elastic Load Balancing\. Statistics are metric data aggregations over specified period of time\. When you request statistics, the returned data stream is identified by the metric name and dimension\. A dimension is a name/value pair that uniquely identifies a metric\. For example, you can request statistics for all the healthy EC2 instances behind a load balancer launched in a specific Availability Zone\.
 
-The `Minimum` and `Maximum` statistics reflect the minimum and maximum reported by the individual load balancer nodes\. For example, suppose there are 2 load balancer nodes\. One node has `HealthyHostCount` with a `Minimum` of 2, a `Maximum` of 10, and an `Average` of 6, while the other node has `HealthyHostCount` with a `Minimum` of 1, a `Maximum` of 5, and an `Average` of 3\. Therefore, the load balancer has a `Minimum` of 1, a `Maximum` of 10, and an `Average` of about 4\.
+The `Minimum` and `Maximum` statistics reflect the minimum and maximum values of the data points reported by the individual load balancer nodes in each sampling window\. Increases in the maximum of `HealthyHostCount` correspond to decreases in the minimum of `UnHealthyHostCount`\. Therefore, we recommend that you monitor your Network Load Balancer using either the maximum of `HealthyHostCount` or the minimum of `UnHealthyHostCount`\.
 
 The `Sum` statistic is the aggregate value across all load balancer nodes\. Because metrics include multiple reports per period, `Sum` is only applicable to metrics that are aggregated across all load balancer nodes\.
 

@@ -27,9 +27,6 @@ The network ACLs associated with the subnets for your VPC must allow the load ba
 **The targets are in an Availability Zone that is not enabled**  
 If you register targets in an Availability Zone but do not enable the Availability Zone, these registered targets do not receive traffic from the load balancer\.
 
-**There is no return route for traffic**  
-The targets registered with an Internet\-facing load balancer must have a route to the internet\.
-
 **The instance is in a peered VPC**  
 If you have instances in a peered VPC, you must register them with your load balancer by IP address, not by instance ID\.
 
@@ -57,3 +54,7 @@ If an instance must send requests to a load balancer that it's registered with, 
 ## Performance decreases when moving targets to a Network Load Balancer<a name="load-balancer-performance"></a>
 
 Both Classic Load Balancers and Application Load Balancers use connection multiplexing, but Network Load Balancers do not\. Therefore, your targets can receive more TCP connections behind a Network Load Balancer\. Be sure that your targets are prepared to handle the volume of connection requests they might receive\.
+
+## Port allocation errors connecting through AWS PrivateLink<a name="port-allocation-errors-privatelink"></a>
+
+If your Network Load Balancer is associated with a VPC endpoint service, it supports 55,000 simultaneous connections or about 55,000 connections per minute to each unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors\. To fix the port allocation errors, add more targets to the target group\.

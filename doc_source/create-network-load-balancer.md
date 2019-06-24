@@ -2,7 +2,7 @@
 
 A load balancer takes requests from clients and distributes them across targets in a target group, such as EC2 instances\.
 
-Before you begin, launch EC2 instances in at least one Availability Zone\. Ensure that the virtual private cloud \(VPC\) has at least one public subnet in each of these Availability Zones\.
+Before you begin, ensure that the virtual private cloud \(VPC\) for your load balancer has at least one public subnet in each Availability Zone where you have targets\.
 
 To create a load balancer using the AWS CLI, see [Tutorial: Create a Network Load Balancer Using the AWS CLI](network-load-balancer-cli.md)\.
 
@@ -48,9 +48,15 @@ You register targets, such as EC2 instances, with a target group\. The target gr
 
 1. For **Name**, type a name for the target group\.
 
-1. Set **Protocol** and **Port** as needed\.
+1. For **Protocol**, choose a protocol as follows:
+   + If the listener protocol is TCP, choose **TCP** or **TCP\_UDP**\.
+   + If the listener protocol is TLS, choose **TCP** or **TLS**\.
+   + If the listener protocol is UDP, choose **UDP** or **TCP\_UDP**\.
+   + If the listener protocol is TCP\_UDP, choose **TCP\_UDP**\.
 
-1. For **Target type**, select `instance` to specify targets by instance ID or `ip` to specify targets by IP address\.
+1. \(Optional\) Set **Port** as needed\.
+
+1. For **Target type**, select `instance` to specify targets by instance ID or `ip` to specify targets by IP address\. If the target group protocol is UDP or TCP\_UDP, you must select `instance`\.
 
 1. For **Health checks**, keep the default health check settings\.
 

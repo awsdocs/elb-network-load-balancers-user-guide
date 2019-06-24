@@ -16,10 +16,12 @@ For more information, see [Request Routing](https://docs.aws.amazon.com/elasticl
 ## Listener Configuration<a name="listener-configuration"></a>
 
 Listeners support the following protocols and ports:
-+ **Protocols**: TCP, TLS
++ **Protocols**: TCP, TLS, UDP, TCP\_UDP
 + **Ports**: 1\-65535
 
 You can use a TLS listener to offload the work of encryption and decryption to your load balancer so that your applications can focus on their business logic\. If the listener protocol is TLS, you must deploy exactly one SSL server certificate on the listener\. For more information, see [TLS Listeners for Your Network Load Balancer](create-tls-listener.md)\.
+
+To support both TCP and UDP on the same port, create a TCP\_UDP listener\. The target groups for a TCP\_UDP listener must use the TCP\_UDP protocol\.
 
 You can use WebSockets with your listeners\.
 

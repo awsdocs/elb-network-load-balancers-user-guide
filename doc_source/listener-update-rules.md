@@ -4,7 +4,7 @@ You can update the listener port, listener protocol, or the default listener rul
 
 The default listener rule forwards requests to the specified target group\.
 
-If you change the protocol from TCP to TLS, you must specify a security policy and server certificate\. If you change the protocol from TLS to TCP, the security policy and server certificate are removed\.
+If you change the protocol from TCP or UDP to TLS, you must specify a security policy and server certificate\. If you change the protocol from TLS to TCP or UDP, the security policy and server certificate are removed\.
 
 **To update your listener using the console**
 
