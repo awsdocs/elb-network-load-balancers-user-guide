@@ -103,7 +103,9 @@ Indicates whether Proxy Protocol version 2 is enabled\. By default, Proxy Protoc
 
 ## Deregistration Delay<a name="deregistration-delay"></a>
 
-Elastic Load Balancing stops sending requests to instances that are deregistering\. Connection draining ensures that in\-flight requests complete before existing connections are closed\. The initial state of a deregistering target is `draining`\. By default, the state of a deregistering target changes to `unused` after 300 seconds\. To change the amount of time that Elastic Load Balancing waits before changing the state to `unused`, update the deregistration delay value\. We recommend that you specify a value of at least 120 seconds to ensure that requests are completed\.
+When you deregister an instance, the load balancer stops creating new connections to the instance\. The load balancer uses connection draining to ensure that in\-flight traffic completes on the existing connections\. If the deregistered instance stays healthy and an existing connection is not idle, the load balancer can continue to send traffic to the instance\. To ensure that existing connections are closed, you can ensure that the instance is unhealthy before you deregister it, or you can periodically close client connections\.
+
+The initial state of a deregistering target is `draining`\. By default, the load balancer changes the state of a deregistering target to `unused` after 300 seconds\. To change the amount of time that the load balancer waits before changing the state of a deregistering target to `unused`, update the deregistration delay value\. We recommend that you specify a value of at least 120 seconds to ensure that requests are completed\.
 
 **To update the deregistration delay value using the console**
 

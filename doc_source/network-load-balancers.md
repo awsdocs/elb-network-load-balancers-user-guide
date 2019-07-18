@@ -106,8 +106,8 @@ Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/lat
 
 ## Connection Idle Timeout<a name="connection-idle-timeout"></a>
 
-For each TCP request that a client makes through a Network Load Balancer, the state of that connection is tracked\. If no data is sent through the connection by either the client or target for longer than the idle timeout, the connection is closed\. If a client sends data after the idle timeout period elapses, it receives a TCP RST packet to indicate that the connection is no longer valid\.
+For each TCP request that a client makes through a Network Load Balancer, the state of that connection is tracked\. If no data is sent through the connection by either the client or target for longer than the idle timeout, the connection is closed\. If a client or a target sends data after the idle timeout period elapses, it receives a TCP RST packet to indicate that the connection is no longer valid\.
 
-Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds\. You cannot modify this value\. The targets of a TCP listener can use TCP keepalive packets to reset the idle timeout\. TCP keepalive packets are not supported for the targets of a TLS listener\.
+Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds\. You cannot modify this value\. For TCP listeners, clients and targets can use TCP keepalive packets to reset the idle timeout\. TCP keepalive packets are not supported for TLS listeners\.
 
 While UDP is connectionless, the load balancer maintains UDP flow state based on the source and destination IP addresses and ports, ensuring that packets that belong to the same flow are consistently sent to the same target\. After the idle timeout period elapses, the load balancer considers the incoming UDP packet as a new flow and routes it to a new target\. Elastic Load Balancing sets the idle timeout value for UDP flows to 120 seconds\.
