@@ -37,7 +37,7 @@ The following table describes the possible values for the health status of a reg
 
 | Value | Description | 
 | --- | --- | 
-| `initial` |  The load balancer is in the process of registering the target or performing the initial health checks on the target\.  | 
+| `initial` |  The load balancer is in the process of registering the target or performing the initial health checks on the target\. It may take a few minutes for health checks to start.  | 
 | `healthy` |  The target is healthy\.  | 
 | `unhealthy` |  The target did not respond to a health check or failed the health check\.  | 
 | `unused` |  The target is not registered with a target group, the target group is not used in a listener rule for the load balancer, or the target is in an Availability Zone that is not enabled for the load balancer\.  | 
