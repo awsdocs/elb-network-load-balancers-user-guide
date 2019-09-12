@@ -4,6 +4,7 @@ The following table describes the releases for Network Load Balancers\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [SNI support](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#sni-certificate-list) | This release adds support for Server Name Indication \(SNI\)\. | September 12, 2019 | 
 | [UDP protocol](#doc-history) | This release adds support for the UDP protocol\. | June 24, 2019 | 
 | [TLS protocol](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html) | This release adds support for the TLS protocol\. | January 24, 2019 | 
 | [Cross\-zone load balancing](#doc-history) | This release adds support for enabling cross\-zone load balancing\. | February 22, 2018 | 

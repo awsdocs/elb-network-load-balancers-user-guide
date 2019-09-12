@@ -1,20 +1,19 @@
-# Update Server Certificates<a name="listener-update-certificates"></a>
+# Update a TLS Listener for your Network Load Balancer<a name="listener-update-certificates"></a>
 
-When you create a TLS listener, you specify a default certificate\.
-
-Each certificate comes with a validity period\. You must ensure that you renew or replace the certificate before its validity period ends\. Renewing or replacing a certificate does not affect in\-flight requests that were received by the load balancer node and are pending routing to a healthy target\. After a certificate is renewed, new requests use the renewed certificate\. After a certificate is replaced, new requests use the new certificate\.
-
-You can manage certificate renewal and replacement as follows:
-+ Certificates provided by AWS Certificate Manager and deployed on your load balancer can be renewed automatically\. ACM attempts to renew certificates before they expire\. For more information, see [Managed Renewal](https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html) in the *AWS Certificate Manager User Guide*\.
-+ If you imported a certificate into ACM, you must monitor the expiration date of the certificate and renew it before it expires\. For more information, see [Importing Certificates](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html) in the *AWS Certificate Manager User Guide*\.
-+ If you imported a certificate into IAM and it is about to expire, you must create a new certificate, import the new certificate to ACM or IAM, add the new certificate to your load balancer, and remove the expired certificate from your load balancer\.
+After you create a TLS listener, you can replace the default certificate, update the certificate list, or replace the security policy\.
 
 **Limitation**  
 You cannot install certificates with RSA keys larger than 2048\-bit or EC keys on your Network Load Balancer\.
 
+**Topics**
++ [Replace the Default Certificate](#replace-default-certificate)
++ [Add Certificates to the Certificate List](#add-certificates)
++ [Remove Certificates from the Certificate List](#remove-certificates)
++ [Update the Security Policy](#update-security-policy)
+
 ## Replace the Default Certificate<a name="replace-default-certificate"></a>
 
-You can replace the default certificate for your listener using the following procedure\.
+You can replace the default certificate for your TLS listener using the following procedure\. For more information, see [Default Certificate](create-tls-listener.md#default-certificate)\.
 
 **To change the default certificate using the console**
 
@@ -33,4 +32,85 @@ You can replace the default certificate for your listener using the following pr
 1. Choose **Update**\.
 
 **To change the default certificate using the AWS CLI**  
+Use the [modify\-listener](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-listener.html) command\.
+
+## Add Certificates to the Certificate List<a name="add-certificates"></a>
+
+You can add certificates to the certificate list for your listener using the following procedure\. When you first create a TLS listener, the certificate list is empty\. You can add one or more certificates\. You can optionally add the default certificate to ensure that this certificate is used with the SNI protocol even if it is replaced as the default certificate\. For more information, see [Certificate List](create-tls-listener.md#sni-certificate-list)\.
+
+**To add certificates to the certificate list using the console**
+
+1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
+
+1. On the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
+
+1. Select the load balancer and choose **Listeners**\.
+
+1. For the HTTPS listener to update, choose **View/edit certificates**, which displays the default certificate followed by any other certificates that you've added to the listener\.
+
+1. Choose the **Add certificates** icon \(the plus sign\) in the menu bar, which displays the default certificate followed by any other certificates managed by ACM and IAM\. If you've already added a certificate to the listener, its check box is selected and disabled\.
+
+1. To add certificates that are already managed by ACM or IAM, select the check boxes for the certificates and choose **Add**\.
+
+1. If you have a certificate that isn't managed by ACM or IAM, import it to ACM and add it to your listener as follows:
+
+   1. Choose **Import certificate**\.
+
+   1. For **Certificate private key**, paste the PEM\-encoded, unencrypted private key for the certificate\.
+
+   1. For **Certificate body**, paste the PEM\-encoded certificate\.
+
+   1. \(Optional\) For **Certificate chain**, paste the PEM\-encoded certificate chain\.
+
+   1. Choose **Import**\. The newly imported certificate appears in the list of available certificates and is selected\.
+
+   1. Choose **Add**\.
+
+1. To leave this screen, choose the **Back to the load balancer** icon \(the back button\) in the menu bar\.
+
+**To add a certificate to the certificate list using the AWS CLI**  
+Use the [add\-listener\-certificates](https://docs.aws.amazon.com/cli/latest/reference/elbv2/add-listener-certificates.html) command\.
+
+## Remove Certificates from the Certificate List<a name="remove-certificates"></a>
+
+You can remove certificates from the certificate list for a TLS listener using the following procedure\. To remove the default certificate for a TLS listener, see [Replace the Default Certificate](#replace-default-certificate)\.
+
+**To remove certificates from the certificate list using the console**
+
+1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
+
+1. On the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
+
+1. Select the load balancer and choose **Listeners**\.
+
+1. For the listener to update, choose **View/edit certificates**, which displays the default certificate followed by any other certificates that you've added to the listener\.
+
+1. Choose the **Remove certificates** icon \(the minus sign\) in the menu bar\.
+
+1. Select the check boxes for the certificates and choose **Remove**\.
+
+1. To leave this screen, choose the **Back to the load balancer** icon \(the back button\) in the menu bar\.
+
+**To remove a certificate from the certificate list using the AWS CLI**  
+Use the [remove\-listener\-certificates](https://docs.aws.amazon.com/cli/latest/reference/elbv2/remove-listener-certificates.html) command\.
+
+## Update the Security Policy<a name="update-security-policy"></a>
+
+When you create a TLS listener, you can select the security policy that meets your needs\. When a new security policy is added, you can update your TLS listener to use the new security policy\. Network Load Balancers do not support custom security policies\. For more information, see [Security Policies](create-tls-listener.md#describe-ssl-policies)\.
+
+**To update the security policy using the console**
+
+1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
+
+1. On the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
+
+1. Select the load balancer and choose **Listeners**\.
+
+1. Select the check box for the TLS listener and choose **Edit**\.
+
+1. For **Security policy**, choose a security policy\.
+
+1. Choose **Update**\.
+
+**To update the security policy using the AWS CLI**  
 Use the [modify\-listener](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-listener.html) command\.

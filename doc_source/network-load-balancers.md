@@ -12,6 +12,7 @@ Network Load Balancers support connections from clients over VPC peering, AWS ma
 + [Availability Zones](#availability-zones)
 + [Deletion Protection](#deletion-protection)
 + [Connection Idle Timeout](#connection-idle-timeout)
++ [DNS Name](#dns-name)
 + [Create a Network Load Balancer](create-network-load-balancer.md)
 + [Tags for Your Network Load Balancer](load-balancer-tags.md)
 + [Delete a Network Load Balancer](load-balancer-delete.md)
@@ -108,6 +109,42 @@ Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/lat
 
 For each TCP request that a client makes through a Network Load Balancer, the state of that connection is tracked\. If no data is sent through the connection by either the client or target for longer than the idle timeout, the connection is closed\. If a client or a target sends data after the idle timeout period elapses, it receives a TCP RST packet to indicate that the connection is no longer valid\.
 
-Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds\. You cannot modify this value\. For TCP listeners, either clients or targets can use TCP keepalive packets to reset the idle timeout\. TCP keepalive packets are not supported for TLS listeners\.
+Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds\. You cannot modify this value\. For TCP listeners, clients or targets can use TCP keepalive packets to reset the idle timeout\. TCP keepalive packets are not supported for TLS listeners\.
 
 While UDP is connectionless, the load balancer maintains UDP flow state based on the source and destination IP addresses and ports, ensuring that packets that belong to the same flow are consistently sent to the same target\. After the idle timeout period elapses, the load balancer considers the incoming UDP packet as a new flow and routes it to a new target\. Elastic Load Balancing sets the idle timeout value for UDP flows to 120 seconds\.
+
+## DNS Name<a name="dns-name"></a>
+
+Each Network Load Balancer receives a default Domain Name System \(DNS\) name with the following syntax: *name*\-*id*\.elb\.*region*\.amazonaws\.com\. For example, my\-load\-balancer\-1234567890abcdef\.elb\.us\-east\-2\.amazonaws\.com\.
+
+If you'd prefer to use a DNS name that is easier to remember, you can create a custom domain name and associate it with the DNS name for your load balancer\. When a client makes a request using this custom domain name, the DNS server resolves it to the DNS name for your load balancer\.
+
+First, register a domain name with an accredited domain name registrar\. Next, use your DNS service, such as your domain registrar, to create a CNAME record to route requests to your load balancer\. For more information, see the documentation for your DNS service\. For example, you can use Amazon Route 53 as your DNS service\. For more information, see [Routing Traffic to an ELB Load Balancer](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-elb-load-balancer.html) in the *Amazon Route 53 Developer Guide*\.
+
+The load balancer has one IP address per enabled Availability Zone\. These are the addresses of the load balancer nodes\. The DNS name of the load balancer resolves to these addresses\. For example, suppose that the custom domain name for your load balancer is `example.networkloadbalancer.com`\. Use the following dig or nslookup command to determine the IP addresses of the load balancer nodes\.
+
+**Linux or Mac**
+
+```
+$ dig +short example.networkloadbalancer.com
+```
+
+**Windows**
+
+```
+C:\> nslookup example.networkloadbalancer.com
+```
+
+The load balancer has DNS records for its load balancer nodes\. You can use DNS names with the following syntax to determine the IP addresses of the load balancer nodes: *az*\.*name*\-*id*\.elb\.*region*\.amazonaws\.com\.
+
+**Linux or Mac**
+
+```
+$ dig +short us-east-2b.my-load-balancer-1234567890abcdef.elb.us-east-2.amazonaws.com
+```
+
+**Windows**
+
+```
+C:\> nslookup us-east-2b.my-load-balancer-1234567890abcdef.elb.us-east-2.amazonaws.com
+```

@@ -25,7 +25,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Create a Listener for Your Network Load Balancer](create-listener.md)
    + [TLS Listeners for Your Network Load Balancer](create-tls-listener.md)
    + [Update a Listener for Your Network Load Balancer](listener-update-rules.md)
-   + [Update Server Certificates](listener-update-certificates.md)
+   + [Update a TLS Listener for your Network Load Balancer](listener-update-certificates.md)
    + [Delete a Listener for Your Network Load Balancer](delete-listener.md)
 + [Target Groups for Your Network Load Balancers](load-balancer-target-groups.md)
    + [Create a Target Group for Your Network Load Balancer](create-target-group.md)

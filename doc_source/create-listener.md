@@ -32,5 +32,7 @@ You configure a listener with a protocol and a port for connections from clients
 
 1. Choose **Save**\.
 
+1. \[TLS listeners\] To add an optional certificate list for use with the SNI protocol, see [Add Certificates to the Certificate List](listener-update-certificates.md#add-certificates)\.
+
 **To add a listener using the AWS CLI**  
 Use the [create\-listener](https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-listener.html) command to create the listener\.

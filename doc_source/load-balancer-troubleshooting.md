@@ -28,11 +28,11 @@ The network ACLs associated with the subnets for your VPC must allow the load ba
 If you register targets in an Availability Zone but do not enable the Availability Zone, these registered targets do not receive traffic from the load balancer\.
 
 **The instance is in a peered VPC**  
-If you have instances in a peered VPC, you must register them with your load balancer by IP address, not by instance ID\.
+If you have instances in a VPC that is peered with the load balancer VPC, you must register them with your load balancer by IP address, not by instance ID\.
 
 ## Targets receive more health check requests than expected<a name="health-check-interval"></a>
 
-Health checks for a Network Load Balancer are distributed and use a consensus mechanism to determine target health\. Therefore, targets can receive more than the number of health checks configured through the `HealthCheckIntervalSeconds` setting\.
+Health checks for a Network Load Balancer are distributed and use a consensus mechanism to determine target health\. Therefore, targets receive more than the number of health checks configured through the `HealthCheckIntervalSeconds` setting\.
 
 ## Targets receive fewer health check requests than expected<a name="too-few-health-checks"></a>
 

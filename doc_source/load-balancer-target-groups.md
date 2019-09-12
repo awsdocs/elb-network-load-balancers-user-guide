@@ -67,7 +67,9 @@ Network Load Balancers do not support the `lambda` target type, only Application
 
 ### Request Routing and IP Addresses<a name="request-routing-ip-addresses"></a>
 
-If you specify targets using an instance ID, traffic is routed to instances using the primary private IP address specified in the primary network interface for the instance\. If you specify targets using IP addresses, you can route traffic to an instance using any private IP address from one or more network interfaces\. This enables multiple applications on an instance to use the same port\. Note that each network interface can have its own security group\.
+If you specify targets using an instance ID, traffic is routed to instances using the primary private IP address specified in the primary network interface for the instance\. The load balancer rewrites the destination IP address from the data packet before forwarding it to the target instance\.
+
+If you specify targets using IP addresses, you can route traffic to an instance using any private IP address from one or more network interfaces\. This enables multiple applications on an instance to use the same port\. Note that each network interface can have its own security group\. The load balancer rewrites the destination IP address before forwarding it to the target\.
 
 ### Source IP Preservation<a name="source-ip-preservation"></a>
 
@@ -89,7 +91,7 @@ If you are registering targets by instance ID, you can use your load balancer wi
 
 **Limits**
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
-+ You cannot register instances in a peered VPC by instance ID, you must register them by IP address\.
++ You cannot register instances by instance ID if they are in a VPC that is peered to the load balancer VPC\. You can register these instances by IP address\.
 
 ## Target Group Attributes<a name="target-group-attributes"></a>
 

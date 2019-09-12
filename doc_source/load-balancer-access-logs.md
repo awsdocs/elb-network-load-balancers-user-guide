@@ -100,30 +100,34 @@ When you enable access logging, you must specify an S3 bucket for the access log
         "Sid": "AWSLogDeliveryWrite",
         "Effect": "Allow",
         "Principal": {
-          "Service": [ "delivery.logs.amazonaws.com" ]
+          "Service": "delivery.logs.amazonaws.com"
         },
-        "Action": [ "s3:PutObject" ],
+        "Action": "s3:PutObject",
         "Resource": "arn:aws:s3:::bucket_name/prefix/AWSLogs/123456789012/*",
-        "Condition": {"StringEquals": {"s3:x-amz-acl": "bucket-owner-full-control"}}
+        "Condition": {
+          "StringEquals": {
+            "s3:x-amz-acl": "bucket-owner-full-control"
+          }
+        }
       },
       {
         "Sid": "AWSLogDeliveryAclCheck",
         "Effect": "Allow",
         "Principal": {
-          "Service": [ "delivery.logs.amazonaws.com" ]
+          "Service": "delivery.logs.amazonaws.com"
         },
-        "Action": [ "s3:GetBucketAcl" ],
+        "Action": "s3:GetBucketAcl",
         "Resource": "arn:aws:s3:::bucket_name"
       }
     ]
   }
   ```
 
-## Enable or Disable Access Logging<a name="enable-disable-access-logging"></a>
+## Enable Access Logging<a name="enable-disable-access-logging"></a>
 
 When you enable access logging for your load balancer, you must specify the name of the S3 bucket where the load balancer will store the logs\. For more information, see [Bucket Requirements](#access-logging-bucket-requirements)\.
 
-**To enable or disable access logging using the console**
+**To enable access logging using the console**
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
@@ -135,13 +139,36 @@ When you enable access logging for your load balancer, you must specify the name
 
 1. On the **Edit load balancer attributes** page, do the following:
 
-   1. Choose **Enable access logs**\.
+   1. For **Access logs**, choose **Enable**\.
 
    1. For **S3 location**, type the name of your S3 bucket, including any prefix \(for example, `my-loadbalancer-logs/my-app`\)\. You can specify the name of an existing bucket or a name for a new bucket\. If you specify an existing bucket, be sure that you own this bucket and that you configured the required bucket policy\.
+
+   1. \(Optional\) If the bucket does not exist, choose **Create this location for me**\. You must specify a name that is unique across all existing bucket names in Amazon S3 and follows the DNS naming conventions\. For more information, see [Rules for Bucket Naming](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules) in the *Amazon Simple Storage Service Developer Guide*\.
 
    1. Choose **Save**\.
 
 **To enable access logging using the AWS CLI**  
+Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-load-balancer-attributes.html) command\.
+
+## Disable Access Logging<a name="disable-access-logging"></a>
+
+You can disable access logging for your load balancer at any time\. After you disable access logging, your access logs remain in your S3 bucket until you delete the them\. For more information, see [Working with Buckets](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/BucketOperations.html) in the *Amazon Simple Storage Service Console User Guide*\.
+
+**To disable access logging using the console**
+
+1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
+
+1. In the navigation pane, choose **Load Balancers**\.
+
+1. Select your load balancer\.
+
+1. On the **Description** tab, choose **Edit attributes**\.
+
+1. For **Access logs**, clear **Enable**\.
+
+1. Choose **Save**\.
+
+**To disable access logging using the AWS CLI**  
 Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-load-balancer-attributes.html) command\.
 
 ## Processing Access Log Files<a name="log-processing-tools"></a>

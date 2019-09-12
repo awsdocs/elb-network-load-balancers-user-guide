@@ -50,7 +50,7 @@ The target type of your target group determines how you register targets with th
 
 **Limits**
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
-+ You cannot register instances in a peered VPC by instance ID, you must register them by IP address\.
++ You cannot register instances by instance ID if they are in a VPC that is peered to the load balancer VPC\. You can register these instances by IP address\.
 
 **Topics**
 + [Register or Deregister Targets by Instance ID](#register-instances)

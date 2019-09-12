@@ -101,7 +101,7 @@ Before creating the load balancer, review your settings\. After creating the loa
 
 1. Select the newly created load balancer\.
 
-1. Choose **Description** and copy the DNS name of the load balancer \(for example, my\-load\-balancer\-1234567890\.us\-west\-2\.elb\.amazonaws\.com\)\. Paste the DNS name into the address field of an internet\-connected web browser\. If everything is working, the browser displays the default page of your server\.
+1. Choose **Description** and copy the DNS name of the load balancer \(for example, my\-load\-balancer\-1234567890abcdef\.elb\.us\-east\-2\.amazonaws\.com\)\. Paste the DNS name into the address field of an internet\-connected web browser\. If everything is working, the browser displays the default page of your server\.
 
 ## Step 6: Delete Your Load Balancer \(Optional\)<a name="delete-load-balancer"></a>
 

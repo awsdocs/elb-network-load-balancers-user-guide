@@ -1,12 +1,14 @@
 # TLS Listeners for Your Network Load Balancer<a name="create-tls-listener"></a>
 
-You must specify exactly one server certificate per TLS listener\. The load balancer uses this certificate to terminate the connection and then to decrypt requests from clients before sending them to the targets\.
+To use a TLS listener, you must deploy at least one server certificate on your load balancer\. The load balancer uses a server certificate to terminate the front\-end connection and then to decrypt requests from clients before sending them to the targets\.
 
 Elastic Load Balancing uses a TLS negotiation configuration, known as a security policy, to negotiate TLS connections between a client and the load balancer\. A security policy is a combination of protocols and ciphers\. The protocol establishes a secure connection between a client and a server and ensures that all data passed between the client and your load balancer is private\. A cipher is an encryption algorithm that uses encryption keys to create a coded message\. Protocols use several ciphers to encrypt data over the internet\. During the connection negotiation process, the client and the load balancer present a list of ciphers and protocols that they each support, in order of preference\. The first cipher on the server's list that matches any one of the client's ciphers is selected for the secure connection\.
 
+To create a TLS listener, see [Add a Listener](create-listener.md#add-listener)\.
+
 ## Server Certificates<a name="tls-listener-certificates"></a>
 
-The load balancer uses an X\.509 certificate \(server certificate\)\. Certificates are a digital form of identification issued by a certificate authority \(CA\)\. A certificate contains identification information, a validity period, a public key, a serial number, and the digital signature of the issuer\.
+The load balancer requires X\.509 certificates \(server certificate\)\. Certificates are a digital form of identification issued by a certificate authority \(CA\)\. A certificate contains identification information, a validity period, a public key, a serial number, and the digital signature of the issuer\.
 
 When you create a certificate for use with your load balancer, you must specify a domain name\.
 
@@ -17,7 +19,38 @@ Alternatively, you can use TLS tools to create a certificate signing request \(C
 **Important**  
 You cannot install certificates with RSA keys larger than 2048\-bit or EC keys on your Network Load Balancer\.
 
+### Default Certificate<a name="default-certificate"></a>
+
+When you create a TLS listener, you must specify exactly one certificate\. This certificate is known as the *default certificate*\. You can replace the default certificate after you create the TLS listener\. For more information, see [Replace the Default Certificate](listener-update-certificates.md#replace-default-certificate)\.
+
+If you specify additional certificates in a [certificate list](#sni-certificate-list), the default certificate is used only if a client connects without using the Server Name Indication \(SNI\) protocol to specify a hostname or if there are no matching certificates in the certificate list\.
+
+If you do not specify additional certificates but need to host multiple secure applications through a single load balancer, you can use a wildcard certificate or add a Subject Alternative Name \(SAN\) for each additional domain to your certificate\.
+
+### Certificate List<a name="sni-certificate-list"></a>
+
+After you create a TLS listener, it has a default certificate and an empty certificate list\. You can optionally add certificates to the certificate list for the listener\. Using a certificate list enables the load balancer to support multiple domains on the same port and provide a different certificate for each domain\. For more information, see [Add Certificates to the Certificate List](listener-update-certificates.md#add-certificates)\.
+
+The load balancer uses a smart certificate selection algorithm with support for SNI\. If the hostname provided by a client matches a single certificate in the certificate list, the load balancer selects this certificate\. If a hostname provided by a client matches multiple certificates in the certificate list, the load balancer selects the best certificate that the client can support\. Certificate selection is based on the following criteria in the following order:
++ Public key algorithm \(prefer ECDSA over RSA\)
++ Hashing algorithm \(prefer SHA over MD5\)
++ Key length \(prefer the largest\)
++ Validity period
+
+The load balancer access log entries indicate the hostname specified by the client and the certificate presented to the client\. For more information, see [Access Log Entries](load-balancer-access-logs.md#access-log-entry-format)\.
+
+### Certificate Renewal<a name="ssl-certificate-renewal"></a>
+
+Each certificate comes with a validity period\. You must ensure that you renew or replace each certificate for your load balancer before its validity period ends\. This includes the default certificate and certificates in a certificate list\. Renewing or replacing a certificate does not affect in\-flight requests that were received by the load balancer node and are pending routing to a healthy target\. After a certificate is renewed, new requests use the renewed certificate\. After a certificate is replaced, new requests use the new certificate\.
+
+You can manage certificate renewal and replacement as follows:
++ Certificates provided by AWS Certificate Manager and deployed on your load balancer can be renewed automatically\. ACM attempts to renew certificates before they expire\. For more information, see [Managed Renewal](https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html) in the *AWS Certificate Manager User Guide*\.
++ If you imported a certificate into ACM, you must monitor the expiration date of the certificate and renew it before it expires\. For more information, see [Importing Certificates](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html) in the *AWS Certificate Manager User Guide*\.
++ If you imported a certificate into IAM, you must create a new certificate, import the new certificate to ACM or IAM, add the new certificate to your load balancer, and remove the expired certificate from your load balancer\.
+
 ## Security Policies<a name="describe-ssl-policies"></a>
+
+When you create a TLS listener, you must select a security policy\. You can update the security policy as needed\. For more information, see [Update the Security Policy](listener-update-certificates.md#update-security-policy)\.
 
 You can choose the security policy that is used for front\-end connections\. The `ELBSecurityPolicy-2016-08` security policy is always used for backend connections\. Network Load Balancers do not support custom security policies\.
 
@@ -67,24 +100,3 @@ The following table describes the security policies defined for Network Load Bal
 † Do not use this security policy unless you must support a legacy client that requires the DES\-CBC3\-SHA cipher, which is a weak cipher\.
 
 To view the configuration of a security policy for your load balancer using the AWS CLI, use the [describe\-ssl\-policies](https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-ssl-policies.html) command\.
-
-## Update the Security Policy<a name="update-security-policy"></a>
-
-When you create a TLS listener, you can select the security policy that meets your needs\. When a new security policy is added, you can update your TLS listener to use the new security policy\. Network Load Balancers do not support custom security policies\.
-
-**To update the security policy using the console**
-
-1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
-
-1. On the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
-
-1. Select the load balancer and choose **Listeners**\.
-
-1. Select the check box for the TLS listener and choose **Edit**\.
-
-1. For **Security policy**, choose a security policy\.
-
-1. Choose **Update**\.
-
-**To update the security policy using the AWS CLI**  
-Use the [modify\-listener](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-listener.html) command\.

@@ -14,7 +14,7 @@ For a UDP service, availability is tested using TCP active health checks directe
 
 ## Health Check Settings<a name="health-check-settings"></a>
 
-You configure active health checks for the targets in a target group using the following settings\. The load balancer sends a health check to each registered target every **HealthCheckIntervalSeconds** seconds, using the specified port, protocol, and ping path\. Each health check request is independent and the result lasts for the entire interval\. The time that it takes for the target to respond does not affect the interval for the next health check request\. If the health checks exceed **UnhealthyThresholdCount** consecutive failures, the load balancer takes the target out of service\. When the health checks exceed **HealthyThresholdCount** consecutive successes, the load balancer puts the target back in service\.
+You configure active health checks for the targets in a target group using the following settings\. If the health checks exceed **UnhealthyThresholdCount** consecutive failures, the load balancer takes the target out of service\. When the health checks exceed **HealthyThresholdCount** consecutive successes, the load balancer puts the target back in service\.
 
 
 | Setting | Description | 
@@ -23,7 +23,7 @@ You configure active health checks for the targets in a target group using the f
 | **HealthCheckPort** |  The port the load balancer uses when performing health checks on targets\. The default is to use the port on which each target receives traffic from the load balancer\.  | 
 | **HealthCheckPath** |  \[HTTP/HTTPS health checks\] The ping path that is the destination on the targets for health checks\. The default is /\.  | 
 | **HealthCheckTimeoutSeconds** |  The amount of time, in seconds, during which no response from a target means a failed health check\. This value must be 6 seconds for HTTP health checks and 10 seconds for TCP and HTTPS health checks\.  | 
-| **HealthCheckIntervalSeconds** |  The approximate amount of time, in seconds, between health checks of an individual target\. This value can be 10 seconds or 30 seconds\. The default is 30 seconds\.  Health checks for a Network Load Balancer are distributed and use a consensus mechanism to determine target health\. Therefore, targets can receive more than the configured number of health checks\. To reduce the impact to your targets if you are using HTTP health checks, use a simpler destination on the targets, such as a static HTML file, or switch to TCP health checks\.   | 
+| **HealthCheckIntervalSeconds** |  The approximate amount of time, in seconds, between health checks of an individual target\. This value can be 10 seconds or 30 seconds\. The default is 30 seconds\.  Health checks for a Network Load Balancer are distributed and use a consensus mechanism to determine target health\. Therefore, targets receive more than the configured number of health checks\. To reduce the impact to your targets if you are using HTTP health checks, use a simpler destination on the targets, such as a static HTML file, or switch to TCP health checks\.   | 
 | **HealthyThresholdCount** |  The number of consecutive successful health checks required before considering an unhealthy target healthy\. The range is 2 to 10\. The default is 3\.  | 
 | **UnhealthyThresholdCount** |  The number of consecutive failed health checks required before considering a target unhealthy\. This value must be the same as the healthy threshold count\.  | 
 | **Matcher** |  \[HTTP/HTTPS health checks\] The HTTP codes to use when checking for a successful response from a target\. This value must be 200 to 399\.  | 
@@ -80,7 +80,7 @@ Use the [describe\-target\-health](https://docs.aws.amazon.com/cli/latest/refere
 
 ## Modify the Health Check Settings of a Target Group<a name="modify-health-check-settings"></a>
 
-You can modify some of the health check settings for your target group\. If the protocol of the target group is TCP, you can't modify the health check protocol, interval, timeout, or success codes\.
+You can modify some of the health check settings for your target group\. If the protocol of the target group is TCP, TLS, UDP, or TCP\_UDP, you can't modify the health check protocol, interval, timeout, or success codes\.
 
 **To modify health check settings for a target group using the console**
 
