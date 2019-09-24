@@ -55,6 +55,8 @@ To create a Network Load Balancer, try one of the following tutorials:
 + [Getting Started with Network Load Balancers](network-load-balancer-getting-started.md)
 + [Tutorial: Create a Network Load Balancer Using the AWS CLI](network-load-balancer-cli.md)
 
+For demos of common load balancer configurations, see [Elastic Load Balancing Demos](https://exampleloadbalancer.com/)\.
+
 ## Pricing<a name="network-load-balancer-pricing"></a>
 
 For more information, see [Network Load Balancer Pricing](https://aws.amazon.com/elasticloadbalancing/networkloadbalancer/pricing/)\.

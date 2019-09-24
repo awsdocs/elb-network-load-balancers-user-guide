@@ -4,7 +4,9 @@ To use a TLS listener, you must deploy at least one server certificate on your l
 
 Elastic Load Balancing uses a TLS negotiation configuration, known as a security policy, to negotiate TLS connections between a client and the load balancer\. A security policy is a combination of protocols and ciphers\. The protocol establishes a secure connection between a client and a server and ensures that all data passed between the client and your load balancer is private\. A cipher is an encryption algorithm that uses encryption keys to create a coded message\. Protocols use several ciphers to encrypt data over the internet\. During the connection negotiation process, the client and the load balancer present a list of ciphers and protocols that they each support, in order of preference\. The first cipher on the server's list that matches any one of the client's ciphers is selected for the secure connection\.
 
-To create a TLS listener, see [Add a Listener](create-listener.md#add-listener)\.
+Network Load Balancers do not support TLS renegotiation\.
+
+To create a TLS listener, see [Add a Listener](create-listener.md#add-listener)\. For related demos, see [TLS Support on Network Load Balancer](https://exampleloadbalancer.com/nlbtls_demo.html) and [SNI Support on Network Load Balancer](https://exampleloadbalancer.com/nlbsni_demo.html)\.
 
 ## Server Certificates<a name="tls-listener-certificates"></a>
 
