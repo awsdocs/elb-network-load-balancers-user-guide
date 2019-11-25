@@ -42,16 +42,38 @@ Indicates whether [cross\-zone load balancing](#cross-zone-load-balancing) is en
 
 ## Availability Zones<a name="availability-zones"></a>
 
-You enable one or more Availability Zones for your load balancer when you create it\. You cannot enable or disable Availability Zones for a Network Load Balancer after you create it\. If you enable multiple Availability Zones for your load balancer, this increases the fault tolerance of your applications\.
+You enable one or more Availability Zones for your load balancer when you create it\. If you enable multiple Availability Zones for your load balancer, this increases the fault tolerance of your applications\. You cannot disable Availability Zones for a Network Load Balancer after you create it, but you can enable additional Availability Zones\.
 
 When you enable an Availability Zone, you specify one subnet from that Availability Zone\. Elastic Load Balancing creates a load balancer node in the Availability Zone and a network interface for the subnet \(the description starts with "ELB net" and includes the name of the load balancer\)\. Each load balancer node in the Availability Zone uses this network interface to get an IPv4 address\. Note that you can view this network interface but you cannot modify it\.
 
-When you create an Internet\-facing load balancer, you can optionally specify one Elastic IP address per subnet\. This provides your load balancer with static IP addresses\. You cannot add or change the Elastic IP addresses for your subnets after you create the load balancer\.
+When you create an internet\-facing load balancer, you can optionally specify one Elastic IP address per subnet\. If you do not choose one of your own Elastic IP addresses, Elastic Load Balancing provides one Elastic IP address per subnet for you\. These Elastic IP addresses provide your load balancer with static IP addresses that will not change during the life of the load balancer\. You cannot change these Elastic IP addresses after you create the load balancer\.
+
+When you create an internal load balancer, you can optionally specify one private IP address per subnet\. If you do not specify an IP address from the subnet, Elastic Load Balancing chooses one for you\. These private IP addresses provide your load balancer with static IP addresses that will not change during the life of the load balancer\. You cannot change these private IP addresses after you create the load balancer\.
 
 **Requirements**
-+ The subnets that you specify must have at least 8 available IP addresses\.
-+ You can't specify subnets that were shared with you by another AWS account\.
++ For internet\-facing load balancers, the subnets that you specify must have at least 8 available IP addresses\. For internal load balancers, this is only required if you let AWS select a private IPv4 address from the subnet\.
 + You can't specify a subnet in a constrained Availability Zone\. The error message is "Load balancers with type 'network' are not supported in *az\_name*"\. You can specify a subnet in another Availability Zone that is not constrained and use cross\-zone load balancing to distribute traffic to targets in the constrained Availability Zone\.
+
+After you enable an Availability Zone, the load balancer starts routing requests to the registered targets in that Availability Zone\. Your load balancer is most effective if you ensure that each enabled Availability Zone has at least one registered target\.
+
+**To add Availability Zones using the console**
+
+1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
+
+1. On the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
+
+1. Select the load balancer\.
+
+1. On the **Description** tab, under **Basic Configuration**, choose **Edit subnets**\.
+
+1. To enable an Availability Zone, select the check box for that Availability Zone\. If there is one subnet for that Availability Zone, it is selected\. If there is more than one subnet for that Availability Zone, select one of the subnets\. Note that you can select only one subnet per Availability Zone\.
+
+   For an internet\-facing load balancer, you can select an Elastic IP address for each Availability Zone\. For an internal load balancer, you can assign a private IP address from the IPv4 range of each subnet instead of letting Elastic Load Balancing assign one\.
+
+1. Choose **Save**\.
+
+**To add Availability Zones using the AWS CLI**  
+Use the [set\-subnets](https://docs.aws.amazon.com/cli/latest/reference/elbv2/set-subnets.html) command\.
 
 ### Cross\-Zone Load Balancing<a name="cross-zone-load-balancing"></a>
 
@@ -112,6 +134,8 @@ For each TCP request that a client makes through a Network Load Balancer, the st
 Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds\. You cannot modify this value\. For TCP listeners, clients or targets can use TCP keepalive packets to reset the idle timeout\. TCP keepalive packets are not supported for TLS listeners\.
 
 While UDP is connectionless, the load balancer maintains UDP flow state based on the source and destination IP addresses and ports, ensuring that packets that belong to the same flow are consistently sent to the same target\. After the idle timeout period elapses, the load balancer considers the incoming UDP packet as a new flow and routes it to a new target\. Elastic Load Balancing sets the idle timeout value for UDP flows to 120 seconds\.
+
+EC2 instances must respond to a new request within 30 seconds in order to establish a return path\.
 
 ## DNS Name<a name="dns-name"></a>
 

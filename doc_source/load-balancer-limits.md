@@ -5,7 +5,7 @@ To view the current limits for your Network Load Balancers, use the **Limits** p
 Your AWS account has the following limits related to Network Load Balancers\.
 
 **Regional Limits**
-+ Network Load Balancers per region: 20
++ Network Load Balancers per region: 50
 + Target groups per region: 3000 **\***
 
 **Load Balancer Limits †**
@@ -14,6 +14,7 @@ Your AWS account has the following limits related to Network Load Balancers\.
 + \[Cross\-zone load balancing disabled\] Targets per Availability Zone per load balancer: 500
 + \[Cross\-zone load balancing enabled\] Targets per load balancer: 500
 + Load balancers per target group: 1
++ Certificates per load balancer \(not counting default certificates\): 25 †
 
 **\*** This limit is shared by target groups for your Application Load Balancers and Network Load Balancers\.
 

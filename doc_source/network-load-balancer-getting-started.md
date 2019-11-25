@@ -51,7 +51,7 @@ On the **Configure Load Balancer** page, complete the following procedure\.
 
 1. For **Availability Zones**, select the VPC that you used for your EC2 instances\. For each Availability Zone that you used to launch your EC2 instances, select the Availability Zone and then select one public subnet for that Availability Zone\.
 
-   By default, AWS assigns an IPv4 address to each load balancer node from the subnet for its Availability Zone\. Alternatively, if you create an internet\-facing load balancer, you can select an Elastic IP address for each Availability Zone\. This provides your load balancer with static IP addresses\.
+   By default, AWS assigns an IPv4 address to each load balancer node from the subnet for its Availability Zone\. Alternatively, when you create an internet\-facing load balancer, you can select an Elastic IP address for each Availability Zone\. This provides your load balancer with static IP addresses\.
 
 1. Choose **Next: Configure Routing**\.
 

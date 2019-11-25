@@ -4,6 +4,8 @@ The following table describes the releases for Network Load Balancers\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Private IP addresses](#doc-history) | This release enables you to provide a private IP address from the IPv4 address range of the subnet you specify when you enable an Availability Zone for an internal load balancer\. | November 25, 2019 | 
+| [Add subnets](#doc-history) | This release adds support for enabling additional Availability Zones after you create your load balancer\. | November 25, 2019 | 
 | [SNI support](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#sni-certificate-list) | This release adds support for Server Name Indication \(SNI\)\. | September 12, 2019 | 
 | [UDP protocol](#doc-history) | This release adds support for the UDP protocol\. | June 24, 2019 | 
 | [TLS protocol](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html) | This release adds support for the TLS protocol\. | January 24, 2019 | 

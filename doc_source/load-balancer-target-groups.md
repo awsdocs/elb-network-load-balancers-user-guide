@@ -71,6 +71,8 @@ If you specify targets using an instance ID, traffic is routed to instances usin
 
 If you specify targets using IP addresses, you can route traffic to an instance using any private IP address from one or more network interfaces\. This enables multiple applications on an instance to use the same port\. Note that each network interface can have its own security group\. The load balancer rewrites the destination IP address before forwarding it to the target\.
 
+For more information allowing traffic to your instances, see [Target Security Groups](target-group-register-targets.md#target-security-groups)\.
+
 ### Source IP Preservation<a name="source-ip-preservation"></a>
 
 If you specify targets using an instance ID, the source IP addresses of the clients are preserved and provided to your applications\.
