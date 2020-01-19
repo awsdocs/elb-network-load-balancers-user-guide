@@ -53,6 +53,7 @@ When you create an internal load balancer, you can optionally specify one privat
 **Requirements**
 + For internet\-facing load balancers, the subnets that you specify must have at least 8 available IP addresses\. For internal load balancers, this is only required if you let AWS select a private IPv4 address from the subnet\.
 + You can't specify a subnet in a constrained Availability Zone\. The error message is "Load balancers with type 'network' are not supported in *az\_name*"\. You can specify a subnet in another Availability Zone that is not constrained and use cross\-zone load balancing to distribute traffic to targets in the constrained Availability Zone\.
++ You can't specify a subnet in a Local Zone\.
 
 After you enable an Availability Zone, the load balancer starts routing requests to the registered targets in that Availability Zone\. Your load balancer is most effective if you ensure that each enabled Availability Zone has at least one registered target\.
 

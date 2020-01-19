@@ -1,10 +1,8 @@
 # Register Targets with Your Target Group<a name="target-group-register-targets"></a>
 
-You register your targets with one or more target groups\. Each target group must have at least one registered target in each Availability Zone that is enabled for the load balancer\. You can register targets by instance ID or by IP address\. For more information, see [Target Groups for Your Network Load Balancers](load-balancer-target-groups.md)\.
+When your target is ready to handle requests, you register it with one or more target groups\. You can register targets by instance ID or by IP address\. The load balancer starts routing requests to the target as soon as the registration process completes and the target passes the initial health checks\. It can take a few minutes for the registration process to complete and health checks to start\. For more information, see [Health Checks for Your Target Groups](target-group-health-checks.md)\.
 
-If demand on your currently registered targets increases, you can register additional targets in order to handle the demand\. When your target is ready to handle requests, register it with your target group\. The load balancer starts routing requests to the target as soon as the registration process completes and the target passes the initial health checks\.
-
-If demand on your registered targets decreases, or you need to service a target, you can deregister it from your target group\. The load balancer stops routing requests to a target as soon as you deregister it\. When the target is ready to receive requests, you can register it with the target group again\.
+If demand on your currently registered targets increases, you can register additional targets in order to handle the demand\. If demand on your registered targets decreases, you can deregister targets from your target group\. It can take a few minutes for the deregistration process to complete and for the load balancer to stop routing requests to the target\. If demand increases subsequently, you can register targets that you deregistered with the target group again\. If you need to service a target, you can deregister it and then register it again when servicing is complete\.
 
 When you deregister a target, Elastic Load Balancing waits until in\-flight requests have completed\. This is known as *connection draining*\. The status of a target is `draining` while connection draining is in progress\. After deregistration is complete, status of the target changes to `unused`\. For more information, see [Deregistration Delay](load-balancer-target-groups.md#deregistration-delay)\.
 
@@ -46,6 +44,8 @@ The default network access control list \(ACL\) for a VPC allows all inbound and
 
 ## Register or Deregister Targets<a name="register-deregister-targets"></a>
 
+Each target group must have at least one registered target in each Availability Zone that is enabled for the load balancer\.
+
 The target type of your target group determines how you register targets with that target group\. For more information, see [Target Type](load-balancer-target-groups.md#target-type)\.
 
 **Limits**
@@ -59,7 +59,7 @@ The target type of your target group determines how you register targets with th
 
 ### Register or Deregister Targets by Instance ID<a name="register-instances"></a>
 
-The instance must be in the `running` state when you register it\.
+An instance must be in the `running` state when you register it\.
 
 **To register or deregister targets by instance ID**
 
@@ -79,7 +79,7 @@ The instance must be in the `running` state when you register it\.
 
 ### Register or Deregister Targets by IP Address<a name="register-ip-addresses"></a>
 
-The IP addresses that you register must be from one of the following CIDR blocks:
+An IP address that you register must be from one of the following CIDR blocks:
 + The subnets of the VPC for the target group
 + 10\.0\.0\.0/8 \(RFC 1918\)
 + 100\.64\.0\.0/10 \(RFC 6598\)
