@@ -1,5 +1,7 @@
 # Health Checks for Your Target Groups<a name="target-group-health-checks"></a>
 
+You register your targets with one or more target groups\. The load balancer starts routing requests to the target as soon as the registration process completes and the target passes the initial health checks\. It can take a few minutes for the registration process to complete and health checks to start\.
+
 Network Load Balancers use active and passive health checks to determine whether a target is available to handle requests\. By default, each load balancer node routes requests only to the healthy targets in its Availability Zone\. If you enable cross\-zone load balancing, each load balancer node routes requests to the healthy targets in all enabled Availability Zones\. For more information, see [Cross\-Zone Load Balancing](network-load-balancers.md#cross-zone-load-balancing)\.
 
 With active health checks, the load balancer periodically sends a request to each registered target to check its status\. Each load balancer node checks the health of each target, using the health check settings for the target group with which the target is registered\. After each health check is completed, the load balancer node closes the connection that was established for the health check\.
