@@ -38,5 +38,5 @@ Amazon's trademarks and trade dress may not be used in
    + [Access Logs for Your Network Load Balancer](load-balancer-access-logs.md)
    + [Logging API Calls for Your Network Load Balancer Using AWS CloudTrail](load-balancer-cloudtrail-logs.md)
 + [Troubleshoot Your Network Load Balancer](load-balancer-troubleshooting.md)
-+ [Limits for Your Network Load Balancers](load-balancer-limits.md)
++ [Quotas for Your Network Load Balancers](load-balancer-limits.md)
 + [Document History for Network Load Balancers](doc-history.md)

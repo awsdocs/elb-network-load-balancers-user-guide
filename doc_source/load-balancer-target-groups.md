@@ -11,6 +11,7 @@ You define health check settings for your load balancer on a per target group ba
 + [Target Group Attributes](#target-group-attributes)
 + [Deregistration Delay](#deregistration-delay)
 + [Proxy Protocol](#proxy-protocol)
++ [Sticky Sessions](#sticky-sessions)
 + [Create a Target Group for Your Network Load Balancer](create-target-group.md)
 + [Health Checks for Your Target Groups](target-group-health-checks.md)
 + [Register Targets with Your Target Group](target-group-register-targets.md)
@@ -91,9 +92,10 @@ If demand on your application decreases, or you need to service your targets, yo
 
 If you are registering targets by instance ID, you can use your load balancer with an Auto Scaling group\. After you attach a target group to an Auto Scaling group, Auto Scaling registers your targets with the target group for you when it launches them\. For more information, see [Attaching a Load Balancer to Your Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-load-balancer-asg.html) in the *Amazon EC2 Auto Scaling User Guide*\.
 
-**Limits**
+**Requirements**
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
 + You cannot register instances by instance ID if they are in a VPC that is peered to the load balancer VPC\. You can register these instances by IP address\.
++ If you register a target by IP address and the IP address is in the same VPC as the load balancer, the load balancer verifies that it is from a subnet that it can reach\.
 
 ## Target Group Attributes<a name="target-group-attributes"></a>
 
@@ -104,6 +106,12 @@ The amount of time for Elastic Load Balancing to wait before changing the state 
 
 `proxy_protocol_v2.enabled`  
 Indicates whether Proxy Protocol version 2 is enabled\. By default, Proxy Protocol is disabled\.
+
+`stickiness.enabled`  
+Indicates whether sticky sessions are enabled\.
+
+`stickiness.type`  
+The type of stickiness\. The possible value is `source_ip`\.
 
 ## Deregistration Delay<a name="deregistration-delay"></a>
 
@@ -166,3 +174,15 @@ Before you enable Proxy Protocol on a target group, make sure that your applicat
 
 **To enable Proxy Protocol using the AWS CLI**  
 Use the [modify\-target\-group\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-target-group-attributes.html) command\.
+
+## Sticky Sessions<a name="sticky-sessions"></a>
+
+Sticky sessions are a mechanism to route client traffic to the same target in a target group\. This is useful for servers that maintain state information in order to provide a continuous experience to clients\.
+
+**Considerations**
++ Using sticky sessions can lead to an uneven distribution of connections and flows, which might impact the availability of your targets\. For example, all clients behind the same NAT device have the same source IP address\. Therefore, all traffic from these clients is routed to the same target\.
++ The load balancer might reset the sticky sessions for a target group if the health state of any of its targets changes or if you register or deregister targets with the target group\.
++ Sticky sessions are supported only in the following Regions: Europe \(Paris\), Europe \(Ireland\), and Europe \(Stockholm\)\.
+
+**To enable sticky sessions using the AWS CLI**  
+Use the [modify\-target\-group\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-target-group-attributes.html) command with the `stickiness.enabled` attribute\.

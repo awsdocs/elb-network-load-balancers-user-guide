@@ -1,12 +1,14 @@
 # Health Checks for Your Target Groups<a name="target-group-health-checks"></a>
 
-You register your targets with one or more target groups\. The load balancer starts routing requests to the target as soon as the registration process completes and the target passes the initial health checks\. It can take a few minutes for the registration process to complete and health checks to start\.
+You register your targets with one or more target groups\. The load balancer starts routing requests to a newly registered target as soon as the registration process completes\. It can take a few minutes for the registration process to complete and health checks to start\.
 
 Network Load Balancers use active and passive health checks to determine whether a target is available to handle requests\. By default, each load balancer node routes requests only to the healthy targets in its Availability Zone\. If you enable cross\-zone load balancing, each load balancer node routes requests to the healthy targets in all enabled Availability Zones\. For more information, see [Cross\-Zone Load Balancing](network-load-balancers.md#cross-zone-load-balancing)\.
 
 With active health checks, the load balancer periodically sends a request to each registered target to check its status\. Each load balancer node checks the health of each target, using the health check settings for the target group with which the target is registered\. After each health check is completed, the load balancer node closes the connection that was established for the health check\.
 
 With passive health checks, the load balancer observes how targets respond to connections\. Passive health checks enable the load balancer to detect an unhealthy target before it is reported as unhealthy by the active health checks\. You cannot disable, configure, or monitor passive health checks\. Passive health checks are not supported for UDP traffic\.
+
+If a target becomes unhealthy, the load balancer sends a TCP RST for packets received on the client connections associated with the target\.
 
 If one or more target groups does not have a healthy target in an enabled Availability Zone, we remove the IP address for the corresponding subnet from DNS so that requests cannot be routed to targets in that Availability Zone\. If there are no enabled Availability Zones with a healthy target in each target group, requests are routed to targets in all enabled Availability Zones\.
 
@@ -79,6 +81,9 @@ You can check the health status of the targets registered with your target group
 
 **To check the health of your targets using the AWS CLI**  
 Use the [describe\-target\-health](https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-target-health.html) command\. The output of this command contains the target health state\. It includes a reason code if the status is any value other than `Healthy`\.
+
+**To receive email notifications about unhealthy targets**  
+Use CloudWatch alarms to trigger a Lambda function to send details about unhealthy targets\. For step\-by\-step instructions, see the following blog post: [Identifying unhealthy targets of your load balancer](http://aws.amazon.com/blogs/networking-and-content-delivery/identifying-unhealthy-targets-of-elastic-load-balancer/)\.
 
 ## Modify the Health Check Settings of a Target Group<a name="modify-health-check-settings"></a>
 

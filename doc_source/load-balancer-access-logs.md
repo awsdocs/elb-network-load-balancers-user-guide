@@ -90,6 +90,7 @@ When you enable access logging, you must specify an S3 bucket for the access log
 
 **Requirements**
 + The bucket must be located in the same region as the load balancer\.
++ Amazon S3\-Managed Encryption Keys \(SSE\-S3\) is required\. No other encryption options are supported\.
 + The bucket must have a bucket policy that grants permission to write the access logs to your bucket\. Bucket policies are a collection of JSON statements written in the access policy language to define access permissions for your bucket\. The following is an example policy\.
 
   ```

@@ -40,7 +40,7 @@ If you do not want to grant access to the entire VPC CIDR, you can grant access 
 
 ## Network ACLs<a name="network-acls"></a>
 
-The default network access control list \(ACL\) for a VPC allows all inbound and outbound traffic\. If you create custom network ACLs, they must allow the load balancer and instances to communicate in both directions on the listener port, health check port, and ephemeral ports \(1024\-65535\)\.
+The default network access control list \(ACL\) for a VPC allows all inbound and outbound traffic\. If you create custom network ACLs for the subnets for your instances, they must allow traffic\. The network ACL associated with the subnets for your instances must allow inbound traffic on the health check port and outbound traffic on the ephemeral ports \(1024\-65535\)\. The network ACL associated with the subnets for your load balancer nodes must allow inbound traffic on the ephemeral ports and outbound traffic on the health check and ephemeral ports\.
 
 ## Register or Deregister Targets<a name="register-deregister-targets"></a>
 
@@ -48,9 +48,10 @@ Each target group must have at least one registered target in each Availability 
 
 The target type of your target group determines how you register targets with that target group\. For more information, see [Target Type](load-balancer-target-groups.md#target-type)\.
 
-**Limits**
+**Requirements**
 + You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
 + You cannot register instances by instance ID if they are in a VPC that is peered to the load balancer VPC\. You can register these instances by IP address\.
++ If you register a target by IP address and the IP address is in the same VPC as the load balancer, the load balancer verifies that it is from a subnet that it can reach\.
 
 **Topics**
 + [Register or Deregister Targets by Instance ID](#register-instances)
