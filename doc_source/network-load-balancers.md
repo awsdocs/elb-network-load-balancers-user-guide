@@ -4,20 +4,20 @@ A *load balancer* serves as the single point of contact for clients\. Clients se
 
 To configure your load balancer, you create [target groups](load-balancer-target-groups.md), and then register targets with your target groups\. Your load balancer is most effective if you ensure that each enabled Availability Zone has at least one registered target\. You also create [listeners](load-balancer-listeners.md) to check for connection requests from clients and route requests from clients to the targets in your target groups\.
 
-Network Load Balancers support connections from clients over VPC peering, AWS managed VPN, AWS Direct Connect and third\-party VPN solutions\.
+Network Load Balancers support connections from clients over VPC peering, AWS managed VPN, AWS Direct Connect, and third\-party VPN solutions\.
 
 **Topics**
-+ [Load Balancer State](#load-balancer-state)
-+ [Load Balancer Attributes](#load-balancer-attributes)
++ [Load balancer state](#load-balancer-state)
++ [Load balancer attributes](#load-balancer-attributes)
 + [Availability Zones](#availability-zones)
-+ [Deletion Protection](#deletion-protection)
-+ [Connection Idle Timeout](#connection-idle-timeout)
-+ [DNS Name](#dns-name)
++ [Deletion protection](#deletion-protection)
++ [Connection idle timeout](#connection-idle-timeout)
++ [DNS name](#dns-name)
 + [Create a Network Load Balancer](create-network-load-balancer.md)
-+ [Tags for Your Network Load Balancer](load-balancer-tags.md)
++ [Tags for your Network Load Balancer](load-balancer-tags.md)
 + [Delete a Network Load Balancer](load-balancer-delete.md)
 
-## Load Balancer State<a name="load-balancer-state"></a>
+## Load balancer state<a name="load-balancer-state"></a>
 
 A load balancer can be in one of the following states:
 
@@ -30,7 +30,7 @@ The load balancer is fully set up and ready to route traffic\.
 `failed`  
 The load balancer could not be set up\.
 
-## Load Balancer Attributes<a name="load-balancer-attributes"></a>
+## Load balancer attributes<a name="load-balancer-attributes"></a>
 
 The following are the load balancer attributes:
 
@@ -76,9 +76,9 @@ After you enable an Availability Zone, the load balancer starts routing requests
 **To add Availability Zones using the AWS CLI**  
 Use the [set\-subnets](https://docs.aws.amazon.com/cli/latest/reference/elbv2/set-subnets.html) command\.
 
-### Cross\-Zone Load Balancing<a name="cross-zone-load-balancing"></a>
+### Cross\-zone load balancing<a name="cross-zone-load-balancing"></a>
 
-By default, each load balancer node distributes traffic across the registered targets in its Availability Zone only\. If you enable cross\-zone load balancing, each load balancer node distributes traffic across the registered targets in all enabled Availability Zones\. For more information, see [Cross\-Zone Load Balancing](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#cross-zone-load-balancing) in the *Elastic Load Balancing User Guide*\.
+By default, each load balancer node distributes traffic across the registered targets in its Availability Zone only\. If you enable cross\-zone load balancing, each load balancer node distributes traffic across the registered targets in all enabled Availability Zones\. For more information, see [Cross\-zone load balancing](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#cross-zone-load-balancing) in the *Elastic Load Balancing User Guide*\.
 
 **To enable cross\-zone load balancing using the console**
 
@@ -95,7 +95,7 @@ By default, each load balancer node distributes traffic across the registered ta
 **To enable cross\-zone load balancing using the AWS CLI**  
 Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-load-balancer-attributes.html) command with the `load_balancing.cross_zone.enabled` attribute\.
 
-## Deletion Protection<a name="deletion-protection"></a>
+## Deletion protection<a name="deletion-protection"></a>
 
 To prevent your load balancer from being deleted accidentally, you can enable deletion protection\. By default, deletion protection is disabled for your load balancer\.
 
@@ -128,23 +128,23 @@ If you enable deletion protection for your load balancer, you must disable it be
 **To enable or disable deletion protection using the AWS CLI**  
 Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-load-balancer-attributes.html) command with the `deletion_protection.enabled` attribute\.
 
-## Connection Idle Timeout<a name="connection-idle-timeout"></a>
+## Connection idle timeout<a name="connection-idle-timeout"></a>
 
 For each TCP request that a client makes through a Network Load Balancer, the state of that connection is tracked\. If no data is sent through the connection by either the client or target for longer than the idle timeout, the connection is closed\. If a client or a target sends data after the idle timeout period elapses, it receives a TCP RST packet to indicate that the connection is no longer valid\.
 
-Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds\. You cannot modify this value\. For TCP listeners, clients or targets can use TCP keepalive packets to reset the idle timeout\. TCP keepalive packets are not supported for TLS listeners\.
+Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds\. You cannot modify this value\. Clients or targets can use TCP keepalive packets to reset the idle timeout\.
 
 While UDP is connectionless, the load balancer maintains UDP flow state based on the source and destination IP addresses and ports, ensuring that packets that belong to the same flow are consistently sent to the same target\. After the idle timeout period elapses, the load balancer considers the incoming UDP packet as a new flow and routes it to a new target\. Elastic Load Balancing sets the idle timeout value for UDP flows to 120 seconds\.
 
 EC2 instances must respond to a new request within 30 seconds in order to establish a return path\.
 
-## DNS Name<a name="dns-name"></a>
+## DNS name<a name="dns-name"></a>
 
 Each Network Load Balancer receives a default Domain Name System \(DNS\) name with the following syntax: *name*\-*id*\.elb\.*region*\.amazonaws\.com\. For example, my\-load\-balancer\-1234567890abcdef\.elb\.us\-east\-2\.amazonaws\.com\.
 
 If you'd prefer to use a DNS name that is easier to remember, you can create a custom domain name and associate it with the DNS name for your load balancer\. When a client makes a request using this custom domain name, the DNS server resolves it to the DNS name for your load balancer\.
 
-First, register a domain name with an accredited domain name registrar\. Next, use your DNS service, such as your domain registrar, to create a CNAME record to route requests to your load balancer\. For more information, see the documentation for your DNS service\. For example, you can use Amazon Route 53 as your DNS service\. For more information, see [Routing Traffic to an ELB Load Balancer](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-elb-load-balancer.html) in the *Amazon Route 53 Developer Guide*\.
+First, register a domain name with an accredited domain name registrar\. Next, use your DNS service, such as your domain registrar, to create a CNAME record to route requests to your load balancer\. For more information, see the documentation for your DNS service\. For example, you can use Amazon Route 53 as your DNS service\. For more information, see [Routing traffic to an ELB load balancer](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-elb-load-balancer.html) in the *Amazon Route 53 Developer Guide*\.
 
 The load balancer has one IP address per enabled Availability Zone\. These are the addresses of the load balancer nodes\. The DNS name of the load balancer resolves to these addresses\. For example, suppose that the custom domain name for your load balancer is `example.networkloadbalancer.com`\. Use the following dig or nslookup command to determine the IP addresses of the load balancer nodes\.
 

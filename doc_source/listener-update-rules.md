@@ -1,4 +1,4 @@
-# Update a Listener for Your Network Load Balancer<a name="listener-update-rules"></a>
+# Update a listener for your Network Load Balancer<a name="listener-update-rules"></a>
 
 You can update the listener port, listener protocol, or the default listener rule\.
 

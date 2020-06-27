@@ -4,19 +4,19 @@ A load balancer takes requests from clients and distributes them across targets 
 
 Before you begin, ensure that the virtual private cloud \(VPC\) for your load balancer has at least one public subnet in each Availability Zone where you have targets\.
 
-To create a load balancer using the AWS CLI, see [Tutorial: Create a Network Load Balancer Using the AWS CLI](network-load-balancer-cli.md)\.
+To create a load balancer using the AWS CLI, see [Tutorial: Create a Network Load Balancer using the AWS CLI](network-load-balancer-cli.md)\.
 
 To create a load balancer using the AWS Management Console, complete the following tasks\.
 
 **Topics**
-+ [Step 1: Configure a Load Balancer and a Listener](#configure-load-balancer)
-+ [Step 2: Configure a Target Group](#configure-target-group)
-+ [Step 3: Register Targets with the Target Group](#select-targets)
-+ [Step 4: Create the Load Balancer](#create-load-balancer)
++ [Step 1: Configure a load balancer and a listener](#configure-load-balancer)
++ [Step 2: Configure a target group](#configure-target-group)
++ [Step 3: Register targets with the target group](#select-targets)
++ [Step 4: Create the load balancer](#create-load-balancer)
 
-## Step 1: Configure a Load Balancer and a Listener<a name="configure-load-balancer"></a>
+## Step 1: Configure a load balancer and a listener<a name="configure-load-balancer"></a>
 
-First, provide some basic configuration information for your load balancer, such as a name, a network, and one or more listeners\. A listener is a process that checks for connection requests\. It is configured with a protocol and a port for connections from clients to the load balancer\. For more information about supported protocols and ports, see [Listener Configuration](load-balancer-listeners.md#listener-configuration)\.
+First, provide some basic configuration information for your load balancer, such as a name, a network, and one or more listeners\. A listener is a process that checks for connection requests\. It is configured with a protocol and a port for connections from clients to the load balancer\. For more information about supported protocols and ports, see [Listener configuration](load-balancer-listeners.md#listener-configuration)\.
 
 **To configure your load balancer and listener**
 
@@ -40,9 +40,9 @@ First, provide some basic configuration information for your load balancer, such
 
 1. Choose **Next: Configure Routing**\.
 
-## Step 2: Configure a Target Group<a name="configure-target-group"></a>
+## Step 2: Configure a target group<a name="configure-target-group"></a>
 
-You register targets, such as EC2 instances, with a target group\. The target group that you configure in this step is used as the target group in the listener rule, which forwards requests to the target group\. For more information, see [Target Groups for Your Network Load Balancers](load-balancer-target-groups.md)\.
+You register targets, such as EC2 instances, with a target group\. The target group that you configure in this step is used as the target group in the listener rule, which forwards requests to the target group\. For more information, see [Target groups for your Network Load Balancers](load-balancer-target-groups.md)\.
 
 **To configure your target group**
 
@@ -64,7 +64,7 @@ You register targets, such as EC2 instances, with a target group\. The target gr
 
 1. Choose **Next: Register Targets**\.
 
-## Step 3: Register Targets with the Target Group<a name="select-targets"></a>
+## Step 3: Register targets with the target group<a name="select-targets"></a>
 
 You can register EC2 instances as targets in a target group\.
 
@@ -92,7 +92,7 @@ You can register EC2 instances as targets in a target group\.
 
 1. When you have finished adding IP addresses to the list, choose **Next: Review**\.
 
-## Step 4: Create the Load Balancer<a name="create-load-balancer"></a>
+## Step 4: Create the load balancer<a name="create-load-balancer"></a>
 
 After creating your load balancer, you can verify that your EC2 instances have passed the initial health check and then test that the load balancer is sending traffic to your EC2 instances\. When you are finished with your load balancer, you can delete it\. For more information, see [Delete a Network Load Balancer](load-balancer-delete.md)\.
 

@@ -1,14 +1,14 @@
-# Create a Listener for Your Network Load Balancer<a name="create-listener"></a>
+# Create a listener for your Network Load Balancer<a name="create-listener"></a>
 
 A listener is a process that checks for connection requests\. You define a listener when you create your load balancer, and you can add listeners to your load balancer at any time\.
 
 ## Prerequisites<a name="listener-prereqs"></a>
-+ You must specify a target group for the listener rule\. For more information, see [Create a Target Group for Your Network Load Balancer](create-target-group.md)\.
-+ You must specify an SSL certificate for a TLS listener\. The load balancer uses the certificate to terminate the connection and decrypt requests from clients before routing them to targets\. For more information, see [Server Certificates](create-tls-listener.md#tls-listener-certificates)\.
++ You must specify a target group for the listener rule\. For more information, see [Create a target group for your Network Load Balancer](create-target-group.md)\.
++ You must specify an SSL certificate for a TLS listener\. The load balancer uses the certificate to terminate the connection and decrypt requests from clients before routing them to targets\. For more information, see [Server certificates](create-tls-listener.md#tls-listener-certificates)\.
 
-## Add a Listener<a name="add-listener"></a>
+## Add a listener<a name="add-listener"></a>
 
-You configure a listener with a protocol and a port for connections from clients to the load balancer, and a target group for the default listener rule\. For more information, see [Listener Configuration](load-balancer-listeners.md#listener-configuration)\.
+You configure a listener with a protocol and a port for connections from clients to the load balancer, and a target group for the default listener rule\. For more information, see [Listener configuration](load-balancer-listeners.md#listener-configuration)\.
 
 **To add a listener using the console**
 
@@ -22,6 +22,8 @@ You configure a listener with a protocol and a port for connections from clients
 
 1. For **Protocol : port**, choose **TCP**, **UDP**, **TCP\_UDP**, or **TLS**\. Keep the default port or type a different port\.
 
+1. \[TLS listeners\] For **ALPN policy**, choose a policy to enable ALPN or choose **None** to disable ALPN\. For more information, see [ALPN policies](create-tls-listener.md#alpn-policies)\.
+
 1. For **Default actions**, choose **Add action**, **Forward to** and then choose an available target group\.
 
 1. \[TLS listeners\] For **Security policy**, we recommend that you keep the default security policy\.
@@ -32,7 +34,7 @@ You configure a listener with a protocol and a port for connections from clients
 
 1. Choose **Save**\.
 
-1. \[TLS listeners\] To add an optional certificate list for use with the SNI protocol, see [Add Certificates to the Certificate List](listener-update-certificates.md#add-certificates)\.
+1. \[TLS listeners\] To add an optional certificate list for use with the SNI protocol, see [Add certificates to the certificate list](listener-update-certificates.md#add-certificates)\.
 
 **To add a listener using the AWS CLI**  
 Use the [create\-listener](https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-listener.html) command to create the listener\.

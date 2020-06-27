@@ -1,4 +1,4 @@
-# Delete a Listener for Your Network Load Balancer<a name="delete-listener"></a>
+# Delete a listener for your Network Load Balancer<a name="delete-listener"></a>
 
 You can delete a listener at any time\.
 

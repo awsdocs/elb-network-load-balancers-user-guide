@@ -1,13 +1,13 @@
-# Tutorial: Create a Network Load Balancer Using the AWS CLI<a name="network-load-balancer-cli"></a>
+# Tutorial: Create a Network Load Balancer using the AWS CLI<a name="network-load-balancer-cli"></a>
 
 This tutorial provides a hands\-on introduction to Network Load Balancers through the AWS CLI\.
 
-## Before You Begin<a name="prerequisites-aws-cli"></a>
+## Before you begin<a name="prerequisites-aws-cli"></a>
 + Install the AWS CLI or update to the current version of the AWS CLI if you are using a version that does not support Network Load Balancers\. For more information, see [Installing the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html) in the *AWS Command Line Interface User Guide*\.
 + Decide which Availability Zones you will use for your EC2 instances\. Configure your virtual private cloud \(VPC\) with at least one public subnet in each of these Availability Zones\.
-+ Launch at least one EC2 instance in each Availability Zone\. Ensure that the security groups for these instances allow TCP access from clients on the listener port and health check requests from your VPC\. For more information, see [Target Security Groups](target-group-register-targets.md#target-security-groups)\.
++ Launch at least one EC2 instance in each Availability Zone\. Ensure that the security groups for these instances allow TCP access from clients on the listener port and health check requests from your VPC\. For more information, see [Target security groups](target-group-register-targets.md#target-security-groups)\.
 
-## Create Your Load Balancer<a name="create-load-balancer-aws-cli"></a>
+## Create your load balancer<a name="create-load-balancer-aws-cli"></a>
 
 To create your first load balancer, complete the following steps\.
 
@@ -62,7 +62,7 @@ To create your first load balancer, complete the following steps\.
    aws elbv2 describe-target-health --target-group-arn targetgroup-arn
    ```
 
-## Specify an Elastic IP Address for Your Load Balancer<a name="subnet-mappings-aws-cli"></a>
+## Specify an Elastic IP address for your load balancer<a name="subnet-mappings-aws-cli"></a>
 
 When you create a Network Load Balancer, you can specify one Elastic IP address per subnet using a subnet mapping\.
 
@@ -71,7 +71,7 @@ aws elbv2 create-load-balancer --name my-load-balancer --type network \
 --subnet-mappings SubnetId=subnet-12345678,AllocationId=eipalloc-12345678
 ```
 
-## Add Targets Using Port Overrides<a name="port-overrides-aws-cli"></a>
+## Add targets using port overrides<a name="port-overrides-aws-cli"></a>
 
 If you have a microservices architecture with multiple services on a single instance, each service accepts connections on a different port\. You can register the instance with the target group multiple times, each time with a different port\.
 
@@ -99,7 +99,7 @@ If you have a microservices architecture with multiple services on a single inst
    --default-actions Type=forward,TargetGroupArn=targetgroup-arn
    ```
 
-## Delete Your Load Balancer<a name="delete-aws-cli"></a>
+## Delete your load balancer<a name="delete-aws-cli"></a>
 
 When you no longer need your load balancer and target group, you can delete them as follows:
 

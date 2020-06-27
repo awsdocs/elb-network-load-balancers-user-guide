@@ -1,10 +1,10 @@
-# Troubleshoot Your Network Load Balancer<a name="load-balancer-troubleshooting"></a>
+# Troubleshoot your Network Load Balancer<a name="load-balancer-troubleshooting"></a>
 
 The following information can help you troubleshoot issues with your Network Load Balancer\.
 
 ## A registered target is not in service<a name="target-not-in-service"></a>
 
-If a target is taking longer than expected to enter the `InService` state, it might be failing health checks\. Your target is not in service until it passes one health check\. For more information, see [Health Checks for Your Target Groups](target-group-health-checks.md)\.
+If a target is taking longer than expected to enter the `InService` state, it might be failing health checks\. Your target is not in service until it passes one health check\. For more information, see [Health checks for your target groups](target-group-health-checks.md)\.
 
 Verify that your instance is failing health checks and then check for the following:
 
@@ -41,6 +41,10 @@ Check whether `net.ipv4.tcp_tw_recycle` is enabled\. This setting is known to ca
 ## Unhealthy targets receive requests from the load balancer<a name="no-healthy-targets"></a>
 
 If there is at least one healthy registered target for your load balancer, the load balancer routes requests only to its healthy registered targets\. If there are only unhealthy registered targets, the load balancer routes requests to all registered targets\.
+
+## Target fails HTTP or HTTPS health checks due to host header mismatch<a name="host-header-mismatch"></a>
+
+The HTTP host header in the health check request contains the IP address of the load balancer node and the listener port, not the IP address of the target and the health check port\. If you are mapping incoming requests by host header, you must ensure that health checks match any HTTP host header\. Another option is to add a separate HTTP service on a different port and configure the target group to use that port for health checks instead\. Alternatively, consider using TCP health checks\.
 
 ## Connections time out for requests from a target to its load balancer<a name="loopback-timeout"></a>
 

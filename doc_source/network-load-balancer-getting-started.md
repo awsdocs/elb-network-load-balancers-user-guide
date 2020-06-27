@@ -1,25 +1,25 @@
-# Getting Started with Network Load Balancers<a name="network-load-balancer-getting-started"></a>
+# Getting started with Network Load Balancers<a name="network-load-balancer-getting-started"></a>
 
 This tutorial provides a hands\-on introduction to Network Load Balancers through the AWS Management Console, a web\-based interface\. To create your first Network Load Balancer, complete the following steps\.
 
 **Topics**
-+ [Before You Begin](#prerequisites)
-+ [Step 1: Choose a Load Balancer Type](#select-load-balancer-type)
-+ [Step 2: Configure Your Load Balancer and Listener](#configure-load-balancer)
-+ [Step 3: Configure Your Target Group](#configure-target-group)
-+ [Step 4: Register Targets with Your Target Group](#add-targets)
-+ [Step 5: Create and Test Your Load Balancer](#test-load-balancer)
-+ [Step 6: Delete Your Load Balancer \(Optional\)](#delete-load-balancer)
++ [Before you begin](#prerequisites)
++ [Step 1: Choose a load balancer type](#select-load-balancer-type)
++ [Step 2: Configure your load balancer and listener](#configure-load-balancer)
++ [Step 3: Configure your target group](#configure-target-group)
++ [Step 4: Register targets with your target group](#add-targets)
++ [Step 5: Create and test your load balancer](#test-load-balancer)
++ [Step 6: Delete your load balancer \(optional\)](#delete-load-balancer)
 
-Alternatively, to create an Application Load Balancer, see [Getting Started with Application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancer-getting-started.html) in the *User Guide for Application Load Balancers*\. To create a Classic Load Balancer, see [Create a Classic Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-getting-started.html) in the *User Guide for Classic Load Balancers*\.
+Alternatively, to create an Application Load Balancer, see [Getting started with Application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancer-getting-started.html) in the *User Guide for Application Load Balancers*\. To create a Classic Load Balancer, see [Create a Classic Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-getting-started.html) in the *User Guide for Classic Load Balancers*\.
 
 For demos of common load balancer configurations, see [Elastic Load Balancing Demos](https://exampleloadbalancer.com/)\.
 
-## Before You Begin<a name="prerequisites"></a>
+## Before you begin<a name="prerequisites"></a>
 + Decide which Availability Zones you will use for your EC2 instances\. Configure your virtual private cloud \(VPC\) with at least one public subnet in each of these Availability Zones\. These public subnets are used to configure the load balancer\. You can launch your EC2 instances in other subnets of these Availability Zones instead\.
-+ Launch at least one EC2 instance in each Availability Zone\. Ensure that the security groups for these instances allow TCP access from clients on the listener port and health check requests from your VPC\. For more information, see [Target Security Groups](target-group-register-targets.md#target-security-groups)\.
++ Launch at least one EC2 instance in each Availability Zone\. Ensure that the security groups for these instances allow TCP access from clients on the listener port and health check requests from your VPC\. For more information, see [Target security groups](target-group-register-targets.md#target-security-groups)\.
 
-## Step 1: Choose a Load Balancer Type<a name="select-load-balancer-type"></a>
+## Step 1: Choose a load balancer type<a name="select-load-balancer-type"></a>
 
 Elastic Load Balancing supports three types of load balancers\. For this tutorial, you create a Network Load Balancer\.
 
@@ -35,7 +35,7 @@ Elastic Load Balancing supports three types of load balancers\. For this tutoria
 
 1. For **Network Load Balancer**, choose **Create**\.
 
-## Step 2: Configure Your Load Balancer and Listener<a name="configure-load-balancer"></a>
+## Step 2: Configure your load balancer and listener<a name="configure-load-balancer"></a>
 
 On the **Configure Load Balancer** page, complete the following procedure\.
 
@@ -55,7 +55,7 @@ On the **Configure Load Balancer** page, complete the following procedure\.
 
 1. Choose **Next: Configure Routing**\.
 
-## Step 3: Configure Your Target Group<a name="configure-target-group"></a>
+## Step 3: Configure your target group<a name="configure-target-group"></a>
 
 Create a target group, which is used in request routing\. The rule for your listener routes requests to the registered targets in this target group\. The load balancer checks the health of targets in this target group using the health check settings defined for the target group\. On the **Configure Routing** page, complete the following procedure\.
 
@@ -71,7 +71,7 @@ Create a target group, which is used in request routing\. The rule for your list
 
 1. Choose **Next: Register Targets**\.
 
-## Step 4: Register Targets with Your Target Group<a name="add-targets"></a>
+## Step 4: Register targets with your target group<a name="add-targets"></a>
 
 On the **Register Targets** page, complete the following procedure\.
 
@@ -83,7 +83,7 @@ On the **Register Targets** page, complete the following procedure\.
 
 1. When you have finished selecting instances, choose **Next: Review**\.
 
-## Step 5: Create and Test Your Load Balancer<a name="test-load-balancer"></a>
+## Step 5: Create and test your load balancer<a name="test-load-balancer"></a>
 
 Before creating the load balancer, review your settings\. After creating the load balancer, verify that it's sending traffic to your EC2 instances\.
 
@@ -105,7 +105,7 @@ Before creating the load balancer, review your settings\. After creating the loa
 
 1. Choose **Description** and copy the DNS name of the load balancer \(for example, my\-load\-balancer\-1234567890abcdef\.elb\.us\-east\-2\.amazonaws\.com\)\. Paste the DNS name into the address field of an internet\-connected web browser\. If everything is working, the browser displays the default page of your server\.
 
-## Step 6: Delete Your Load Balancer \(Optional\)<a name="delete-load-balancer"></a>
+## Step 6: Delete your load balancer \(optional\)<a name="delete-load-balancer"></a>
 
 As soon as your load balancer becomes available, you are billed for each hour or partial hour that you keep it running\. When you no longer need a load balancer, you can delete it\. As soon as the load balancer is deleted, you stop incurring charges for it\. Note that deleting a load balancer does not affect the targets registered with the load balancer\. For example, your EC2 instances continue to run\.
 

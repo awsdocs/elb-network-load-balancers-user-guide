@@ -1,8 +1,8 @@
-# What Is a Network Load Balancer?<a name="introduction"></a>
+# What is a Network Load Balancer?<a name="introduction"></a>
 
 Elastic Load Balancing supports the following types of load balancers: Application Load Balancers, Network Load Balancers, and Classic Load Balancers\. This guide discusses Network Load Balancers\. For more information about the other load balancers, see the [User Guide for Application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/) and the [User Guide for Classic Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/)\.
 
-## Network Load Balancer Components<a name="network-load-balancer-components"></a>
+## Network Load Balancer components<a name="network-load-balancer-components"></a>
 
 A *load balancer* serves as the single point of contact for clients\. The load balancer distributes incoming traffic across multiple targets, such as Amazon EC2 instances\. This increases the availability of your application\. You add one or more listeners to your load balancer\.
 
@@ -15,7 +15,7 @@ For more information, see the following documentation:
 + [Listeners](load-balancer-listeners.md)
 + [Target Groups](load-balancer-target-groups.md)
 
-## Network Load Balancer Overview<a name="network-load-balancer-overview"></a>
+## Network Load Balancer overview<a name="network-load-balancer-overview"></a>
 
 A Network Load Balancer functions at the fourth layer of the Open Systems Interconnection \(OSI\) model\. It can handle millions of requests per second\. After the load balancer receives a connection request, it selects a target from the target group for the default rule\. It attempts to open a TCP connection to the selected target on the port specified in the listener configuration\.
 
@@ -35,9 +35,9 @@ You can add and remove targets from your load balancer as your needs change, wit
 
 You can configure health checks, which are used to monitor the health of the registered targets so that the load balancer can send requests only to the healthy targets\.
 
-For more information, see [How Elastic Load Balancing Works](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html) in the *Elastic Load Balancing User Guide*\.
+For more information, see [How Elastic Load Balancing works](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html) in the *Elastic Load Balancing User Guide*\.
 
-## Benefits of Migrating from a Classic Load Balancer<a name="network-load-balancer-benefits"></a>
+## Benefits of migrating from a Classic Load Balancer<a name="network-load-balancer-benefits"></a>
 
 Using a Network Load Balancer instead of a Classic Load Balancer has the following benefits:
 + Ability to handle volatile workloads and scale to millions of requests per second\.
@@ -47,13 +47,13 @@ Using a Network Load Balancer instead of a Classic Load Balancer has the followi
 + Support for containerized applications\. Amazon Elastic Container Service \(Amazon ECS\) can select an unused port when scheduling a task and register the task with a target group using this port\. This enables you to make efficient use of your clusters\.
 + Support for monitoring the health of each service independently, as health checks are defined at the target group level and many Amazon CloudWatch metrics are reported at the target group level\. Attaching a target group to an Auto Scaling group enables you to scale each service dynamically based on demand\.
 
-For more information about the features supported by each load balancer type, see [Comparison of Elastic Load Balancing Products](https://aws.amazon.com/elasticloadbalancing/details/#compare)\.
+For more information about the features supported by each load balancer type, see [Product comparison](https://aws.amazon.com/elasticloadbalancing/details/#compare) for Elastic Load Balancing\.
 
-## How to Get Started<a name="network-load-balancer-get-started"></a>
+## How to get started<a name="network-load-balancer-get-started"></a>
 
 To create a Network Load Balancer, try one of the following tutorials:
-+ [Getting Started with Network Load Balancers](network-load-balancer-getting-started.md)
-+ [Tutorial: Create a Network Load Balancer Using the AWS CLI](network-load-balancer-cli.md)
++ [Getting started with Network Load Balancers](network-load-balancer-getting-started.md)
++ [Tutorial: Create a Network Load Balancer using the AWS CLI](network-load-balancer-cli.md)
 
 For demos of common load balancer configurations, see [Elastic Load Balancing Demos](https://exampleloadbalancer.com/)\.
 
