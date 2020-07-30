@@ -44,7 +44,7 @@ If you register targets by IP address and do not want to grant access to the ent
 
 When you register EC2 instances as targets, you must ensure that the network ACLs for the subnets for your instances allow traffic on both the listener port and the health check port\. The default network access control list \(ACL\) for a VPC allows all inbound and outbound traffic\. If you create custom network ACLs, verify that they allow the appropriate traffic\.
 
-The network ACLs associated with the subnets for your instances must allow the following traffic\.
+The network ACLs associated with the subnets for your instances must allow the following traffic for an internet\-facing load balancer\.
 
 
 **Recommended rules for instance subnets**  
@@ -64,7 +64,7 @@ The network ACLs associated with the subnets for your instances must allow the f
 | *VPC CIDR* | *listener* | *listener* | Allow responses to clients \(`ip` target type\) | 
 | *VPC CIDR* | *health check* | 1024\-65535 | Allow health check traffic | 
 
-The network ACLs associated with the subnets for your load balancer must allow the following traffic\.
+The network ACLs associated with the subnets for your load balancer must allow the following traffic for an internet\-facing load balancer\.
 
 
 **Recommended rules for load balancer subnets**  
@@ -85,6 +85,8 @@ The network ACLs associated with the subnets for your load balancer must allow t
 | *VPC CIDR* | *health check* | *health check* | Allow health check traffic | 
 | *VPC CIDR* | *health check* | 1024\-65535 | Allow health check traffic | 
 
+For an internal load balancer, the network ACLs for the subnets for your instances and load balancer nodes must allow both inbound and outbound traffic to and from the VPC CIDR, on the listener port and ephemeral ports\.
+
 ## Register or deregister targets<a name="register-deregister-targets"></a>
 
 Each target group must have at least one registered target in each Availability Zone that is enabled for the load balancer\.
@@ -92,9 +94,10 @@ Each target group must have at least one registered target in each Availability 
 The target type of your target group determines how you register targets with that target group\. For more information, see [Target type](load-balancer-target-groups.md#target-type)\.
 
 **Requirements**
-+ You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
++ You cannot register instances by instance ID if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\.
 + You cannot register instances by instance ID if they are in a VPC that is peered to the load balancer VPC\. You can register these instances by IP address\.
 + If you register a target by IP address and the IP address is in the same VPC as the load balancer, the load balancer verifies that it is from a subnet that it can reach\.
++ For UDP and TCP\_UDP target groups, do not register instances by IP address if they reside outside of the load balancer VPC or if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\. Targets that reside outside the load balancer VPC or use an unsupported instance type might be able to receive traffic from the load balancer but then be unable to respond\.
 
 **Topics**
 + [Register or deregister targets by instance ID](#register-instances)

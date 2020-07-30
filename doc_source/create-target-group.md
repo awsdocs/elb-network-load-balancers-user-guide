@@ -26,7 +26,7 @@ You can add or remove targets from your target group at any time\. For more info
 
 1. \(Optional\) For **Port**, modify the default value as needed\.
 
-1. For **Target type**, select `instance` to specify targets by instance ID or `ip` to specify targets by IP address\. If the target group protocol is UDP or TCP\_UDP, you must select `instance`\.
+1. For **Target type**, select `instance` to specify targets by instance ID or `ip` to specify targets by IP address\.
 
 1. For **VPC**, select a virtual private cloud \(VPC\)\.
 

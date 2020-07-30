@@ -9,20 +9,20 @@ If a target is taking longer than expected to enter the `InService` state, it mi
 Verify that your instance is failing health checks and then check for the following:
 
 **A security group does not allow traffic**  
-The security groups associated with an instance must allow traffic from the load balancer using the health check port and health check protocol\.
+The security groups associated with an instance must allow traffic from the load balancer using the health check port and health check protocol\. For more information, see [Target security groups](target-group-register-targets.md#target-security-groups)\.
 
 **A network access control list \(ACL\) does not allow traffic**  
-The network ACL associated with the subnets for your instances must allow inbound traffic on the health check port and outbound traffic on the ephemeral ports \(1024\-65535\)\. The network ACL associated with the subnets for your load balancer nodes must allow inbound traffic on the ephemeral ports and outbound traffic on the health check and ephemeral ports\.
+The network ACL associated with the subnets for your instances and the subnets for your load balancer must allow traffic and health checks from the load balancer\. For more information, see [Network ACLs](target-group-register-targets.md#network-acls)\.
 
 ## Requests are not routed to targets<a name="requests-not-routed"></a>
 
 Check for the following:
 
 **A security group does not allow traffic**  
-The security groups associated with the instances must allow traffic on the listener port from client IP addresses \(if targets are specified by instance ID\) or load balancer nodes \(if targets are specified by IP address\)\.
+The security groups associated with the instances must allow traffic on the listener port from client IP addresses \(if targets are specified by instance ID\) or load balancer nodes \(if targets are specified by IP address\)\. For more information, see [Target security groups](target-group-register-targets.md#target-security-groups)\.
 
 **A network access control list \(ACL\) does not allow traffic**  
-The network ACLs associated with the subnets for your VPC must allow the load balancer and targets to communicate in both directions on the listener port\.
+The network ACLs associated with the subnets for your VPC must allow the load balancer and targets to communicate in both directions on the listener port\. For more information, see [Network ACLs](target-group-register-targets.md#network-acls)\.
 
 **The targets are in an Availability Zone that is not enabled**  
 If you register targets in an Availability Zone but do not enable the Availability Zone, these registered targets do not receive traffic from the load balancer\.

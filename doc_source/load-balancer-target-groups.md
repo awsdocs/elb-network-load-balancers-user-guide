@@ -35,8 +35,8 @@ The following table summarizes the supported combinations of listener protocol a
 | --- | --- | --- | --- | 
 | TCP | TCP \| TCP\_UDP | instance \| ip | HTTP \| HTTPS \| TCP | 
 | TLS | TCP \| TLS | instance \| ip | HTTP \| HTTPS \| TCP | 
-| UDP | UDP \| TCP\_UDP | instance | HTTP \| HTTPS \| TCP | 
-| TCP\_UDP | TCP\_UDP | instance | HTTP \| HTTPS \| TCP | 
+| UDP | UDP \| TCP\_UDP | instance \| ip | HTTP \| HTTPS \| TCP | 
+| TCP\_UDP | TCP\_UDP | instance \| ip | HTTP \| HTTPS \| TCP | 
 
 ## Target type<a name="target-type"></a>
 
@@ -64,8 +64,6 @@ These supported CIDR blocks enable you to register the following with a target g
 
 When the target type is `ip`, the load balancer can support 55,000 simultaneous connections or about 55,000 connections per minute to each unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors\. If you get port allocation errors, add more targets to the target group\.
 
-If the target group protocol is UDP or TCP\_UDP, the target type must be `instance`\.
-
 Network Load Balancers do not support the `lambda` target type, only Application Load Balancers support the `lambda` target type\. For more information, see [Lambda functions as targets](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/lambda-functions.html) in the *User Guide for Application Load Balancers*\.
 
 ### Request routing and IP addresses<a name="request-routing-ip-addresses"></a>
@@ -80,7 +78,9 @@ For more information allowing traffic to your instances, see [Target security gr
 
 If you specify targets using an instance ID, the source IP addresses of the clients are preserved and provided to your applications\.
 
-If you specify targets by IP address, the source IP addresses are the private IP addresses of the load balancer nodes\. If you need the IP addresses of the clients, enable proxy protocol and get the client IP addresses from the proxy protocol header\.
+If you specify targets by IP address, the source IP addresses depend on the protocol of the target group as follows:
++ TCP and TLS: The source IP addresses are the private IP addresses of the load balancer nodes\. If you need the IP addresses of the clients, enable [proxy protocol](#proxy-protocol) and get the client IP addresses from the proxy protocol header\.
++ UDP and TCP\_UDP: The source IP addresses are the private IP addresses of the clients\.
 
 If you have micro services on instances registered with a Network Load Balancer, you cannot use the load balancer to provide communication between them unless the load balancer is internet\-facing or the instances are registered by IP address\. For more information, see [Connections time out for requests from a target to its load balancer](load-balancer-troubleshooting.md#loopback-timeout)\.
 
@@ -95,9 +95,10 @@ If demand on your application decreases, or you need to service your targets, yo
 If you are registering targets by instance ID, you can use your load balancer with an Auto Scaling group\. After you attach a target group to an Auto Scaling group, Auto Scaling registers your targets with the target group for you when it launches them\. For more information, see [Attaching a load balancer to your Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-load-balancer-asg.html) in the *Amazon EC2 Auto Scaling User Guide*\.
 
 **Requirements**
-+ You cannot register instances by instance ID if they have the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. You can register instances of these types by IP address\.
++ You cannot register instances by instance ID if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\.
 + You cannot register instances by instance ID if they are in a VPC that is peered to the load balancer VPC\. You can register these instances by IP address\.
 + If you register a target by IP address and the IP address is in the same VPC as the load balancer, the load balancer verifies that it is from a subnet that it can reach\.
++ For UDP and TCP\_UDP target groups, do not register instances by IP address if they reside outside of the load balancer VPC or if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\. Targets that reside outside the load balancer VPC or use an unsupported instance type might be able to receive traffic from the load balancer but then be unable to respond\.
 
 ## Target group attributes<a name="target-group-attributes"></a>
 
