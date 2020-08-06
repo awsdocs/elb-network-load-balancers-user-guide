@@ -122,7 +122,27 @@ When you deregister an instance, the load balancer stops creating new connection
 
 The initial state of a deregistering target is `draining`\. By default, the load balancer changes the state of a deregistering target to `unused` after 300 seconds\. To change the amount of time that the load balancer waits before changing the state of a deregistering target to `unused`, update the deregistration delay value\. We recommend that you specify a value of at least 120 seconds to ensure that requests are completed\.
 
-**To update the deregistration delay value using the console**
+------
+#### [ New console ]
+
+**To update the deregistration delay value using the new console**
+
+1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
+
+1. On the navigation pane, under **LOAD BALANCING**, choose **Target Groups**\.
+
+1. Choose the name of the target group to open its details page\.
+
+1. On the **Group details** page, in the **Attributes** section, choose **Edit**\.
+
+1. On the **Edit attributes** page, change the value of **Deregistration delay** as needed\.
+
+1. Choose **Save changes**\.
+
+------
+#### [ Old console ]
+
+**To update the deregistration delay value using the old console**
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
@@ -133,6 +153,8 @@ The initial state of a deregistering target is `draining`\. By default, the load
 1. Choose **Description**, **Edit attributes**\.
 
 1. Change the value of **Deregistration delay** as needed, and then choose **Save**\.
+
+------
 
 **To update the deregistration delay value using the AWS CLI**  
 Use the [modify\-target\-group\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-target-group-attributes.html) command\.
@@ -163,7 +185,27 @@ For an example that parses TLV type 0xEA, see [https://github\.com/aws/elastic\-
 
 Before you enable proxy protocol on a target group, make sure that your applications expect and can parse the proxy protocol v2 header, otherwise, they might fail\. For more information, see [PROXY protocol versions 1 and 2](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)\.
 
-**To enable proxy protocol v2 using the console**
+------
+#### [ New console ]
+
+**To enable proxy protocol v2 using the new console**
+
+1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
+
+1. On the navigation pane, under **LOAD BALANCING**, choose **Target Groups**\.
+
+1. Choose the name the target group to open its details page\.
+
+1. On the **Group details** page, in the **Attributes** section, choose **Edit**\.
+
+1. On the **Edit attributes** page, select **Proxy protocol v2**\.
+
+1. Choose **Save changes**\.
+
+------
+#### [ Old console ]
+
+**To enable proxy protocol v2 using the old console**
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
@@ -177,6 +219,8 @@ Before you enable proxy protocol on a target group, make sure that your applicat
 
 1. Choose **Save**\.
 
+------
+
 **To enable proxy protocol v2 using the AWS CLI**  
 Use the [modify\-target\-group\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-target-group-attributes.html) command\.
 
@@ -188,6 +232,42 @@ Sticky sessions are a mechanism to route client traffic to the same target in a 
 + Using sticky sessions can lead to an uneven distribution of connections and flows, which might impact the availability of your targets\. For example, all clients behind the same NAT device have the same source IP address\. Therefore, all traffic from these clients is routed to the same target\.
 + The load balancer might reset the sticky sessions for a target group if the health state of any of its targets changes or if you register or deregister targets with the target group\.
 + Sticky sessions are not supported with TLS listeners and TLS target groups\.
+
+------
+#### [ New console ]
+
+**To enable sticky sessions using the new console**
+
+1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
+
+1. On the navigation pane, under **LOAD BALANCING**, choose **Target Groups**\.
+
+1. Choose the name of the target group to open its details page\.
+
+1. On the **Group details** page, in the **Attributes** section, choose **Edit**\.
+
+1. On the **Edit attributes** page, select **Stickiness**\.
+
+1. Choose **Save changes**\.
+
+------
+#### [ Old console ]
+
+**To enable sticky sessions using the old console**
+
+1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
+
+1. On the navigation pane, under **LOAD BALANCING**, choose **Target Groups**\.
+
+1. Select the target group\.
+
+1. Choose **Description**, **Edit attributes**\.
+
+1. For **Stickiness**, select **Enable**\.
+
+1. Choose **Save**\.
+
+------
 
 **To enable sticky sessions using the AWS CLI**  
 Use the [modify\-target\-group\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-target-group-attributes.html) command with the `stickiness.enabled` attribute\.

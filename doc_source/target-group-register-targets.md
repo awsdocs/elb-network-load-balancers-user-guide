@@ -24,13 +24,13 @@ When you register EC2 instances as targets, you must ensure that the security gr
 | Inbound | 
 | --- |
 |  Source  |  Protocol  |  Port Range  |  Comment  | 
-| *Client IP addresses* | *target* | *target* | Allow client traffic \(`instance` target type\) | 
-| *VPC CIDR* | *target* | *target* | Allow client traffic \(`ip` target type\) | 
-| *VPC CIDR* | *health check* | *health check* | Allow health check traffic from the load balancer | 
+| Client IP addresses | target | target | Allow client traffic \(instance target type\) | 
+| VPC CIDR | target | target | Allow client traffic \(ip target type\) | 
+| VPC CIDR | health check | health check | Allow health check traffic from the load balancer | 
 
 If you register targets by IP address and do not want to grant access to the entire VPC CIDR, you can grant access to the private IP addresses used by the load balancer nodes\. There is one IP address per load balancer subnet\. To find these addresses, use the following procedure\.
 
-**To find the private IP addresses to whitelist**
+**To find the private IP addresses to allow**
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
@@ -54,15 +54,15 @@ The network ACLs associated with the subnets for your instances must allow the f
 | Inbound | 
 | --- |
 |  Source  |  Protocol  |  Port Range  |  Comment  | 
-| *Client IP addresses* | *listener* | *listener* | Allow client traffic \(`instance` target type\) | 
-| *VPC CIDR* | *listener* | *listener* | Allow client traffic \(`ip` target type\) | 
-| *VPC CIDR* | *health check* | *health check* | Allow health check traffic from the load balancer | 
+| Client IP addresses | listener | listener | Allow client traffic \(instance target type\) | 
+| VPC CIDR | listener | listener | Allow client traffic \(ip target type\) | 
+| VPC CIDR | health check | health check | Allow health check traffic from the load balancer | 
 | Outbound | 
 | --- |
 |  Destination  |  Protocol  |  Port Range  |  Comment  | 
-| *Client IP addresses* | *listener* | *listener* | Allow responses to clients \(`instance` target type\) | 
-| *VPC CIDR* | *listener* | *listener* | Allow responses to clients \(`ip` target type\) | 
-| *VPC CIDR* | *health check* | 1024\-65535 | Allow health check traffic | 
+| Client IP addresses | listener | listener | Allow responses to clients \(instance target type\) | 
+| VPC CIDR | listener | listener | Allow responses to clients \(ip target type\) | 
+| VPC CIDR | health check | 1024\-65535 | Allow health check traffic | 
 
 The network ACLs associated with the subnets for your load balancer must allow the following traffic for an internet\-facing load balancer\.
 
@@ -74,16 +74,16 @@ The network ACLs associated with the subnets for your load balancer must allow t
 | Inbound | 
 | --- |
 |  Source  |  Protocol  |  Port Range  |  Comment  | 
-| *Client IP addresses* | *listener* | *listener* | Allow client traffic \(`instance` target type \) | 
-| *VPC CIDR* | *listener* | *listener* | Allow client traffic \(`ip` target type \) | 
-| *VPC CIDR* | *health check* | 1024\-65535 | Allow health check traffic | 
+| Client IP addresses | listener | listener | Allow client traffic \(instance target type \) | 
+| VPC CIDR | listener | listener | Allow client traffic \(ip target type \) | 
+| VPC CIDR | health check | 1024\-65535 | Allow health check traffic | 
 | Outbound | 
 | --- |
 |  Destination  |  Protocol  |  Port Range  |  Comment  | 
-| *Client IP addresses* | *listener* | *listener* | Allow responses to clients \(`instance` target type \) | 
-| *VPC CIDR* | *listener* | *listener* | Allow responses to clients \(`ip` target type \) | 
-| *VPC CIDR* | *health check* | *health check* | Allow health check traffic | 
-| *VPC CIDR* | *health check* | 1024\-65535 | Allow health check traffic | 
+| Client IP addresses | listener | listener | Allow responses to clients \(instance target type \) | 
+| VPC CIDR | listener | listener | Allow responses to clients \(ip target type \) | 
+| VPC CIDR | health check | health check | Allow health check traffic | 
+| VPC CIDR | health check | 1024\-65535 | Allow health check traffic | 
 
 For an internal load balancer, the network ACLs for the subnets for your instances and load balancer nodes must allow both inbound and outbound traffic to and from the VPC CIDR, on the listener port and ephemeral ports\.
 
@@ -108,7 +108,27 @@ The target type of your target group determines how you register targets with th
 
 An instance must be in the `running` state when you register it\.
 
-**To register or deregister targets by instance ID**
+------
+#### [ New console ]
+
+**To register or deregister targets by instance ID using the new console**
+
+1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
+
+1. On the navigation pane, under **LOAD BALANCING**, choose **Target Groups**\.
+
+1. Choose the name of the target group to open its details page\.
+
+1. Choose the **Targets** tab\.
+
+1. To register instances, choose **Register targets**\. Select one or more instances, enter the default instance port as needed, and then choose **Include as pending below**\. When you are finished adding instances, choose **Register pending targets**\.
+
+1. To deregister instances, select the instance and then choose **Deregister**\.
+
+------
+#### [ Old console ]
+
+**To register or deregister targets by instance ID using the old console**
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
@@ -124,6 +144,8 @@ An instance must be in the `running` state when you register it\.
 
 1. Choose **Save**\.
 
+------
+
 ### Register or deregister targets by IP address<a name="register-ip-addresses"></a>
 
 An IP address that you register must be from one of the following CIDR blocks:
@@ -133,7 +155,27 @@ An IP address that you register must be from one of the following CIDR blocks:
 + 172\.16\.0\.0/12 \(RFC 1918\)
 + 192\.168\.0\.0/16 \(RFC 1918\)
 
-**To register or deregister targets by IP address**
+------
+#### [ New console ]
+
+**To register or deregister targets by IP address using the new console**
+
+1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
+
+1. On the navigation pane, under **LOAD BALANCING**, choose **Target Groups**\.
+
+1. Chose the name of the target group to open its details page\.
+
+1. Choose the **Targets** tab\.
+
+1. To register IP addresses, choose **Register targets**\. For each IP address, select the network, Availability Zone, IP address, and port, and then choose **Include as pending below**\. When you are finished specifying addresses, choose **Register pending targets**\.
+
+1. To deregister IP addresses, select the IP addresses and then choose **Deregister**\. If you have many registered IP addresses, you might find it helpful to add a filter or change the sort order\.
+
+------
+#### [ Old console ]
+
+**To register or deregister targets by IP address using the old console**
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
@@ -146,6 +188,8 @@ An IP address that you register must be from one of the following CIDR blocks:
 1. To deregister IP addresses, choose the **Deregister targets** icon \(the minus sign\) in the menu bar\. If you have many registered IP addresses, you might find it helpful to add a filter or change the sort order\. Select the IP addresses and choose **Deregister**\.
 
 1. To leave this screen, choose the **Back to target group** icon \(the back button\) in the menu bar\.
+
+------
 
 ### Register or deregister targets using the AWS CLI<a name="register-cli"></a>
 

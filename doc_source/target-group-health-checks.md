@@ -71,7 +71,25 @@ If the status of a target is any value other than `Healthy`, the API returns a r
 
 You can check the health status of the targets registered with your target groups\.
 
-**To check the health of your targets using the console**
+------
+#### [ New console ]
+
+**To check the health of your targets using the new console**
+
+1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
+
+1. In the navigation pane, under **LOAD BALANCING**, choose **Target Groups**\.
+
+1. Choose the name of the target group to open its details page\.
+
+1. On the **Targets** tab, the **Status** column indicates the status of each target\.
+
+1. If the target status is any value other than `Healthy`, the **Status details** column contains more information\.
+
+------
+#### [ Old console ]
+
+**To check the health of your targets using the old console**
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
@@ -80,6 +98,8 @@ You can check the health status of the targets registered with your target group
 1. Select the target group\.
 
 1. Choose **Targets**, and view the status of each target in the **Status** column\. If the status is any value other than `Healthy`, view the tooltip for more information\.
+
+------
 
 **To check the health of your targets using the AWS CLI**  
 Use the [describe\-target\-health](https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-target-health.html) command\. The output of this command contains the target health state\. It includes a reason code if the status is any value other than `Healthy`\.
@@ -91,7 +111,25 @@ Use CloudWatch alarms to trigger a Lambda function to send details about unhealt
 
 You can modify some of the health check settings for your target group\. If the protocol of the target group is TCP, TLS, UDP, or TCP\_UDP, you can't modify the health check protocol, interval, timeout, or success codes\.
 
-**To modify health check settings for a target group using the console**
+------
+#### [ New console ]
+
+**To modify health check settings for a target group using the new console**
+
+1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
+
+1. In the navigation pane, under **LOAD BALANCING**, choose **Target Groups**\.
+
+1. Choose the name of the target group to open its details page\.
+
+1. On the **Group details** tab, in the **Health check settings** section, choose **Edit**\.
+
+1. On the **Edit health check settings** page, modify the settings as needed, and then choose **Save changes**\.
+
+------
+#### [ Old console ]
+
+**To modify health check settings for a target group using the old console**
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
@@ -102,6 +140,8 @@ You can modify some of the health check settings for your target group\. If the 
 1. Choose **Health checks**, **Edit**\.
 
 1. On the **Edit target group** page, modify the settings as needed, and then choose **Save**\.
+
+------
 
 **To modify health check settings for a target group using the AWS CLI**  
 Use the [modify\-target\-group](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-target-group.html) command\.
