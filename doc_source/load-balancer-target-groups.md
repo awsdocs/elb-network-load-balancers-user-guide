@@ -96,7 +96,7 @@ If you are registering targets by instance ID, you can use your load balancer wi
 
 **Requirements**
 + You cannot register instances by instance ID if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\.
-+ You cannot register instances by instance ID if they are in a VPC that is peered to the load balancer VPC\. You can register these instances by IP address\.
++ You cannot register instances by instance ID if they are in a VPC that is peered to the load balancer VPC (same Region or different Region)\. You can register these instances by IP address\.
 + If you register a target by IP address and the IP address is in the same VPC as the load balancer, the load balancer verifies that it is from a subnet that it can reach\.
 + For UDP and TCP\_UDP target groups, do not register instances by IP address if they reside outside of the load balancer VPC or if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\. Targets that reside outside the load balancer VPC or use an unsupported instance type might be able to receive traffic from the load balancer but then be unable to respond\.
 
@@ -163,7 +163,9 @@ Use the [modify\-target\-group\-attributes](https://docs.aws.amazon.com/cli/late
 
 Network Load Balancers use proxy protocol version 2 to send additional connection information such as the source and destination\. Proxy protocol version 2 provides a binary encoding of the proxy protocol header\. The load balancer prepends a proxy protocol header to the TCP data\. It does not discard or overwrite any existing data, including any proxy protocol headers sent by the client or any other proxies, load balancers, or servers in the network path\. Therefore, it is possible to receive more than one proxy protocol header\. Also, if there is another network path to your targets outside of your Network Load Balancer, the first proxy protocol header might not be the one from your Network Load Balancer\.
 
-If you specify targets by IP address, the source IP addresses provided to your applications are the private IP addresses of the load balancer nodes\. If your applications need the IP addresses of the clients, enable proxy protocol and get the client IP addresses from the proxy protocol header\.
+If you specify targets by IP address, the source IP addresses depend on the protocol of the target group as follows:
++ TCP and TLS: The source IP addresses are the private IP addresses of the load balancer nodes\. If you need the IP addresses of the clients, enable proxy protocol and get the client IP addresses from the proxy protocol header\.
++ UDP and TCP\_UDP: The source IP addresses are the private IP addresses of the clients\.
 
 If you specify targets by instance ID, the source IP addresses provided to your applications are the client IP addresses\. However, if you prefer, you can enable proxy protocol and get the client IP addresses from the proxy protocol header\.
 
