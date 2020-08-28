@@ -84,6 +84,8 @@ If you specify targets by IP address, the source IP addresses depend on the prot
 
 If you have micro services on instances registered with a Network Load Balancer, you cannot use the load balancer to provide communication between them unless the load balancer is internet\-facing or the instances are registered by IP address\. For more information, see [Connections time out for requests from a target to its load balancer](load-balancer-troubleshooting.md#loopback-timeout)\.
 
+If you are using VPC Endpoint Services to provide your service to other consumers, the source IP addresses of the clients are not preserved and traffic to your applications appears to orinigate from the network load balancer\. For more information, see [VPC endpoint services (AWS PrivateLink)](https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html#on-premises-connection)\.
+
 ## Registered targets<a name="registered-targets"></a>
 
 Your load balancer serves as a single point of contact for clients and distributes incoming traffic across its healthy registered targets\. Each target group must have at least one registered target in each Availability Zone that is enabled for the load balancer\. You can register each target with one or more target groups\. You can register each EC2 instance or IP address with the same target group multiple times using different ports, which enables the load balancer to route requests to microservices\.
