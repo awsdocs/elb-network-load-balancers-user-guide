@@ -82,6 +82,8 @@ If you specify targets by IP address, the source IP addresses depend on the prot
 + TCP and TLS: The source IP addresses are the private IP addresses of the load balancer nodes\. If you need the IP addresses of the clients, enable [proxy protocol](#proxy-protocol) and get the client IP addresses from the proxy protocol header\.
 + UDP and TCP\_UDP: The source IP addresses are the private IP addresses of the clients\.
 
+If you are using the Network Load Balancer with a VPC endpoint service, the source IP addresses provided to your application are the private IP addresses of the load balancer nodes\. If you need the IP addresses of the service consumers, enable [proxy protocol](#proxy-protocol) on the load balancer\.
+
 If you have micro services on instances registered with a Network Load Balancer, you cannot use the load balancer to provide communication between them unless the load balancer is internet\-facing or the instances are registered by IP address\. For more information, see [Connections time out for requests from a target to its load balancer](load-balancer-troubleshooting.md#loopback-timeout)\.
 
 ## Registered targets<a name="registered-targets"></a>
