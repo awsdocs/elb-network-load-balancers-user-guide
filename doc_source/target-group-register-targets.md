@@ -14,7 +14,7 @@ When you register EC2 instances as targets, you must ensure that the security gr
 
 **Limits**
 + Network Load Balancers do not have associated security groups\. Therefore, the security groups for your targets must use IP addresses to allow traffic from the load balancer\.
-+ You cannot allow traffic from clients to targets through the load balancer using the security groups for the clients in the security groups for the targets\. Use the client CIDR blocks in the target security groups instead\.
++ You cannot use the security groups for clients as a source in the security groups for the targets\. Instead, use the client CIDR blocks as sources in the target security groups\.
 
 
 **Recommended rules for instance security groups**  
@@ -95,7 +95,7 @@ The target type of your target group determines how you register targets with th
 
 **Requirements**
 + You cannot register instances by instance ID if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\.
-+ You cannot register instances by instance ID if they are in a VPC that is peered to the load balancer VPC\. You can register these instances by IP address\.
++ You cannot register instances by instance ID if they are in a VPC that is peered to the load balancer VPC \(same Region or different Region\)\. You can register these instances by IP address\.
 + If you register a target by IP address and the IP address is in the same VPC as the load balancer, the load balancer verifies that it is from a subnet that it can reach\.
 + For UDP and TCP\_UDP target groups, do not register instances by IP address if they reside outside of the load balancer VPC or if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\. Targets that reside outside the load balancer VPC or use an unsupported instance type might be able to receive traffic from the load balancer but then be unable to respond\.
 

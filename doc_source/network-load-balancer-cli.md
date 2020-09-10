@@ -16,7 +16,7 @@ To create your first load balancer, complete the following steps\.
 1. Use the [create\-load\-balancer](https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-load-balancer.html) command to create a load balancer, specifying a public subnet for each Availability Zone in which you launched instances\. You can specify only one subnet per Availability Zone\.
 
    ```
-   aws elbv2 create-load-balancer --name my-load-balancer --type network --subnets subnet-12345678
+   aws elbv2 create-load-balancer --name my-load-balancer --type network --subnets subnet-0e3f5cac72EXAMPLE
    ```
 
    The output includes the Amazon Resource Name \(ARN\) of the load balancer, with the following format:
@@ -28,7 +28,7 @@ To create your first load balancer, complete the following steps\.
 1. Use the [create\-target\-group](https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-target-group.html) command to create a target group, specifying the same VPC that you used for your EC2 instances:
 
    ```
-   aws elbv2 create-target-group --name my-targets --protocol TCP --port 80 --vpc-id vpc-12345678
+   aws elbv2 create-target-group --name my-targets --protocol TCP --port 80 --vpc-id vpc-0598c7d356EXAMPLE
    ```
 
    The output includes the ARN of the target group, with this format:
@@ -40,7 +40,7 @@ To create your first load balancer, complete the following steps\.
 1. Use the [register\-targets](https://docs.aws.amazon.com/cli/latest/reference/elbv2/register-targets.html) command to register your instances with your target group:
 
    ```
-   aws elbv2 register-targets --target-group-arn targetgroup-arn --targets Id=i-12345678 Id=i-23456789
+   aws elbv2 register-targets --target-group-arn targetgroup-arn --targets Id=i-1234567890abcdef0 Id=i-0abcdef1234567890
    ```
 
 1. Use the [create\-listener](https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-listener.html) command to create a listener for your load balancer with a default rule that forwards requests to your target group:
@@ -68,36 +68,8 @@ When you create a Network Load Balancer, you can specify one Elastic IP address 
 
 ```
 aws elbv2 create-load-balancer --name my-load-balancer --type network \
---subnet-mappings SubnetId=subnet-12345678,AllocationId=eipalloc-12345678
+--subnet-mappings SubnetId=subnet-0e3f5cac72EXAMPLE,AllocationId=eipalloc-12345678
 ```
-
-## Add targets using port overrides<a name="port-overrides-aws-cli"></a>
-
-If you have a microservices architecture with multiple services on a single instance, each service accepts connections on a different port\. You can register the instance with the target group multiple times, each time with a different port\.
-
-**To add targets using port overrides**
-
-1. Use the [create\-target\-group](https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-target-group.html) command to create a target group:
-
-   ```
-   aws elbv2 create-target-group --name my-targets --protocol TCP --port 80 \
-   --vpc-id vpc-12345678
-   ```
-
-1. Use the [register\-targets](https://docs.aws.amazon.com/cli/latest/reference/elbv2/register-targets.html) command to register your instances with your target group\. Notice that the instance IDs are the same for each container, but the ports are different\.
-
-   ```
-   aws elbv2 register-targets --target-group-arn targetgroup-arn  \
-   --targets Id=i-12345678,Port=80 Id=i-12345678,Port=766
-   ```
-
-1. Use the [create\-listener](https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-listener.html) command to create a listener for your load balancer with a default rule that forwards requests to your target group:
-
-   ```
-   aws elbv2 create-listener --load-balancer-arn loadbalancer-arn \
-   --protocol TCP --port 80  \
-   --default-actions Type=forward,TargetGroupArn=targetgroup-arn
-   ```
 
 ## Delete your load balancer<a name="delete-aws-cli"></a>
 

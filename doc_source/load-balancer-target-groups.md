@@ -66,6 +66,8 @@ When the target type is `ip`, the load balancer can support 55,000 simultaneous 
 
 Network Load Balancers do not support the `lambda` target type, only Application Load Balancers support the `lambda` target type\. For more information, see [Lambda functions as targets](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/lambda-functions.html) in the *User Guide for Application Load Balancers*\.
 
+If you have micro services on instances registered with a Network Load Balancer, you cannot use the load balancer to provide communication between them unless the load balancer is internet\-facing or the instances are registered by IP address\. For more information, see [Connections time out for requests from a target to its load balancer](load-balancer-troubleshooting.md#loopback-timeout)\.
+
 ### Request routing and IP addresses<a name="request-routing-ip-addresses"></a>
 
 If you specify targets using an instance ID, traffic is routed to instances using the primary private IP address specified in the primary network interface for the instance\. The load balancer rewrites the destination IP address from the data packet before forwarding it to the target instance\.
@@ -76,19 +78,17 @@ For more information allowing traffic to your instances, see [Target security gr
 
 ### Source IP preservation<a name="source-ip-preservation"></a>
 
-If you specify targets using an instance ID, the source IP addresses of the clients are preserved and provided to your applications\.
+If you specify targets by instance ID, the source IP addresses of the clients are preserved and provided to your applications\.
 
-If you specify targets by IP address, the source IP addresses depend on the protocol of the target group as follows:
-+ TCP and TLS: The source IP addresses are the private IP addresses of the load balancer nodes\. If you need the IP addresses of the clients, enable [proxy protocol](#proxy-protocol) and get the client IP addresses from the proxy protocol header\.
-+ UDP and TCP\_UDP: The source IP addresses are the private IP addresses of the clients\.
+If you specify targets by IP address, the source IP addresses provided depend on the protocol of the target group as follows:
++ TCP and TLS: The source IP addresses are the private IP addresses of the load balancer nodes\. If you need the IP addresses of the clients, enable [proxy protocol](#proxy-protocol) on the load balancer and get the client IP addresses from the proxy protocol header\.
++ UDP and TCP\_UDP: The source IP addresses are the IP addresses of the clients\.
 
-If you are using the Network Load Balancer with a VPC endpoint service, the source IP addresses provided to your application are the private IP addresses of the load balancer nodes\. If you need the IP addresses of the service consumers, enable [proxy protocol](#proxy-protocol) on the load balancer\.
-
-If you have micro services on instances registered with a Network Load Balancer, you cannot use the load balancer to provide communication between them unless the load balancer is internet\-facing or the instances are registered by IP address\. For more information, see [Connections time out for requests from a target to its load balancer](load-balancer-troubleshooting.md#loopback-timeout)\.
+If you are using a Network Load Balancer with a VPC endpoint service or with AWS Global Accelerator, the source IP addresses provided to your application are the private IP addresses of the load balancer nodes\. If you need the IP addresses of the service consumers, enable [proxy protocol](#proxy-protocol) on the load balancer\.
 
 ## Registered targets<a name="registered-targets"></a>
 
-Your load balancer serves as a single point of contact for clients and distributes incoming traffic across its healthy registered targets\. Each target group must have at least one registered target in each Availability Zone that is enabled for the load balancer\. You can register each target with one or more target groups\. You can register each EC2 instance or IP address with the same target group multiple times using different ports, which enables the load balancer to route requests to microservices\.
+Your load balancer serves as a single point of contact for clients and distributes incoming traffic across its healthy registered targets\. Each target group must have at least one registered target in each Availability Zone that is enabled for the load balancer\. You can register each target with one or more target groups\.
 
 If demand on your application increases, you can register additional targets with one or more target groups in order to handle the demand\. The load balancer starts routing traffic to a newly registered target as soon as the registration process completes\.
 
@@ -98,7 +98,7 @@ If you are registering targets by instance ID, you can use your load balancer wi
 
 **Requirements**
 + You cannot register instances by instance ID if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\.
-+ You cannot register instances by instance ID if they are in a VPC that is peered to the load balancer VPC (same Region or different Region)\. You can register these instances by IP address\.
++ You cannot register instances by instance ID if they are in a VPC that is peered to the load balancer VPC \(same Region or different Region\)\. You can register these instances by IP address\.
 + If you register a target by IP address and the IP address is in the same VPC as the load balancer, the load balancer verifies that it is from a subnet that it can reach\.
 + For UDP and TCP\_UDP target groups, do not register instances by IP address if they reside outside of the load balancer VPC or if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\. Targets that reside outside the load balancer VPC or use an unsupported instance type might be able to receive traffic from the load balancer but then be unable to respond\.
 
@@ -165,9 +165,9 @@ Use the [modify\-target\-group\-attributes](https://docs.aws.amazon.com/cli/late
 
 Network Load Balancers use proxy protocol version 2 to send additional connection information such as the source and destination\. Proxy protocol version 2 provides a binary encoding of the proxy protocol header\. The load balancer prepends a proxy protocol header to the TCP data\. It does not discard or overwrite any existing data, including any proxy protocol headers sent by the client or any other proxies, load balancers, or servers in the network path\. Therefore, it is possible to receive more than one proxy protocol header\. Also, if there is another network path to your targets outside of your Network Load Balancer, the first proxy protocol header might not be the one from your Network Load Balancer\.
 
-If you specify targets by IP address, the source IP addresses depend on the protocol of the target group as follows:
+If you specify targets by IP address, the source IP addresses provided to your applications depend on the protocol of the target group as follows:
 + TCP and TLS: The source IP addresses are the private IP addresses of the load balancer nodes\. If you need the IP addresses of the clients, enable proxy protocol and get the client IP addresses from the proxy protocol header\.
-+ UDP and TCP\_UDP: The source IP addresses are the private IP addresses of the clients\.
++ UDP and TCP\_UDP: The source IP addresses are the IP addresses of the clients\.
 
 If you specify targets by instance ID, the source IP addresses provided to your applications are the client IP addresses\. However, if you prefer, you can enable proxy protocol and get the client IP addresses from the proxy protocol header\.
 
