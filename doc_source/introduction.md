@@ -47,7 +47,7 @@ Using a Network Load Balancer instead of a Classic Load Balancer has the followi
 + Support for containerized applications\. Amazon Elastic Container Service \(Amazon ECS\) can select an unused port when scheduling a task and register the task with a target group using this port\. This enables you to make efficient use of your clusters\.
 + Support for monitoring the health of each service independently, as health checks are defined at the target group level and many Amazon CloudWatch metrics are reported at the target group level\. Attaching a target group to an Auto Scaling group enables you to scale each service dynamically based on demand\.
 
-For more information about the features supported by each load balancer type, see [Product comparison](https://aws.amazon.com/elasticloadbalancing/details/#compare) for Elastic Load Balancing\.
+For more information about the features supported by each load balancer type, see [Product comparisons](http://aws.amazon.com/elasticloadbalancing/features/#Product_comparisons) for Elastic Load Balancing\.
 
 ## How to get started<a name="network-load-balancer-get-started"></a>
 
