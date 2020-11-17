@@ -32,6 +32,8 @@ First, provide some basic configuration information for your load balancer, such
 
 1. For **Scheme**, an internet\-facing load balancer routes requests from clients over the internet to targets\. An internal load balancer routes requests to targets using private IP addresses\.
 
+1. For **IP address type**, choose **ipv4** if your clients use IPv4 addresses to communicate with the load balancer, or **dualstack** if your clients use both IPv4 and IPv6 addresses to communicate with the load balancer\. If the load balancer is an internal load balancer, or if you will add a UDP or TCP\_UDP listener, you must choose **ipv4**\.
+
 1. For **Listeners**, the default is a listener that accepts TCP traffic on port 80\. You can keep the default listener settings, modify the protocol, or modify the port\. Choose **Add** to add another listener\.
 
 1. For **Availability Zones**, select the VPC that you used for your EC2 instances\. For each Availability Zone that you used to launch your EC2 instances, select an Availability Zone and then select the public subnet for that Availability Zone\.
@@ -58,7 +60,7 @@ You register targets, such as EC2 instances, with a target group\. The target gr
 
 1. \(Optional\) Set **Port** as needed\.
 
-1. For **Target type**, select `instance` to specify targets by instance ID or `ip` to specify targets by IP address\. If the target group protocol is UDP or TCP\_UDP, you must select `instance`\.
+1. For **Target type**, select `instance` to specify targets by instance ID or `ip` to specify targets by IP address\.
 
 1. For **Health checks**, keep the default health check settings\.
 

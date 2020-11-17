@@ -5,13 +5,11 @@ This tutorial provides a hands\-on introduction to Network Load Balancers throug
 **Topics**
 + [Before you begin](#prerequisites)
 + [Step 1: Choose a load balancer type](#select-load-balancer-type)
-+ [Step 2: Configure your load balancer and listener](#configure-load-balancer)
++ [Step 2: Configure your load balancer and listener](#configure-load-balancer-listener)
 + [Step 3: Configure your target group](#configure-target-group)
 + [Step 4: Register targets with your target group](#add-targets)
 + [Step 5: Create and test your load balancer](#test-load-balancer)
 + [Step 6: Delete your load balancer \(optional\)](#delete-load-balancer)
-
-Alternatively, to create an Application Load Balancer, see [Getting started with Application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancer-getting-started.html) in the *User Guide for Application Load Balancers*\. To create a Classic Load Balancer, see [Create a Classic Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-getting-started.html) in the *User Guide for Classic Load Balancers*\.
 
 For demos of common load balancer configurations, see [Elastic Load Balancing Demos](https://exampleloadbalancer.com/)\.
 
@@ -21,7 +19,7 @@ For demos of common load balancer configurations, see [Elastic Load Balancing De
 
 ## Step 1: Choose a load balancer type<a name="select-load-balancer-type"></a>
 
-Elastic Load Balancing supports three types of load balancers\. For this tutorial, you create a Network Load Balancer\.
+Elastic Load Balancing supports different types of load balancers\. For this tutorial, you create a Network Load Balancer\.
 
 **To create a Network Load Balancer**
 
@@ -35,7 +33,7 @@ Elastic Load Balancing supports three types of load balancers\. For this tutoria
 
 1. For **Network Load Balancer**, choose **Create**\.
 
-## Step 2: Configure your load balancer and listener<a name="configure-load-balancer"></a>
+## Step 2: Configure your load balancer and listener<a name="configure-load-balancer-listener"></a>
 
 On the **Configure Load Balancer** page, complete the following procedure\.
 
@@ -45,7 +43,7 @@ On the **Configure Load Balancer** page, complete the following procedure\.
 
    The name of your Network Load Balancer must be unique within your set of Application Load Balancers and Network Load Balancers for the region, can have a maximum of 32 characters, can contain only alphanumeric characters and hyphens, must not begin or end with a hyphen, and must not begin with "internal\-"\.
 
-1. For **Scheme**, keep the default value, **internet\-facing**\.
+1. For **Scheme** and **IP address type**, keep the default values\.
 
 1. For **Listeners**, keep the default, which is a listener that accepts TCP traffic on port 80\.
 

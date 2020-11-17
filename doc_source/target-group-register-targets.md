@@ -16,6 +16,8 @@ When you register EC2 instances as targets, you must ensure that the security gr
 + Network Load Balancers do not have associated security groups\. Therefore, the security groups for your targets must use IP addresses to allow traffic from the load balancer\.
 + You cannot use the security groups for clients as a source in the security groups for the targets\. Instead, use the client CIDR blocks as sources in the target security groups\.
 
+The following are the recommended rules for instance security groups\.
+
 
 **Recommended rules for instance security groups**  
 

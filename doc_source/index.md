@@ -19,6 +19,7 @@ Amazon's trademarks and trade dress may not be used in
 + [Tutorial: Create a Network Load Balancer using the AWS CLI](network-load-balancer-cli.md)
 + [Network Load Balancers](network-load-balancers.md)
    + [Create a Network Load Balancer](create-network-load-balancer.md)
+   + [IP address types for your Network Load Balancer](load-balancer-ip-address-type.md)
    + [Tags for your Network Load Balancer](load-balancer-tags.md)
    + [Delete a Network Load Balancer](load-balancer-delete.md)
 + [Listeners for your Network Load Balancers](load-balancer-listeners.md)

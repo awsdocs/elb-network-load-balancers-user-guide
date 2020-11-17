@@ -123,7 +123,7 @@ When you enable access logging, you must specify an S3 bucket for the access log
           "Service": "delivery.logs.amazonaws.com"
         },
         "Action": "s3:PutObject",
-        "Resource": "arn:aws:s3:::bucket_name/prefix/AWSLogs/123456789012/*",
+        "Resource": "arn:aws:s3:::bucket_name/prefix/AWSLogs/aws-account-id/*",
         "Condition": {
           "StringEquals": {
             "s3:x-amz-acl": "bucket-owner-full-control"

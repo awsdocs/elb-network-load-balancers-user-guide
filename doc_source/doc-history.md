@@ -4,6 +4,8 @@ The following table describes the releases for Network Load Balancers\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Dual\-stack mode](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-ip-address-type.html) | This release adds supports for dual\-stack mode, which enables clients to connect to the load balancer using both IPv4 addresses and IPv6 addresses\. | November 13, 2020 | 
+| [Connection termination on deregistration](#doc-history) | This release adds support to close connections to deregistered targets after the end of the deregistration timeout\. | November 13, 2020 | 
 | [ALPN policies](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#alpn-policies) | This release adds support for Application\-Layer Protocol Negotiation \(ALPN\) preference lists\. | May 27, 2020 | 
 | [Sticky sessions](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#sticky-sessions) | This release adds support for sticky sessions based on source IP address and protocol\. | February 28, 2020 | 
 | [Shared subnets](#doc-history) | This release adds support for specifying subnets that were shared with you by another AWS account\. | November 26, 2019 | 

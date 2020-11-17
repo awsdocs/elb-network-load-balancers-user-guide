@@ -52,15 +52,15 @@ The targets are specified by IP address\.
 
 When the target type is `ip`, you can specify IP addresses from one of the following CIDR blocks:
 + The subnets of the VPC for the target group
-+ 10\.0\.0\.0/8 \(RFC 1918\)
-+ 100\.64\.0\.0/10 \(RFC 6598\)
++ 10\.0\.0\.0/8 \([RFC 1918](https://tools.ietf.org/html/rfc1918)\)
++ 100\.64\.0\.0/10 \([RFC 6598](https://tools.ietf.org/html/rfc6598)\)
 + 172\.16\.0\.0/12 \(RFC 1918\)
 + 192\.168\.0\.0/16 \(RFC 1918\)
 
 **Important**  
 You can't specify publicly routable IP addresses\.
 
-These supported CIDR blocks enable you to register the following with a target group: ClassicLink instances, AWS resources that are addressable by IP address and port \(for example, databases\), and on\-premises resources linked to AWS through AWS Direct Connect or a software VPN connection\.
+These supported CIDR blocks enable you to register the following with a target group: ClassicLink instances, AWS resources that are addressable by IP address and port \(for example, databases\), and on\-premises resources linked to AWS through AWS Direct Connect or a Site\-to\-Site VPN connection\.
 
 When the target type is `ip`, the load balancer can support 55,000 simultaneous connections or about 55,000 connections per minute to each unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors\. If you get port allocation errors, add more targets to the target group\.
 
@@ -86,6 +86,8 @@ If you specify targets by IP address, the source IP addresses provided depend on
 
 If you are using a Network Load Balancer with a VPC endpoint service or with AWS Global Accelerator, the source IP addresses provided to your application are the private IP addresses of the load balancer nodes\. If you need the IP addresses of the service consumers, enable [proxy protocol](#proxy-protocol) on the load balancer\.
 
+If you specify targets by instance ID, you might encounter TCP/IP connection limitations related to observed socket reuse on the targets\. These connection limitations can occur when a client, or a NAT device in front of the client, uses the same source IP address and source port when connecting to multiple load balancer nodes simultaneously\. If the load balancer routes the connections to the same target, these connections appear to the target as if they come from the same source socket, which results in connection errors\. If this happens, the clients can retry if the connection fails or reconnect if the connection is interrupted\. You can reduce this type of connection error by increasing the number of source ephemeral ports or by increasing the number of targets for the load balancer\. You can prevent this type of connection error by specifying targets by IP address or by disabling cross\-zone load balancing\.
+
 ## Registered targets<a name="registered-targets"></a>
 
 Your load balancer serves as a single point of contact for clients and distributes incoming traffic across its healthy registered targets\. Each target group must have at least one registered target in each Availability Zone that is enabled for the load balancer\. You can register each target with one or more target groups\.
@@ -109,6 +111,9 @@ The following are the target group attributes:
 `deregistration_delay.timeout_seconds`  
 The amount of time for Elastic Load Balancing to wait before changing the state of a deregistering target from `draining` to `unused`\. The range is 0\-3600 seconds\. The default value is 300 seconds\.
 
+`deregistration_delay.connection_termination.enabled`  
+Indicates whether the load balancer terminates connections at the end of the deregistration timeout\. The value is `true` or `false`\. The default is `false`\.
+
 `proxy_protocol_v2.enabled`  
 Indicates whether proxy protocol version 2 is enabled\. By default, proxy protocol is disabled\.
 
@@ -120,14 +125,16 @@ The type of stickiness\. The possible value is `source_ip`\.
 
 ## Deregistration delay<a name="deregistration-delay"></a>
 
-When you deregister an instance, the load balancer stops creating new connections to the instance\. The load balancer uses connection draining to ensure that in\-flight traffic completes on the existing connections\. If the deregistered instance stays healthy and an existing connection is not idle, the load balancer can continue to send traffic to the instance\. To ensure that existing connections are closed, you can ensure that the instance is unhealthy before you deregister it, or you can periodically close client connections\.
+When you deregister a target, the load balancer stops creating new connections to the target\. The load balancer uses connection draining to ensure that in\-flight traffic completes on the existing connections\. If the deregistered target stays healthy and an existing connection is not idle, the load balancer can continue to send traffic to the target\. To ensure that existing connections are closed, you can do one of the following: enable the target group attribute for connection termination, ensure that the instance is unhealthy before you deregister it, or periodically close client connections\.
 
 The initial state of a deregistering target is `draining`\. By default, the load balancer changes the state of a deregistering target to `unused` after 300 seconds\. To change the amount of time that the load balancer waits before changing the state of a deregistering target to `unused`, update the deregistration delay value\. We recommend that you specify a value of at least 120 seconds to ensure that requests are completed\.
+
+If you enable the target group attribute for connection termination, connections to deregistered targets are closed shortly after the end of the deregistration timeout\.
 
 ------
 #### [ New console ]
 
-**To update the deregistration delay value using the new console**
+**To update the deregistration attributes using the new console**
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
@@ -137,28 +144,28 @@ The initial state of a deregistering target is `draining`\. By default, the load
 
 1. On the **Group details** page, in the **Attributes** section, choose **Edit**\.
 
-1. On the **Edit attributes** page, change the value of **Deregistration delay** as needed\.
+1. To change the deregistration timeout, enter a new value for **Deregistration delay**\. To ensure that existing connections are closed after you deregister targets, select **Connection termination on deregistration**\.
 
 1. Choose **Save changes**\.
 
 ------
 #### [ Old console ]
 
-**To update the deregistration delay value using the old console**
+**To update the deregistration attributes using the old console**
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
 1. On the navigation pane, under **LOAD BALANCING**, choose **Target Groups**\.
 
-1. Select the target group\.
+1. Select the target group and choose **Description**, **Edit attributes**\.
 
-1. Choose **Description**, **Edit attributes**\.
+1. To change the deregistration timeout, enter a new value for **Deregistration delay**\. To ensure that existing connections are closed after you deregister targets, select **Connection termination on deregistration**\.
 
-1. Change the value of **Deregistration delay** as needed, and then choose **Save**\.
+1. Choose **Save**\.
 
 ------
 
-**To update the deregistration delay value using the AWS CLI**  
+**To update the deregistration attributes using the AWS CLI**  
 Use the [modify\-target\-group\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-target-group-attributes.html) command\.
 
 ## Proxy protocol<a name="proxy-protocol"></a>

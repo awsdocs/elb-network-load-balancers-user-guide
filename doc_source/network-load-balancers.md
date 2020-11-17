@@ -9,11 +9,13 @@ Network Load Balancers support connections from clients over VPC peering, AWS ma
 **Topics**
 + [Load balancer state](#load-balancer-state)
 + [Load balancer attributes](#load-balancer-attributes)
++ [IP address type](#ip-address-type)
 + [Availability Zones](#availability-zones)
 + [Deletion protection](#deletion-protection)
 + [Connection idle timeout](#connection-idle-timeout)
 + [DNS name](#dns-name)
 + [Create a Network Load Balancer](create-network-load-balancer.md)
++ [IP address types for your Network Load Balancer](load-balancer-ip-address-type.md)
 + [Tags for your Network Load Balancer](load-balancer-tags.md)
 + [Delete a Network Load Balancer](load-balancer-delete.md)
 
@@ -39,6 +41,24 @@ Indicates whether [deletion protection](#deletion-protection) is enabled\. The d
 
 `load_balancing.cross_zone.enabled`  
 Indicates whether [cross\-zone load balancing](#cross-zone-load-balancing) is enabled\. The default is `false`\.
+
+## IP address type<a name="ip-address-type"></a>
+
+You can set the types of IP addresses that clients can use with your internet\-facing load balancer\. The load balancer must have only TCP and TLS listeners\. Clients must use IPv4 addresses with internal load balancers\.
+
+The following are the IP address types:
+
+`ipv4`  
+Clients must connect to the load balancer using IPv4 addresses \(for example, 192\.0\.2\.1\)
+
+`dualstack`  
+Clients can connect to the load balancer using both IPv4 addresses \(for example, 192\.0\.2\.1\) and IPv6 addresses \(for example, 2001:0db8:85a3:0:0:8a2e:0370:7334\)\.
+
+When you enable dual\-stack mode for the load balancer, Elastic Load Balancing provides an AAAA DNS record for the load balancer\. Clients that communicate with the load balancer using IPv4 addresses resolve the A DNS record\. Clients that communicate with the load balancer using IPv6 addresses resolve the AAAA DNS record\.
+
+The load balancer communicates with targets using IPv4 addresses, regardless of how the client communicates with the load balancer\. Therefore, the targets do not need IPv6 addresses\.
+
+For more information, see [Update the address type](load-balancer-ip-address-type.md)\.
 
 ## Availability Zones<a name="availability-zones"></a>
 
