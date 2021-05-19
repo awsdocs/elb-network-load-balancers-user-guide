@@ -180,7 +180,7 @@ $ dig +short example.networkloadbalancer.com
 C:\> nslookup example.networkloadbalancer.com
 ```
 
-The load balancer has DNS records for its load balancer nodes\. You can use DNS names with the following syntax to determine the IP addresses of the load balancer nodes: *az*\.*name*\-*id*\.elb\.*region*\.amazonaws\.com\.
+The load balancer has DNS records for its load balancer nodes\. You can use DNS names with the following syntax to determine the IP addresses of the zonal load balancer nodes: *az*\.*name*\-*id*\.elb\.*region*\.amazonaws\.com\.
 
 **Linux or Mac**
 
