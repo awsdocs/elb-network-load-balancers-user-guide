@@ -62,7 +62,7 @@ You can't specify publicly routable IP addresses\.
 
 These supported CIDR blocks enable you to register the following with a target group: ClassicLink instances, AWS resources that are addressable by IP address and port \(for example, databases\), and on\-premises resources linked to AWS through AWS Direct Connect or a Site\-to\-Site VPN connection\.
 
-When the target type is `ip`, the load balancer can support 55,000 simultaneous connections or about 55,000 connections per minute to each unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors\. If you get port allocation errors, add more targets to the target group\.
+When the target type is `ip`, the load balancer can support 55,000 simultaneous connections or about 55,000 connections per minute to each unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors\. If you get port allocation errors, add more targets to the target group or enable multiple Availability Zones on the Network Load Balancer\.
 
 Network Load Balancers do not support the `lambda` target type, only Application Load Balancers support the `lambda` target type\. For more information, see [Lambda functions as targets](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/lambda-functions.html) in the *User Guide for Application Load Balancers*\.
 
