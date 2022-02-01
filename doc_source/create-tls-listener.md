@@ -54,26 +54,78 @@ You can manage certificate renewal and replacement as follows:
 
 When you create a TLS listener, you must select a security policy\. You can update the security policy as needed\. For more information, see [Update the security policy](listener-update-certificates.md#update-security-policy)\.
 
-You can choose the security policy that is used for front\-end connections\. The `ELBSecurityPolicy-2016-08` security policy is always used for backend connections\. Network Load Balancers do not support custom security policies\.
+You can choose the security policy that is used for front\-end connections\. For backend connections, if your TLS listener is using a TLS 1\.3 security policy, the `ELBSecurityPolicy-TLS13-1-0-2021-06` security policy is used\. Otherwise, the `ELBSecurityPolicy-2016-08` security policy is used for backend connections\. Network Load Balancers do not support custom security policies\. 
 
 Elastic Load Balancing provides the following security policies for Network Load Balancers:
-+ `ELBSecurityPolicy-2016-08` \(default\)
-+ `ELBSecurityPolicy-TLS-1-0-2015-04`
-+ `ELBSecurityPolicy-TLS-1-1-2017-01`
-+ `ELBSecurityPolicy-TLS-1-2-2017-01`
-+ `ELBSecurityPolicy-TLS-1-2-Ext-2018-06`
-+ `ELBSecurityPolicy-FS-2018-06`
-+ `ELBSecurityPolicy-FS-1-1-2019-08`
-+ `ELBSecurityPolicy-FS-1-2-2019-08`
-+ `ELBSecurityPolicy-FS-1-2-Res-2019-08`
-+ `ELBSecurityPolicy-2015-05` \(identical to `ELBSecurityPolicy-2016-08`\)
++ `ELBSecurityPolicy-TLS13-1-2-2021-06`\*
++ `ELBSecurityPolicy-TLS13-1-2-Res-2021-06`
++ `ELBSecurityPolicy-TLS13-1-2-Ext1-2021-06`
++ `ELBSecurityPolicy-TLS13-1-2-Ext2-2021-06`
++ `ELBSecurityPolicy-TLS13-1-1-2021-06`
++ `ELBSecurityPolicy-TLS13-1-0-2021-06` 
++ `ELBSecurityPolicy-TLS13-1-3-2021-06` 
 + `ELBSecurityPolicy-FS-1-2-Res-2020-10`
++ `ELBSecurityPolicy-FS-1-2-Res-2019-08`
++ `ELBSecurityPolicy-FS-1-2-2019-08`
++ `ELBSecurityPolicy-FS-1-1-2019-08`
++ `ELBSecurityPolicy-FS-2018-06`
++ `ELBSecurityPolicy-TLS-1-2-Ext-2018-06`
++ `ELBSecurityPolicy-TLS-1-2-2017-01`
++ `ELBSecurityPolicy-TLS-1-1-2017-01`
++ `ELBSecurityPolicy-2016-08`\*\* 
++ `ELBSecurityPolicy-TLS-1-0-2015-04`
++ `ELBSecurityPolicy-2015-05` \(identical to `ELBSecurityPolicy-2016-08`\)
 
-We recommend the `ELBSecurityPolicy-2016-08` policy for compatibility\. You can use one of the `ELBSecurityPolicy-FS` policies if you require Forward Secrecy \(FS\)\. You can use one of the `ELBSecurityPolicy-TLS` policies to meet compliance and security standards that require disabling certain TLS protocol versions, or to support legacy clients that require deprecated ciphers\. Only a small percentage of internet clients require TLS version 1\.0\. To view the TLS protocol version for requests to your load balancer, enable access logging for your load balancer and examine the access logs\. For more information, see [Access Logs](load-balancer-access-logs.md)\.
+\*For TLS listeners, we recommend using the `ELBSecurityPolicy-TLS13-1-2-2021-06` security policy\. This is the default policy for listeners created using the AWS Management Console\. This security policy includes TLS 1\.3, which is optimized for security and performance, and is backward compatible with TLS 1\.2\. 
+
+\*\*`ELBSecurityPolicy-2016-08` is the default security policy for listeners created using the AWS CLI\.
+
+For Forward Secrecy, you can use one of the `ELBSecurityPolicy-FS` policies or an `ELBSecurityPolicy-TLS13` policy\. To meet compliance and security standards that require disabling certain TLS protocol versions, or to support legacy clients that require deprecated ciphers, use one of the `ELBSecurityPolicy-TLS` policies\. Only a small percentage of internet clients require TLS version 1\.0\. 
+
+You can enable access logs for information about the TLS requests sent to your Network Load Balancer, analyze TLS traffic patterns to manage security policy upgrades, and troubleshoot issues\. For more information, see [Access Logs](load-balancer-access-logs.md) and [Network Load Balancer Example Queries](https://docs.aws.amazon.com/athena/latest/ug/networkloadbalancer-classic-logs.html#query-nlb-example)\.
+
+### TLS 1\.3 security policies<a name="tls13-security-policies"></a>
+
+The following table describes the recommended policy \(`ELBSecurityPolicy-TLS13-1-2-2021-06`\) and the other TLS 1\.3 policies\. The `ELBSecurityPolicy-` prefix has been removed from policy names in the heading row so that they fit\.
+
+
+| Security policies | ![\[TLS13-1-2-2021-06*\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/TLS13-1-2-2021-06.png)  | ![\[TLS13-1-3-2021-06\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/TLS13-1-3-2021-06.png) | ![\[TLS13-1-2-Res-2021-06\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/TLS13-1-2-Res-2021-06.png)  | ![\[TLS13-1-2-Ext2-2021-06\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/TLS13-1-2-Ext2-2021-06.png)  | ![\[TLS13-1-2-Ext1-2021-06\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/TLS13-1-2-Ext1-2021-06.png)  | ![\[TLS13-1-1-2021-06\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/TLS13-1-1-2021-06.png)  | ![\[TLS13-1-0-2021-06\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/TLS13-1-0-2021-06.png)  | 
+| --- |--- |--- |--- |--- |--- |--- |--- |
+| **TLS Protocols** | 
+| --- |
+|  Protocol\-TLSv1  |  |  |  |  |  |  | ✓ | 
+|  Protocol\-TLSv1\.1  |  |  |  |  |  | ✓ | ✓ | 
+|  Protocol\-TLSv1\.2  | ✓ |  | ✓ | ✓ | ✓ | ✓ | ✓ | 
+| Protocol\-TLSv1\.3 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 
+| **TLS Ciphers** | 
+| --- |
+| TLS\-AES\-128\-GCM\-SHA256 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 
+| TLS\-AES\-256\-GCM\-SHA384 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 
+| TLS\-CHACHA20\-POLY1305\-SHA256 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | 
+|  ECDHE\-ECDSA\-AES128\-GCM\-SHA256  | ✓ |  | ✓ | ✓ | ✓ | ✓ | ✓ | 
+|  ECDHE\-RSA\-AES128\-GCM\-SHA256  | ✓ |  | ✓ | ✓ | ✓ | ✓ | ✓ | 
+|  ECDHE\-ECDSA\-AES128\-SHA256  | ✓ |  |  | ✓ | ✓ | ✓ | ✓ | 
+|  ECDHE\-RSA\-AES128\-SHA256  | ✓ |  |  | ✓ | ✓ | ✓ | ✓ | 
+|  ECDHE\-ECDSA\-AES128\-SHA  |  |  |  | ✓ |  | ✓ | ✓ | 
+|  ECDHE\-RSA\-AES128\-SHA  |  |  |  | ✓ |  | ✓ | ✓ | 
+|  ECDHE\-ECDSA\-AES256\-GCM\-SHA384  | ✓ |  | ✓ | ✓ | ✓ | ✓ | ✓ | 
+|  ECDHE\-RSA\-AES256\-GCM\-SHA384  | ✓ |  | ✓ | ✓ | ✓ | ✓ | ✓ | 
+|  ECDHE\-ECDSA\-AES256\-SHA384  | ✓ |  |  | ✓ | ✓ | ✓ | ✓ | 
+|  ECDHE\-RSA\-AES256\-SHA384  | ✓ |  |  | ✓ | ✓ | ✓ | ✓ | 
+|  ECDHE\-RSA\-AES256\-SHA  |  |  |  | ✓ |  | ✓ | ✓ | 
+|  ECDHE\-ECDSA\-AES256\-SHA  |  |  |  | ✓ |  | ✓ | ✓ | 
+|  AES128\-GCM\-SHA256  |  |  |  | ✓ | ✓ | ✓ | ✓ | 
+|  AES128\-SHA256  |  |  |  | ✓ | ✓ | ✓ | ✓ | 
+|  AES128\-SHA  |  |  |  | ✓ |  | ✓ | ✓ | 
+|  AES256\-GCM\-SHA384  |  |  |  | ✓ | ✓ | ✓ | ✓ | 
+|  AES256\-SHA256  |  |  |  | ✓ | ✓ | ✓ | ✓ | 
+|  AES256\-SHA  |  |  |  | ✓ |  | ✓ | ✓ | 
+
+To view the configuration of a security policy for your load balancer using the AWS CLI, use the [describe\-ssl\-policies](https://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-ssl-policies.html) command\. The default policy in the AWS CLI is `ELBSecurityPolicy-2016-08`\. To upgrade to a TLS 1\.3 security policy using the AWS CLI, use the `ssl-policy` parameter with the [create\-listener](https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-listener.html) and [modify\-listener](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-listener.html) commands\.
 
 ### FS security policies<a name="fs-security-policies"></a>
 
-The following table describes the default policy and the `ELBSecurityPolicy-FS` policies\. `ELBSecurityPolicy-` has been removed from policy names in the heading row so that they fit\. 
+The following table describes the default policy `ELBSecurityPolicy-2016-08` \(default in the AWS CLI\) and the `ELBSecurityPolicy-FS` policies\. `ELBSecurityPolicy-` prefix has been removed from policy names in the heading row so that they fit\. 
 
 
 | Security policies | ![\[ELBSecurityPolicy-2016-08\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/FS-default.png) | ![\[ELBSecurityPolicy-FS-1-2-Res-2020-10\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/FS-1-2-Res-2020-10.png)  | ![\[ELBSecurityPolicy-FS-1-2-Res-2019-08\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/FS-1-2-Res-2019-08.png)  | ![\[ELBSecurityPolicy-FS-1-2-2019-08\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/FS-1-2-2019-08.png)  | ![\[ELBSecurityPolicy-FS-1-1-2019-08\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/FS-1-1-2019-08.png)  | ![\[ELBSecurityPolicy-FS-2018-06\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/FS-2018-06.png)  | 
@@ -106,7 +158,7 @@ The following table describes the default policy and the `ELBSecurityPolicy-FS` 
 
 ### TLS security policies<a name="tls-security-policies"></a>
 
-The following table describes the default policy, `ELBSecurityPolicy-2016-08`, and the `ELBSecurityPolicy-TLS` policies\. The `ELBSecurityPolicy-` has been removed from policy names in the heading row so that they fit\.
+The following table describes the default policy `ELBSecurityPolicy-2016-08` \(default in the AWS CLI\), and the `ELBSecurityPolicy-TLS` policies\. The `ELBSecurityPolicy-` prefix has been removed from policy names in the heading row so that they fit\.
 
 
 | Security policies | ![\[ELBSecurityPolicy-2016-08\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/FS-default.png) | ![\[ELBSecurityPolicy-TLS-1-2-Ext-2018-06\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/TLS-1-2-Ext-2018-06.png)  | ![\[ELBSecurityPolicy-TLS-1-2-2017-01\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/TLS-1-2-2017-01.png)  | ![\[ELBSecurityPolicy-TSL-1-1-2017-01\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/TSL-1-1-2017-01.png)  | ![\[ELBSecurityPolicy-TLS-1-0-2015-04\]](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/images/TLS-1-0-2015-04.png)  | 

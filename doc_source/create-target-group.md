@@ -31,9 +31,15 @@ You can add or remove targets from your target group at any time\. For more info
 
 1. \(Optional\) For **Port**, modify the default value as needed\.
 
+1. If the target type is **IP addresses**, choose **IPv4** or **IPv6** as the **IP address type**, otherwise skip to the next step\.
+
+   Note that you can associate IPv6 target groups only to a dualstack load balancer with TCP or TLS listeners\. All targets in the target group must have the same IP address type\. You can't change the IP address type once a target group is created\.
+
 1. For **VPC**, select a virtual private cloud \(VPC\)\.
 
-1. In the **Health checks** section, modify the default settings as needed\. For **Advanced health check settings**, choose the health check port, count, timeout, interval, and specify success codes\. If health checks consecutively exceed the **Unhealthy threshold** count, the load balancer takes the target out of service\. If health checks consecutively exceed the **Healthy threshold** count, the load balancer puts the target back in service\. For more information, see [Health checks for your target groups](target-group-health-checks.md)\.
+1. In the **Health checks** section, modify the default settings as needed\. Note that for IP address type targets, **Health checks** use the same IP address type as that of the target group\. 
+
+   For **Advanced health check settings**, choose the health check port, count, timeout, interval, and specify success codes\. If health checks consecutively exceed the **Unhealthy threshold** count, the load balancer takes the target out of service\. If health checks consecutively exceed the **Healthy threshold** count, the load balancer puts the target back in service\. For more information, see [Health checks for your target groups](target-group-health-checks.md)\.
 
 1. \(Optional\) Add one or more tags as follows:
 
@@ -47,7 +53,15 @@ You can add or remove targets from your target group at any time\. For more info
 
 1. In the **Register targets** page, add one or more targets as follows:
    + If the target type is **Instances**, select one or more instances, enter one or more ports, and then choose **Include as pending below**\.
-   + If the target type is **IP addresses**, select the network, enter the IP address and ports, and then choose **Include as pending below**\.
+   + If the target type is **IP addresses**, do the following:
+
+     1. Select a network **VPC** from the list, or choose **Other private IP addresses**\.
+
+     1. Enter the IP address manually, or find the IP address using instance details\. You can enter up to five IP addresses at a time\.
+
+     1. Enter the ports for routing traffic to the specified IP addresses\. 
+
+     1. Choose **Include as pending below**\. 
 
 1. Choose **Create target group**\.
 

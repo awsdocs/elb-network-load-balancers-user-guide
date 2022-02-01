@@ -4,6 +4,7 @@ The following table describes the releases for Network Load Balancers\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [TLS 1\.3](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#describe-ssl-policies) | This release adds security policies supporting TLS version 1\.3\. | October 14, 2021 | 
 | [Application Load Balancers as targets](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/application-load-balancer-target.html) | This release adds support to configure an Application Load Balancer as the target of a Network Load Balancer\. | September 27, 2021 | 
 | [Client IP preservation](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#client-ip-preservation) | This release adds support to configure client IP preservation\. | February 4, 2021 | 
 | [Security policy for FS supporting TLS version 1\.2](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#describe-ssl-policies) | This release adds a security policy for Forward Secrecy \(FS\) supporting TLS version 1\.2\. | November 24, 2020 | 

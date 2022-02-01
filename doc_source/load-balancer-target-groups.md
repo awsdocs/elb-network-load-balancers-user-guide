@@ -7,6 +7,7 @@ You define health check settings for your load balancer on a per target group ba
 **Topics**
 + [Routing configuration](#target-group-routing-configuration)
 + [Target type](#target-type)
++ [IP address type](#target-group-ip-address-type)
 + [Registered targets](#registered-targets)
 + [Target group attributes](#target-group-attributes)
 + [Client IP preservation](#client-ip-preservation)
@@ -35,7 +36,8 @@ The following table summarizes the supported combinations of listener protocol a
 
 | Listener protocol | Target group protocol | Target group type | Health check protocol | 
 | --- | --- | --- | --- | 
-|  TCP  |  TCP \| TCP\_UDP  |  instance \| ip \| alb  |  HTTP \| HTTPS \| TCP  | 
+|  TCP  |  TCP \| TCP\_UDP  |  instance \| ip   |  HTTP \| HTTPS \| TCP  | 
+|  TCP  |  TCP  |   alb  |  HTTP \| HTTPS   | 
 |  TLS  |  TCP \| TLS  |  instance \| ip   |  HTTP \| HTTPS \| TCP  | 
 |  UDP  |  UDP \| TCP\_UDP  |  instance \| ip   |  HTTP \| HTTPS \| TCP  | 
 |  TCP\_UDP  |  TCP\_UDP  |  instance \| ip   |  HTTP \| HTTPS \| TCP  | 
@@ -70,7 +72,9 @@ All of the supported CIDR blocks enable you to register the following targets wi
 + AWS resources that are addressable by IP address and port \(for example, databases\)
 + On\-premises resources linked to AWS through AWS Direct Connect or a Site\-to\-Site VPN connection
 
-When the target type is `ip`, the load balancer can support 55,000 simultaneous connections or about 55,000 connections per minute to each unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors\. If you get port allocation errors, add more targets to the target group\.
+When client IP preservation is disabled for your target groups, the load balancer can support about 55,000 connections per minute for each combination of Network Load Balancer IP address and unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors\. If you get port allocation errors, add more targets to the target group\.
+
+When launching a Network Load Balancer in a shared Amazon VPC \(as a participant\), you can only register targets in subnets that have been shared with you\.
 
 When the target type is `alb`, you can register a single Application Load Balancer as a target\. For more information, see [Application Load Balancers as targets](application-load-balancer-target.md)\.
 
@@ -85,6 +89,17 @@ If you specify targets using an instance ID, traffic is routed to instances usin
 If you specify targets using IP addresses, you can route traffic to an instance using any private IP address from one or more network interfaces\. This enables multiple applications on an instance to use the same port\. Note that each network interface can have its own security group\. The load balancer rewrites the destination IP address before forwarding it to the target\.
 
 For more information about allowing traffic to your instances, see [Target security groups](target-group-register-targets.md#target-security-groups)\.
+
+## IP address type<a name="target-group-ip-address-type"></a>
+
+When creating a new target group, you can select the IP address type of your target group\. This controls the IP version used to communicate with targets and check their health status\. 
+
+Network Load Balancers support both IPv4 and IPv6 target groups\. The default selection is IPv4\. IPv6 target groups can only be associated with dualstack Network Load Balancers\.
+
+**Considerations**
++ All IP addresses within a target group must have the same IP address type\. For example, you can't register an IPv4 target with an IPv6 target group\.
++ IPv6 target groups can only be used with `dualstack` load balancers with TCP or a TLS listeners\.
++ IPv6 target groups only support IP type targets\.
 
 ## Registered targets<a name="registered-targets"></a>
 
@@ -127,15 +142,14 @@ The type of stickiness\. The possible value is `source_ip`\.
 
 ## Client IP preservation<a name="client-ip-preservation"></a>
 
-When you specify targets by instance ID, the client IP of all incoming traffic is preserved and provided to your applications\. 
+Network Load Balancers can preserve the source IP address of clients when routing requests to backend targets\. When you disable client IP preservation, the private IP address of the Network Load Balancer becomes the client IP address for all incoming traffic\. 
 
-When you specify targets by IP address, the following conditions apply:
-+ If the target group protocol is TCP or TLS, client IP preservation is disabled by default\.
-+ If the target group protocol is UDP and TCP\_UDP, client IP preservation is enabled by default\. 
+By default, client IP preservation is enabled \(and cannot be disabled\) for instance and IP type target groups with UDP and TCP\_UDP protocols\. However, you can enable or disable client IP preservation for TCP and TLS target groups using the `preserve_client_ip.enabled` target group attribute\. 
 
-When you specify targets by Application Load Balancer type, the client IP of all incoming traffic is preserved by the Network Load Balancer and is sent to the Application Load Balancer\. The Application Load Balancer then appends the client IP to the `X-Forwarded-For` request header before sending it to the target\.
-
-You can enable or disable client IP preservation for TCP and TLS target groups\. When client IP preservation is disabled, the private IP address of the Network Load Balancer becomes the client IP for all incoming traffic\. If you need the IP addresses of the service consumers, enable [Proxy protocol](#proxy-protocol) on the load balancer\.
+**Default settings**
++ Instance type target groups: Enabled
++ IP type target groups \(UDP, TCP\_UDP\): Enabled
++ IP type target groups \(TCP, TLS\): Disabled
 
 **Limitations and considerations**
 + When client IP preservation is enabled, targets must be in the same VPC as the Network Load Balancer, and traffic must flow directly from the Network Load Balancer to the target\.
@@ -143,9 +157,10 @@ You can enable or disable client IP preservation for TCP and TLS target groups\.
 + The following instance types do not support client IP preservation: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. We recommend that you register these instance types as IP addresses with client IP preservation disabled\.
 + Client IP preservation has no effect on AWS PrivateLink traffic\. The source IP of the AWS PrivateLink traffic is always the private IP address of the Network Load Balancer\.
 + Client IP preservation has no effect on traffic converted from IPv6 to IPv4\. The source IP of this type of traffic is always the private IP address of the Network Load Balancer\.
++ When you specify targets by Application Load Balancer type, the client IP of all incoming traffic is preserved by the Network Load Balancer and is sent to the Application Load Balancer\. The Application Load Balancer then appends the client IP to the `X-Forwarded-For` request header before sending it to the target\.
 + Client IP preservation changes take effect only for new TCP connections\.
 
-If you specify targets by instance ID, you might encounter TCP/IP connection limitations related to observed socket reuse on the targets\. These connection limitations can occur when a client, or a NAT device in front of the client, uses the same source IP address and source port when connecting to multiple load balancer nodes simultaneously\. If the load balancer routes these connections to the same target, the connections appear to the target as if they come from the same source socket, which results in connection errors\. If this happens, the clients can retry \(if the connection fails\) or reconnect \(if the connection is interrupted\)\. You can reduce this type of connection error by increasing the number of source ephemeral ports or by increasing the number of targets for the load balancer\. You can prevent this type of connection error by specifying targets by IP address or by disabling cross\-zone load balancing\.
+When client IP preservation is enabled, you might encounter TCP/IP connection limitations related to observed socket reuse on the targets\. These connection limitations can occur when a client, or a NAT device in front of the client, uses the same source IP address and source port when connecting to multiple load balancer nodes simultaneously\. If the load balancer routes these connections to the same target, the connections appear to the target as if they come from the same source socket, which results in connection errors\. If this happens, the clients can retry \(if the connection fails\) or reconnect \(if the connection is interrupted\)\. You can reduce this type of connection error by increasing the number of source ephemeral ports or by increasing the number of targets for the load balancer\. You can prevent this type of connection error, by disabling client IP preservation or disabling cross\-zone load balancing\.
 
 ------
 #### [ New console ]

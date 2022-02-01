@@ -7,7 +7,7 @@ Access logs are created only if the load balancer has a TLS listener and they co
 
 Access logging is an optional feature of Elastic Load Balancing that is disabled by default\. After you enable access logging for your load balancer, Elastic Load Balancing captures the logs as compressed files and stores them in the Amazon S3 bucket that you specify\. You can disable access logging at any time\.
 
-You can enable server\-side encryption with Amazon S3\-managed encryption keys \(SSE\-S3\) for your S3 bucket\. Each access log file is automatically encrypted before it is stored in your S3 bucket and decrypted when you access it\. You do not need to take any action as there is no difference in the way you access encrypted or unencrypted log files\. Each log file is encrypted with a unique key, which is itself encrypted with a master key that is regularly rotated\. For more information, see [Protecting data using server\-side encryption with Amazon S3\-managed encryption keys \(SSE\-S3\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html)  in the *Amazon Simple Storage Service User Guide*\.
+You can enable server\-side encryption with Amazon S3\-managed encryption keys \(SSE\-S3\), or using Key Management Service with Customer Managed Keys \(SSE\-KMS CMK\) for your S3 bucket\. Each access log file is automatically encrypted before it is stored in your S3 bucket and decrypted when you access it\. You do not need to take any action as there is no difference in the way you access encrypted or unencrypted log files\. Each log file is encrypted with a unique key, which is itself encrypted with a master key that is regularly rotated\. For more information, see [Protecting data using server\-side encryption with Amazon S3\-managed encryption keys \(SSE\-S3\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html) and [Protecting Data Using Server\-Side Encryption with KMS keys Stored in AWS Key Management Service \(SSE\-KMS\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html) in the *Amazon Simple Storage Service User Guide*\.
 
 There is no additional charge for access logs\. You are charged storage costs for Amazon S3, but not charged for the bandwidth used by Elastic Load Balancing to send log files to Amazon S3\. For more information about storage costs, see [Amazon S3 Pricing](https://aws.amazon.com/s3/pricing/)\.
 
@@ -18,7 +18,7 @@ Elastic Load Balancing publishes a log file for each load balancer node every 5 
 The file names of the access logs use the following format:
 
 ```
-bucket[/prefix]/AWSLogs/aws-account-id/elasticloadbalancing/region/yyyy/mm/dd/aws-account-id_elasticloadbalancing_region_load-balancer-id_end-time_random-string.log.gz
+bucket[/prefix]/AWSLogs/aws-account-id/elasticloadbalancing/region/yyyy/mm/dd/aws-account-id_elasticloadbalancing_region_net.load-balancer-id_end-time_random-string.log.gz
 ```
 
 *bucket*  
@@ -104,12 +104,11 @@ h2 h2 "h2","http/1.1"
 
 ## Bucket requirements<a name="access-logging-bucket-requirements"></a>
 
-When you enable access logging, you must specify an S3 bucket for the access logs\. The bucket can be owned by a different account than the account that owns the load balancer\. The bucket must meet the following requirements\.
+When you enable access logging, you must specify an S3 bucket for the access logs\. The bucket can be owned by a different account than the account that owns the load balancer\. The bucket must meet the following requirements\. 
 
 **Requirements**
 + The bucket must be located in the same region as the load balancer\.
 + The prefix that you specify must not include AWSLogs\. We add the portion of the file name starting with AWSLogs after the bucket name and prefix that you specify\.
-+ Enable server\-side encryption with Amazon S3\-Managed Encryption Keys \(SSE\-S3\) \.
 + The bucket must have a bucket policy that grants permission to write the access logs to your bucket\. Bucket policies are a collection of JSON statements written in the access policy language to define access permissions for your bucket\. The following is an example policy\.
 
   ```
@@ -142,6 +141,14 @@ When you enable access logging, you must specify an S3 bucket for the access log
     ]
   }
   ```
+
+**Encryption**
+
+You can enable server\-side encryption for your Amazon S3 access log bucket in one of the following ways:
++ Using Amazon S3\-Managed Encryption Keys \(SSE\-S3\)\. 
++ Using Key Management Service \(SSE\-KMS\) with customer managed keys \. 
+
+Network Load Balancer access logs do not support KMS with AWS managed keys\. For more information, see [Protecting data using server\-side encryption with Amazon S3\-managed encryption keys \(SSE\-S3\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html) and [Protecting Data Using Server\-Side Encryption with KMS keys Stored in AWS Key Management Service \(SSE\-KMS\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html) in the *Amazon Simple Storage Service User Guide*\.
 
 ## Enable access logging<a name="enable-disable-access-logging"></a>
 

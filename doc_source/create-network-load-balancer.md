@@ -89,8 +89,6 @@ To create a Network Load Balancer, you must first provide basic configuration in
 
    1. For **IP address type**, choose **IPv4** or **Dualstack**\. Use **IPv4** if your clients use IPv4 addresses to communicate with the load balancer\. Use **Dualstack** if your clients use both IPv4 and IPv6 addresses to communicate with the load balancer\. 
 
-      Note: If the load balancer is an internal load balancer, or if you add a UDP or TCP\_UDP listener, you must choose **IPv4**\.
-
 1. **Network and security**
 
    1. For **VPC**, select the VPC that you used for your EC2 instances\. If you selected **Internet\-facing** for **Scheme**, only VPCs with an internet gateway are available for selection\.

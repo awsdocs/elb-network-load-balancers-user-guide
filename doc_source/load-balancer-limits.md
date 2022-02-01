@@ -10,10 +10,10 @@ Your AWS account has the following quotas related to Network Load Balancers\.
 
 **Regional**
 + Network Load Balancers per Region: 50
-+ Network Load Balancer ENIs per Amazon VPC: 300 **\***
++ Network Load Balancer ENIs per Amazon VPC: 1200 **\***
 + Target groups per Region: 3,000 **\*\***
 
-**\*** Each Network Load Balancer uses one network interface per zone\.
+**\*** Each Network Load Balancer uses one network interface per zone\. The quota is set at the VPC level\. When sharing subnets or VPCs, the usage is calculated across all tenants\.
 
 **\*\*** This quota is shared by target groups for your Application Load Balancers and Network Load Balancers\.
 

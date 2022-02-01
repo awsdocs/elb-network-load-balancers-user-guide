@@ -11,6 +11,7 @@ Network Load Balancers support connections from clients over VPC peering, AWS ma
 + [Load balancer attributes](#load-balancer-attributes)
 + [IP address type](#ip-address-type)
 + [Availability Zones](#availability-zones)
++ [Cross\-zone load balancing](#cross-zone-load-balancing)
 + [Deletion protection](#deletion-protection)
 + [Connection idle timeout](#connection-idle-timeout)
 + [DNS name](#dns-name)
@@ -48,26 +49,30 @@ The prefix for the location in the Amazon S3 bucket\.
 `deletion_protection.enabled`  
 Indicates whether [deletion protection](#deletion-protection) is enabled\. The default is `false`\.
 
+`ipv6.deny_all_igw_traffic`  
+Blocks internet gateway \(IGW\) access to the load balancer, preventing unintended access to your internal load balancer through an internet gateway\. It is set to `false` for internet\-facing load balancers and `true` for internal load balancers\. This attribute does not prevent non\-IGW internet access \(such as, through peering, Transit Gateway, AWS Direct Connect, or AWS VPN\)\.
+
 `load_balancing.cross_zone.enabled`  
 Indicates whether [cross\-zone load balancing](#cross-zone-load-balancing) is enabled\. The default is `false`\.
 
 ## IP address type<a name="ip-address-type"></a>
 
-You can set the types of IP addresses that clients can use with your internet\-facing load balancer\. The load balancer must have only TCP and TLS listeners\. Clients must use IPv4 addresses with internal load balancers\.
+You can set the types of IP addresses that clients can use with your load balancer\. 
 
 The following are the IP address types:
 
 `ipv4`  
-Clients must connect to the load balancer using IPv4 addresses \(for example, 192\.0\.2\.1\)
+Clients must connect to the load balancer using IPv4 addresses \(for example, 192\.0\.2\.1\)\. IPv4 enabled load balancers \(both internet\-facing and internal\) support TCP, UDP, TCP\_UDP, and TLS listeners\.
 
 `dualstack`  
-Clients can connect to the load balancer using both IPv4 addresses \(for example, 192\.0\.2\.1\) and IPv6 addresses \(for example, 2001:0db8:85a3:0:0:8a2e:0370:7334\)\.
+Clients can connect to the load balancer using both IPv4 addresses \(for example, 192\.0\.2\.1\) and IPv6 addresses \(for example, 2001:0db8:85a3:0:0:8a2e:0370:7334\)\. Dualstack enabled load balancers \(both internet\-facing and internal\) support TCP and TLS listeners\.
 
-When you enable dual\-stack mode for the load balancer, Elastic Load Balancing provides an AAAA DNS record for the load balancer\. Clients that communicate with the load balancer using IPv4 addresses resolve the A DNS record\. Clients that communicate with the load balancer using IPv6 addresses resolve the AAAA DNS record\.
+**Dualstack load balancer considerations**
++ The load balancer communicates with targets based on the IP address type of the target group\.
++ When you enable dualstack mode for the load balancer, Elastic Load Balancing provides an AAAA DNS record for the load balancer\. Clients that communicate with the load balancer using IPv4 addresses resolve the A DNS record\. Clients that communicate with the load balancer using IPv6 addresses resolve the AAAA DNS record\.
++ Access to your internal dualstack load balancers through the internet gateway is blocked to prevent unintended internet access\. However, this does not prevent non\-IWG internet access \(such as, through peering, Transit Gateway, AWS Direct Connect, or AWS VPN\)\. 
 
-The load balancer communicates with targets using IPv4 addresses, regardless of how the client communicates with the load balancer\. Therefore, the targets do not need IPv6 addresses\.
-
-For more information, see [Update the address type](load-balancer-ip-address-type.md)\.
+For more information on load balancer IP address types, see [Update the address type](load-balancer-ip-address-type.md)\.
 
 ## Availability Zones<a name="availability-zones"></a>
 
@@ -105,7 +110,7 @@ After you enable an Availability Zone, the load balancer starts routing requests
 **To add Availability Zones using the AWS CLI**  
 Use the [set\-subnets](https://docs.aws.amazon.com/cli/latest/reference/elbv2/set-subnets.html) command\.
 
-### Cross\-zone load balancing<a name="cross-zone-load-balancing"></a>
+## Cross\-zone load balancing<a name="cross-zone-load-balancing"></a>
 
 By default, each load balancer node distributes traffic across the registered targets in its Availability Zone only\. If you enable cross\-zone load balancing, each load balancer node distributes traffic across the registered targets in all enabled Availability Zones\. For more information, see [Cross\-zone load balancing](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#cross-zone-load-balancing) in the *Elastic Load Balancing User Guide*\.
 
@@ -119,10 +124,13 @@ By default, each load balancer node distributes traffic across the registered ta
 
 1. Choose **Description**, **Edit attributes**\.
 
-1. On the **Edit load balancer attributes** page, select **Enable** for **Cross\-Zone Load Balancing**, and choose **Save**\.
+1. In the **Edit load balancer attributes** dialog, select **Enable** for **Cross\-zone load balancing**, and choose **Save**\.
 
-**To enable cross\-zone load balancing using the AWS CLI**  
-Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-load-balancer-attributes.html) command with the `load_balancing.cross_zone.enabled` attribute\.
+**To disable cross\-zone load balancing using the console**  
+Use the steps above from step 1 to step 4\. Then, in the **Edit load balancer attributes** dialog, clear **Enable** from **Cross\-zone load balancing**, and choose **Save**\. 
+
+**To enable or disable cross\-zone load balancing using the AWS CLI**  
+Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-load-balancer-attributes.html) command with the `load_balancing.cross_zone.enabled` attribute, where the possible values are `true` \(to enable cross\-zone load balancing\), and `false` \(to disable cross\-zone load balancing\)\. The default is `false`\.
 
 ## Deletion protection<a name="deletion-protection"></a>
 

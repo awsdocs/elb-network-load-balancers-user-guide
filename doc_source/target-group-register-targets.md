@@ -160,6 +160,8 @@ An instance must be in the `running` state when you register it\.
 
 ### Register or deregister targets by IP address<a name="register-ip-addresses"></a>
 
+**IPv4 targets**
+
 An IP address that you register must be from one of the following CIDR blocks:
 + The subnets of the VPC for the target group
 + 10\.0\.0\.0/8 \(RFC 1918\)
@@ -167,8 +169,14 @@ An IP address that you register must be from one of the following CIDR blocks:
 + 172\.16\.0\.0/12 \(RFC 1918\)
 + 192\.168\.0\.0/16 \(RFC 1918\)
 
-**Limits**
-+ When launching a Network Load Balancer in a shared Amazon VPC as a participant, you can only register targets in subnets that have been shared with you\.
+The IP address type cannot be changed after the target group is created\.
+
+When launching a Network Load Balancer in a shared Amazon VPC as a participant, you can only register targets in subnets that have been shared with you\.
+
+**IPv6 targets**
++ The IP addresses that you register must be within the VPC CIDR block or within a peered VPC CIDR block\.
++ The IP address type cannot be changed after the target group is created\.
++ You can associate IPv6 target groups only to a dualstack load balancer with TCP or a TLS listeners\.
 
 ------
 #### [ New console ]
@@ -183,7 +191,7 @@ An IP address that you register must be from one of the following CIDR blocks:
 
 1. Choose the **Targets** tab\.
 
-1. To register IP addresses, choose **Register targets**\. For each IP address, select the network, Availability Zone, IP address, and port, and then choose **Include as pending below**\. When you are finished specifying addresses, choose **Register pending targets**\.
+1. To register IP addresses, choose **Register targets**\. For each IP address, select the network, Availability Zone, IP address \(IPv4 or IPv6\), and port, and then choose **Include as pending below**\. When you are finished specifying addresses, choose **Register pending targets**\.
 
 1. To deregister IP addresses, select the IP addresses and then choose **Deregister**\. If you have many registered IP addresses, you might find it helpful to add a filter or change the sort order\.
 

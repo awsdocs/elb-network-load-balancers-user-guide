@@ -8,7 +8,7 @@ With active health checks, the load balancer periodically sends a request to eac
 
 With passive health checks, the load balancer observes how targets respond to connections\. Passive health checks enable the load balancer to detect an unhealthy target before it is reported as unhealthy by the active health checks\. You cannot disable, configure, or monitor passive health checks\. Passive health checks are not supported for UDP traffic\.
 
-If a target becomes unhealthy, the load balancer sends a TCP RST for packets received on the client connections associated with the target\.
+If a target becomes unhealthy, the load balancer sends a TCP RST for packets received on the client connections associated with the target, unless the unhealthy target triggers the load balancer to fail open\. 
 
 If target groups don't have a healthy target in an enabled Availability Zone, we remove the IP address for the corresponding subnet from DNS so that requests cannot be routed to targets in that Availability Zone\. If all targets fail health checks at the same time in all enabled Availability Zones, the load balancer fails open\. The effect of the fail open is to allow traffic to all targets in all enabled Availability Zones, regardless of their health status\.
 

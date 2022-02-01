@@ -64,7 +64,13 @@ If your Network Load Balancer is associated with a VPC endpoint service, it supp
 
 ## Intermittent connection failure when client IP preservation is enabled<a name="intermittent-connection-failure"></a>
 
-When client IP preservation is enabled, connectivity might fail if the clients that are connecting to the Network Load Balancer are also connected to targets behind the load balancer\. To resolve this, you can disable client IP preservation on the affected target groups\. Alternatively, have your clients connect only to the Network Load Balancer, or only to the targets, but not both\.
+When client IP preservation is enabled, you might encounter TCP/IP connection limitations related to observed socket reuse on the targets\. These connection limitations can occur when a client, or a NAT device in front of the client, uses the same source IP address and source port when connecting to multiple load balancer nodes simultaneously\. If the load balancer routes these connections to the same target, the connections appear to the target as if they come from the same source socket, which results in connection errors\. If this happens, clients can retry \(if the connection fails\) or reconnect \(if the connection is interrupted\)\. You can reduce this type of connection error by increasing the number of source ephemeral ports or by increasing the number of targets for the load balancer\. You can prevent this type of connection error by disabling client IP preservation or by disabling cross\-zone load balancing\.
+
+Additionally, when client IP preservation is enabled, connectivity might fail if the clients that are connecting to the Network Load Balancer are also connected to targets behind the load balancer\. To resolve this, you can disable client IP preservation on the affected target groups\. Alternatively, have your clients connect only to the Network Load Balancer, or only to the targets, but not both\.
+
+## TCP connection delays<a name="tcp-delays"></a>
+
+When both cross\-zone load balancing and client IP preservation are enabled, a client connecting to different IPs on the same load balancer may be routed to the same target\. If the client uses the same source port for both of these connections, the target will receive what appears to be a duplicate connection, which can lead to connection errors and TCP delays in establishing new connections\. You can prevent this type of connection error by disabling cross\-zone load balancing\. For more information, see [Cross\-zone load balancing](network-load-balancers.md#cross-zone-load-balancing)\. 
 
 ## Potential failure when the load balancer is being provisioned<a name="load-balancer-provision-failure"></a>
 
