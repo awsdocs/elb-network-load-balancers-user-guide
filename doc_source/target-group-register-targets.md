@@ -1,36 +1,46 @@
 # Register targets with your target group<a name="target-group-register-targets"></a>
 
-When your target is ready to handle requests, you register it with one or more target groups\. You can register targets by instance ID or by IP address\. The load balancer starts routing requests to the target as soon as the registration process completes and the target passes the initial health checks\. It can take a few minutes for the registration process to complete and health checks to start\. For more information, see [Health checks for your target groups](target-group-health-checks.md)\.
+When your target is ready to handle requests, you register it with one or more target groups\. The target type of the target group determines how you register targets\. For example, you can register instance IDs, IP addresses, or an Application Load Balancer\. Your Network Load Balancer starts routing requests to targets as soon as the registration process completes and the targets pass the initial health checks\. It can take a few minutes for the registration process to complete and health checks to start\. For more information, see [Health checks for your target groups](target-group-health-checks.md)\.
 
 If demand on your currently registered targets increases, you can register additional targets in order to handle the demand\. If demand on your registered targets decreases, you can deregister targets from your target group\. It can take a few minutes for the deregistration process to complete and for the load balancer to stop routing requests to the target\. If demand increases subsequently, you can register targets that you deregistered with the target group again\. If you need to service a target, you can deregister it and then register it again when servicing is complete\.
 
 When you deregister a target, Elastic Load Balancing waits until in\-flight requests have completed\. This is known as *connection draining*\. The status of a target is `draining` while connection draining is in progress\. After deregistration is complete, status of the target changes to `unused`\. For more information, see [Deregistration delay](load-balancer-target-groups.md#deregistration-delay)\.
 
-If you are registering targets by instance ID, you can use your load balancer with an Auto Scaling group\. After you attach a target group to an Auto Scaling group and the group scales out, the instances launched by the Auto Scaling group are automatically registered with the target group\. If you detach the load balancer from the Auto Scaling group, the instances are automatically deregistered from the target group\. For more information, see [Attaching a Load Balancer to Your Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-load-balancer-asg.html) in the *Amazon EC2 Auto Scaling User Guide*\.
+If you are registering targets by instance ID, you can use your load balancer with an Auto Scaling group\. After you attach a target group to an Auto Scaling group and the group scales out, the instances launched by the Auto Scaling group are automatically registered with the target group\. If you detach the load balancer from the Auto Scaling group, the instances are automatically deregistered from the target group\. For more information, see [Attaching a load balancer to your Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-load-balancer-asg.html) in the *Amazon EC2 Auto Scaling User Guide*\.
 
 ## Target security groups<a name="target-security-groups"></a>
 
 When you register EC2 instances as targets, you must ensure that the security groups for these instances allow traffic on both the listener port and the health check port\.
 
 **Limits**
-+ Network Load Balancers do not have associated security groups\. Therefore, the security groups for your targets must use IP addresses to allow traffic from the load balancer\.
-+ You cannot use the security groups for clients as a source in the security groups for the targets\. Instead, use the client CIDR blocks as sources in the target security groups\.
++ Network Load Balancers do not have associated security groups\. Therefore, the security groups for your targets must use IP addresses to allow traffic\.
++ You cannot use the security groups for the clients as a source in the security groups for the targets\. Therefore, the security groups for your targets must use the IP addresses of the clients to allow traffic\.
 
-The following are the recommended rules for instance security groups\.
+**Recommended rules with the instance target type**  
+The following are the recommended rules for the security groups for your targets when you register them by instance ID\.
 
-
-**Recommended rules for instance security groups**  
 
 | 
 | 
-| Inbound | 
+| Inbound rules | 
 | --- |
 |  Source  |  Protocol  |  Port Range  |  Comment  | 
-| Client IP addresses | target | target | Allow client traffic \(instance target type\) | 
-| VPC CIDR | target | target | Allow client traffic \(ip target type\) | 
+| Client CIDR | target | target | Allow traffic from your application, your network, or the internet | 
 | VPC CIDR | health check | health check | Allow health check traffic from the load balancer | 
 
-If you register targets by IP address and do not want to grant access to the entire VPC CIDR, you can grant access to the private IP addresses used by the load balancer nodes\. There is one IP address per load balancer subnet\. To find these addresses, use the following procedure\.
+**Recommended rules with the ip target type**  
+The following are the recommended rules for the security groups for your targets when you register them by IP address\.
+
+
+| 
+| 
+| Inbound rules | 
+| --- |
+|  Source  |  Protocol  |  Port Range  |  Comment  | 
+| VPC CIDR | target | target | Allow traffic from the load balancer VPC | 
+| VPC CIDR | health check | health check | Allow health check traffic from the load balancer VPC | 
+
+If you register targets by IP address but do not want to grant access to the entire VPC CIDR, you can grant access to the private IP addresses used by the load balancer nodes\. There is one IP address per load balancer subnet\. To find these addresses, use the following procedure\.
 
 **To find the private IP addresses to allow**
 
@@ -38,7 +48,7 @@ If you register targets by IP address and do not want to grant access to the ent
 
 1. In the navigation pane, choose **Network Interfaces**\.
 
-1. In the search field, type the name of your Network Load Balancer\. There is one network interface per load balancer subnet\.
+1. In the search field, enter the name of your Network Load Balancer\. There is one network interface per load balancer subnet\.
 
 1. On the **Details** tab for each network interface, copy the address from **Primary private IPv4 IP**\.
 
@@ -76,14 +86,14 @@ The network ACLs associated with the subnets for your load balancer must allow t
 | Inbound | 
 | --- |
 |  Source  |  Protocol  |  Port Range  |  Comment  | 
-| Client IP addresses | listener | listener | Allow client traffic \(instance target type \) | 
-| VPC CIDR | listener | listener | Allow client traffic \(ip target type \) | 
+| Client IP addresses | listener | listener | Allow client traffic \(instance target type\) | 
+| VPC CIDR | listener | listener | Allow client traffic \(ip target type\) | 
 | VPC CIDR | health check | 1024\-65535 | Allow health check traffic | 
 | Outbound | 
 | --- |
 |  Destination  |  Protocol  |  Port Range  |  Comment  | 
-| Client IP addresses | listener | listener | Allow responses to clients \(instance target type \) | 
-| VPC CIDR | listener | listener | Allow responses to clients \(ip target type \) | 
+| Client IP addresses | listener | listener | Allow responses to clients \(instance target type\) | 
+| VPC CIDR | listener | listener | Allow responses to clients \(ip target type\) | 
 | VPC CIDR | health check | health check | Allow health check traffic | 
 | VPC CIDR | health check | 1024\-65535 | Allow health check traffic | 
 
@@ -117,7 +127,7 @@ An instance must be in the `running` state when you register it\.
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. On the navigation pane, under **LOAD BALANCING**, choose **Target Groups**\.
+1. On the navigation pane, under **Load Balancing**, choose **Target Groups**\.
 
 1. Choose the name of the target group to open its details page\.
 
@@ -157,6 +167,9 @@ An IP address that you register must be from one of the following CIDR blocks:
 + 172\.16\.0\.0/12 \(RFC 1918\)
 + 192\.168\.0\.0/16 \(RFC 1918\)
 
+**Limits**
++ When launching a Network Load Balancer in a shared Amazon VPC as a participant, you can only register targets in subnets that have been shared with you\.
+
 ------
 #### [ New console ]
 
@@ -164,9 +177,9 @@ An IP address that you register must be from one of the following CIDR blocks:
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. On the navigation pane, under **LOAD BALANCING**, choose **Target Groups**\.
+1. On the navigation pane, under **Load Balancing**, choose **Target Groups**\.
 
-1. Chose the name of the target group to open its details page\.
+1. Choose the name of the target group to open its details page\.
 
 1. Choose the **Targets** tab\.
 

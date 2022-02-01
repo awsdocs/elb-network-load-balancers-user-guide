@@ -20,7 +20,7 @@ You configure a listener with a protocol and a port for connections from clients
 
 1. Choose **Add listener**\.
 
-1. For **Protocol : port**, choose **TCP**, **UDP**, **TCP\_UDP**, or **TLS**\. Keep the default port or type a different port\.
+1. For **Protocol : port**, choose **TCP**, **UDP**, **TCP\_UDP**, or **TLS**\. Keep the default port or type a different port\. For dualstack Network Load Balancers, only TCP and TLS protocols are supported\.
 
 1. \[TLS listeners\] For **ALPN policy**, choose a policy to enable ALPN or choose **None** to disable ALPN\. For more information, see [ALPN policies](create-tls-listener.md#alpn-policies)\.
 

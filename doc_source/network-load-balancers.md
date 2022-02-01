@@ -36,6 +36,15 @@ The load balancer could not be set up\.
 
 The following are the load balancer attributes:
 
+`access_logs.s3.enabled`  
+Indicates whether access logs stored in Amazon S3 are enabled\. The default is `false`\.
+
+`access_logs.s3.bucket`  
+The name of the Amazon S3 bucket for the access logs\. This attribute is required if access logs are enabled\. For more information, see [Bucket requirements](load-balancer-access-logs.md#access-logging-bucket-requirements)\.
+
+`access_logs.s3.prefix`  
+The prefix for the location in the Amazon S3 bucket\.
+
 `deletion_protection.enabled`  
 Indicates whether [deletion protection](#deletion-protection) is enabled\. The default is `false`\.
 
@@ -81,7 +90,7 @@ After you enable an Availability Zone, the load balancer starts routing requests
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. On the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
+1. In the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
 
 1. Select the load balancer\.
 
@@ -152,7 +161,7 @@ Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/lat
 
 For each TCP request that a client makes through a Network Load Balancer, the state of that connection is tracked\. If no data is sent through the connection by either the client or target for longer than the idle timeout, the connection is closed\. If a client or a target sends data after the idle timeout period elapses, it receives a TCP RST packet to indicate that the connection is no longer valid\.
 
-Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds\. You cannot modify this value\. Clients or targets can use TCP keepalive packets to reset the idle timeout\.
+Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds\. You cannot modify this value\. Clients or targets can use TCP keepalive packets to reset the idle timeout\. Keepalive packets sent to maintain TLS connections cannot contain data or payload\.
 
 While UDP is connectionless, the load balancer maintains UDP flow state based on the source and destination IP addresses and ports, ensuring that packets that belong to the same flow are consistently sent to the same target\. After the idle timeout period elapses, the load balancer considers the incoming UDP packet as a new flow and routes it to a new target\. Elastic Load Balancing sets the idle timeout value for UDP flows to 120 seconds\.
 

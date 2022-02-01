@@ -25,7 +25,7 @@ When you are finished with a tag, you can remove it from your load balancer\.
 
    1. To update a tag, edit the values of **Key** and **Value**\.
 
-   1. To add a new tag, choose **Create Tag**\. For **Key** and **Value**, type values\.
+   1. To add a new tag, choose **Create Tag**\. For **Key** and **Value**, enter values\. Allowed characters are letters, spaces, numbers \(in UTF\-8\), and the following special characters: \+ \- = \. \_ : / @\. Do not use leading or trailing spaces\. Tag values are case\-sensitive\.
 
    1. To delete a tag, choose the delete icon \(X\) next to the tag\.
 

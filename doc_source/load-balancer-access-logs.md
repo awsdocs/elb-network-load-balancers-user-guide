@@ -7,7 +7,7 @@ Access logs are created only if the load balancer has a TLS listener and they co
 
 Access logging is an optional feature of Elastic Load Balancing that is disabled by default\. After you enable access logging for your load balancer, Elastic Load Balancing captures the logs as compressed files and stores them in the Amazon S3 bucket that you specify\. You can disable access logging at any time\.
 
-If you enable server\-side encryption with Amazon S3\-managed encryption keys \(SSE\-S3\) for your S3 bucket, each access log file is automatically encrypted before it is stored in your S3 bucket and decrypted when you access it\. You do not need to take any action as there is no difference in the way you access encrypted or unencrypted log files\. Each log file is encrypted with a unique key, which is itself encrypted with a master key that is regularly rotated\. For more information, see [Protecting data using server\-side encryption with Amazon S3\-managed encryption keys \(SSE\-S3\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html) in the *Amazon Simple Storage Service Developer Guide*\.
+You can enable server\-side encryption with Amazon S3\-managed encryption keys \(SSE\-S3\) for your S3 bucket\. Each access log file is automatically encrypted before it is stored in your S3 bucket and decrypted when you access it\. You do not need to take any action as there is no difference in the way you access encrypted or unencrypted log files\. Each log file is encrypted with a unique key, which is itself encrypted with a master key that is regularly rotated\. For more information, see [Protecting data using server\-side encryption with Amazon S3\-managed encryption keys \(SSE\-S3\)](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html)  in the *Amazon Simple Storage Service User Guide*\.
 
 There is no additional charge for access logs\. You are charged storage costs for Amazon S3, but not charged for the bandwidth used by Elastic Load Balancing to send log files to Amazon S3\. For more information about storage costs, see [Amazon S3 Pricing](https://aws.amazon.com/s3/pricing/)\.
 
@@ -45,7 +45,7 @@ The date and time that the logging interval ended\. For example, an end time of 
 *random\-string*  
 A system\-generated random string\.
 
-You can store your log files in your bucket for as long as you want, but you can also define Amazon S3 lifecycle rules to archive or delete log files automatically\. For more information, see [Object lifecycle management](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html) in the *Amazon Simple Storage Service Developer Guide*\.
+You can store your log files in your bucket for as long as you want, but you can also define Amazon S3 lifecycle rules to archive or delete log files automatically\. For more information, see [Object lifecycle management](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html) in the *Amazon Simple Storage Service User Guide*\.
 
 ## Access log entries<a name="access-log-entry-format"></a>
 
@@ -109,7 +109,7 @@ When you enable access logging, you must specify an S3 bucket for the access log
 **Requirements**
 + The bucket must be located in the same region as the load balancer\.
 + The prefix that you specify must not include AWSLogs\. We add the portion of the file name starting with AWSLogs after the bucket name and prefix that you specify\.
-+ Amazon S3\-Managed Encryption Keys \(SSE\-S3\) is required\. No other encryption options are supported\.
++ Enable server\-side encryption with Amazon S3\-Managed Encryption Keys \(SSE\-S3\) \.
 + The bucket must have a bucket policy that grants permission to write the access logs to your bucket\. Bucket policies are a collection of JSON statements written in the access policy language to define access permissions for your bucket\. The following is an example policy\.
 
   ```
@@ -163,7 +163,7 @@ When you enable access logging for your load balancer, you must specify the name
 
    1. For **S3 location**, type the name of your S3 bucket, including any prefix \(for example, `my-loadbalancer-logs/my-app`\)\. You can specify the name of an existing bucket or a name for a new bucket\. If you specify an existing bucket, be sure that you own this bucket and that you configured the required bucket policy\.
 
-   1. \(Optional\) If the bucket does not exist, choose **Create this location for me**\. You must specify a name that is unique across all existing bucket names in Amazon S3 and follows the DNS naming conventions\. For more information, see [Rules for bucket naming](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules) in the *Amazon Simple Storage Service Developer Guide*\.
+   1. \(Optional\) If the bucket does not exist, choose **Create this location for me**\. You must specify a name that is unique across all existing bucket names in Amazon S3 and follows the DNS naming conventions\. For more information, see [Rules for bucket naming](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html#bucketnamingrules) in the *Amazon Simple Storage Service User Guide*\.
 
    1. Choose **Save**\.
 
@@ -172,7 +172,7 @@ Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/lat
 
 ## Disable access logging<a name="disable-access-logging"></a>
 
-You can disable access logging for your load balancer at any time\. After you disable access logging, your access logs remain in your S3 bucket until you delete the them\. For more information, see [Working with buckets](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/BucketOperations.html) in the *Amazon Simple Storage Service Console User Guide*\.
+You can disable access logging for your load balancer at any time\. After you disable access logging, your access logs remain in your S3 bucket until you delete the them\. For more information, see [Working with buckets](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/BucketOperations.html) in the *Amazon Simple Storage Service User Guide*\.
 
 **To disable access logging using the console**
 

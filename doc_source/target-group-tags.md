@@ -49,7 +49,7 @@ When you are finished with a tag, you can remove it\.
 
    1. To update a tag, edit the values of **Key** and **Value**\.
 
-   1. To add a new tag, choose **Create Tag** and then type values for **Key** and **Value**\.
+   1. To add a new tag, choose **Create Tag** and then enter values for **Key** and **Value**\. 
 
    1. To delete a tag, choose the delete icon \(X\) next to the tag\.
 

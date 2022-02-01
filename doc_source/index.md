@@ -1,7 +1,7 @@
 # Elastic Load Balancing Network Load Balancers
 
 -----
-*****Copyright &copy; 2020 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -32,6 +32,7 @@ Amazon's trademarks and trade dress may not be used in
    + [Create a target group for your Network Load Balancer](create-target-group.md)
    + [Health checks for your target groups](target-group-health-checks.md)
    + [Register targets with your target group](target-group-register-targets.md)
+   + [Application Load Balancers as targets](application-load-balancer-target.md)
    + [Tags for your target group](target-group-tags.md)
    + [Delete a target group](delete-target-group.md)
 + [Monitor your Network Load Balancers](load-balancer-monitoring.md)

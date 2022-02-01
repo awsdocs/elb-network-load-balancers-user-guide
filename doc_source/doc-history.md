@@ -4,7 +4,10 @@ The following table describes the releases for Network Load Balancers\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
-| [Dual\-stack mode](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-ip-address-type.html) | This release adds supports for dual\-stack mode, which enables clients to connect to the load balancer using both IPv4 addresses and IPv6 addresses\. | November 13, 2020 | 
+| [Application Load Balancers as targets](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/application-load-balancer-target.html) | This release adds support to configure an Application Load Balancer as the target of a Network Load Balancer\. | September 27, 2021 | 
+| [Client IP preservation](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#client-ip-preservation) | This release adds support to configure client IP preservation\. | February 4, 2021 | 
+| [Security policy for FS supporting TLS version 1\.2](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#describe-ssl-policies) | This release adds a security policy for Forward Secrecy \(FS\) supporting TLS version 1\.2\. | November 24, 2020 | 
+| [Dual\-stack mode](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-ip-address-type.html) | This release adds support for dual\-stack mode, which enables clients to connect to the load balancer using both IPv4 addresses and IPv6 addresses\. | November 13, 2020 | 
 | [Connection termination on deregistration](#doc-history) | This release adds support to close connections to deregistered targets after the end of the deregistration timeout\. | November 13, 2020 | 
 | [ALPN policies](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#alpn-policies) | This release adds support for Application\-Layer Protocol Negotiation \(ALPN\) preference lists\. | May 27, 2020 | 
 | [Sticky sessions](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#sticky-sessions) | This release adds support for sticky sessions based on source IP address and protocol\. | February 28, 2020 | 

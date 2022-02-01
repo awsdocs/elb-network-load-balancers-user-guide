@@ -10,13 +10,13 @@ With passive health checks, the load balancer observes how targets respond to co
 
 If a target becomes unhealthy, the load balancer sends a TCP RST for packets received on the client connections associated with the target\.
 
-If one or more target groups does not have a healthy target in an enabled Availability Zone, we remove the IP address for the corresponding subnet from DNS so that requests cannot be routed to targets in that Availability Zone\. If there are no enabled Availability Zones with a healthy target in each target group, requests are routed to targets in all enabled Availability Zones\.
+If target groups don't have a healthy target in an enabled Availability Zone, we remove the IP address for the corresponding subnet from DNS so that requests cannot be routed to targets in that Availability Zone\. If all targets fail health checks at the same time in all enabled Availability Zones, the load balancer fails open\. The effect of the fail open is to allow traffic to all targets in all enabled Availability Zones, regardless of their health status\.
 
 For HTTP or HTTPS health check requests, the host header contains the IP address of the load balancer node and the listener port, not the IP address of the target and the health check port\.
 
 If you add a TLS listener to your Network Load Balancer, we perform a listener connectivity test\. As TLS termination also terminates a TCP connection, a new TCP connection is established between your load balancer and your targets\. Therefore, you might see the TCP pings for this test sent from your load balancer to the targets that are registered with your TLS listener\. You can identify these TCP pings because they have the source IP address of your Network Load Balancer and the connections do not contain data packets\.
 
-For a UDP service, availability is tested using TCP active health checks directed to a TCP port on your target\. You can use any TCP port on your target to verify the availability of a UDP service\. If the service listening to the health check port fails, your target is considered unavailable\. To improve the accuracy of health checks for a UDP service, configure the service listening to the health check port to track the status of your UDP service and close the health check port if the service is unavailable\.
+For a UDP service, target availability can be tested using non\-UDP health checks on your target group\. You can use any available health check \(TCP, HTTP, or HTTPS\), and any port on your target to verify the availability of a UDP service\. If the service receiving the health check fails, your target is considered unavailable\. To improve the accuracy of health checks for a UDP service, configure the service listening to the health check port to track the status of your UDP service and fail the health check if the service is unavailable\.
 
 ## Health check settings<a name="health-check-settings"></a>
 
@@ -25,7 +25,7 @@ You configure active health checks for the targets in a target group using the f
 
 | Setting | Description | 
 | --- | --- | 
-| **HealthCheckProtocol** |  The protocol the load balancer uses when performing health checks on targets\. The possible protocols are HTTP, HTTPS, and TCP\. The default is the TCP protocol\.  | 
+| **HealthCheckProtocol** |  The protocol the load balancer uses when performing health checks on targets\. The possible protocols are HTTP, HTTPS, and TCP\. The default is the TCP protocol\. If the target type is `alb`, the supported health check protocols are HTTP and HTTPS\.  | 
 | **HealthCheckPort** |  The port the load balancer uses when performing health checks on targets\. The default is to use the port on which each target receives traffic from the load balancer\.  | 
 | **HealthCheckPath** |  \[HTTP/HTTPS health checks\] The ping path that is the destination on the targets for health checks\. The default is /\.  | 
 | **HealthCheckTimeoutSeconds** |  The amount of time, in seconds, during which no response from a target means a failed health check\. This value must be 6 seconds for HTTP health checks and 10 seconds for TCP and HTTPS health checks\.  | 

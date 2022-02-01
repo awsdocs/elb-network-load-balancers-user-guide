@@ -48,12 +48,11 @@ The HTTP host header in the health check request contains the IP address of the 
 
 ## Connections time out for requests from a target to its load balancer<a name="loopback-timeout"></a>
 
-Check whether you have an internal load balancer with targets registered by instance ID\. Internal load balancers do not support hairpinning or loopback\. When you register targets by instance ID, the source IP addresses of clients are preserved\. If an instance is a client of an internal load balancer that it's registered with by instance ID, the connection succeeds only if the request is routed to a different instance\. Otherwise, the source and destination IP addresses are the same and the connection times out\.
+Check whether client IP preservation is enabled on your target group\. Load balancers with client IP preservation enabled do not support hairpinning or loopback\. If an instance is a client of a load balancer that it's registered with, and it has client IP preservation enabled, the connection succeeds only if the request is routed to a different instance\. Otherwise, the source and destination IP addresses are the same and the connection times out\.
 
 If an instance must send requests to a load balancer that it's registered with, do one of the following:
-+ Register instances by IP address instead of instance ID\. When using Amazon Elastic Container Service, use the `awsvpc` network mode with your tasks to ensure that target groups require registration by IP address\.
-+ Ensure that containers that must communicate are on different container instances\.
-+ Use an Internet\-facing load balancer\.
++ Disable client IP preservation\.
++ Ensure that containers that must communicate, are on different container instances\.
 
 ## Performance decreases when moving targets to a Network Load Balancer<a name="load-balancer-performance"></a>
 
@@ -62,3 +61,11 @@ Both Classic Load Balancers and Application Load Balancers use connection multip
 ## Port allocation errors connecting through AWS PrivateLink<a name="port-allocation-errors-privatelink"></a>
 
 If your Network Load Balancer is associated with a VPC endpoint service, it supports 55,000 simultaneous connections or about 55,000 connections per minute to each unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors\. To fix the port allocation errors, add more targets to the target group\.
+
+## Intermittent connection failure when client IP preservation is enabled<a name="intermittent-connection-failure"></a>
+
+When client IP preservation is enabled, connectivity might fail if the clients that are connecting to the Network Load Balancer are also connected to targets behind the load balancer\. To resolve this, you can disable client IP preservation on the affected target groups\. Alternatively, have your clients connect only to the Network Load Balancer, or only to the targets, but not both\.
+
+## Potential failure when the load balancer is being provisioned<a name="load-balancer-provision-failure"></a>
+
+One of the reasons a Network Load Balancer could fail when it is being provisioned is if you use an IP address that is already assigned or allocated elsewhere \(for example, assigned as a secondary IP address for an EC2 instance\)\. This IP address prevents the load balancer from being set up, and its state is `failed`\. You can resolve this by de\-allocating the associated IP address and retrying the creation process\.

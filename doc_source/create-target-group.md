@@ -15,13 +15,13 @@ You can add or remove targets from your target group at any time\. For more info
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. In the navigation pane, under **LOAD BALANCING**, choose **Target Groups**\.
+1. In the navigation pane, under **Load Balancing**, choose **Target Groups**\.
 
 1. Choose **Create target group**\.
 
-1. For **Choose a target type**, select **Instances** to register targets by instance ID or **IP addresses** to register targets by IP address\.
+1. For **Choose a target type**, select **Instances** to register targets by instance ID; **IP addresses** to register targets by IP address; or **Application Load Balancer** to register an Application Load Balancer as a target\.
 
-1. For **Target group name**, type a name for the target group\. This name must be unique per region per account, can have a maximum of 32 characters, must contain only alphanumeric characters or hyphens, and must not begin or end with a hyphen\.
+1. For **Target group name**, enter a name for the target group\. This name must be unique per Region per account, can have a maximum of 32 characters, must contain only alphanumeric characters or hyphens, and must not begin or end with a hyphen\.
 
 1. For **Protocol**, choose a protocol as follows:
    + If the listener protocol is TCP, choose **TCP** or **TCP\_UDP**\.
@@ -33,7 +33,7 @@ You can add or remove targets from your target group at any time\. For more info
 
 1. For **VPC**, select a virtual private cloud \(VPC\)\.
 
-1. \(Optional\) In the **Health checks** section, modify the default settings as needed\.
+1. In the **Health checks** section, modify the default settings as needed\. For **Advanced health check settings**, choose the health check port, count, timeout, interval, and specify success codes\. If health checks consecutively exceed the **Unhealthy threshold** count, the load balancer takes the target out of service\. If health checks consecutively exceed the **Healthy threshold** count, the load balancer puts the target back in service\. For more information, see [Health checks for your target groups](target-group-health-checks.md)\.
 
 1. \(Optional\) Add one or more tags as follows:
 
@@ -41,17 +41,15 @@ You can add or remove targets from your target group at any time\. For more info
 
    1. Choose **Add tag**\.
 
-   1. Enter the tag key and tag value\.
+   1. Enter the tag **Key** and **Value**\. Allowed characters are letters, spaces, numbers \(in UTF\-8\), and the following special characters: \+ \- = \. \_ : / @\. Do not use leading or trailing spaces\. Tag values are case\-sensitive\.
 
 1. Choose **Next**\.
 
-1. \(Optional\) Add one or more targets as follows:
+1. In the **Register targets** page, add one or more targets as follows:
    + If the target type is **Instances**, select one or more instances, enter one or more ports, and then choose **Include as pending below**\.
    + If the target type is **IP addresses**, select the network, enter the IP address and ports, and then choose **Include as pending below**\.
 
 1. Choose **Create target group**\.
-
-1. \(Optional\) You can specify the target group in the default listener rule\. For more information, see [Create a Listener](create-listener.md) and [Update a Listener](listener-update-rules.md)\.
 
 ------
 #### [ Old console ]
@@ -60,11 +58,11 @@ You can add or remove targets from your target group at any time\. For more info
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. In the navigation pane, under **LOAD BALANCING**, choose **Target Groups**\.
+1. In the navigation pane, under **Load Balancing**, choose **Target Groups**\.
 
 1. Choose **Create target group**\.
 
-1. For **Target group name**, type a name for the target group\. This name must be unique per region per account, can have a maximum of 32 characters, must contain only alphanumeric characters or hyphens, and must not begin or end with a hyphen\.
+1. For **Target group name**, enter a name for the target group\. This name must be unique per Region per account, can have a maximum of 32 characters, must contain only alphanumeric characters or hyphens, and must not begin or end with a hyphen\.
 
 1. For **Protocol**, choose a protocol as follows:
    + If the listener protocol is TCP, choose **TCP** or **TCP\_UDP**\.

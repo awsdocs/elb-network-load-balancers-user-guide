@@ -10,18 +10,24 @@ Your AWS account has the following quotas related to Network Load Balancers\.
 
 **Regional**
 + Network Load Balancers per Region: 50
-+ Target groups per Region: 3,000 **\***
++ Network Load Balancer ENIs per Amazon VPC: 300 **\***
++ Target groups per Region: 3,000 **\*\***
+
+**\*** Each Network Load Balancer uses one network interface per zone\.
+
+**\*\*** This quota is shared by target groups for your Application Load Balancers and Network Load Balancers\.
 
 **Load balancer**
 + Listeners per load balancer: 50
 + Targets per load balancer: 3,000
 + Subnets per Availability Zone per load balancer: 1
-+ \[Cross\-zone load balancing disabled\] Targets per Availability Zone per load balancer: 500
-+ \[Cross\-zone load balancing enabled\] Targets per load balancer: 500
++ \[Cross\-zone load balancing disabled\] Targets per Availability Zone per load balancer: 500 †
++ \[Cross\-zone load balancing enabled\] Targets per load balancer: 500 †
 + Certificates per load balancer \(not counting default certificates\): 25
+
+† Each Application Load Balancer that is a target of the Network Load Balancer counts as 50 targets if cross\-zone load balancing is disabled or 100 targets if cross\-zone load balancing is enabled\.
 
 **Target group**
 + Load balancers per target group: 1
-+ Targets per target group: 1,000
-
-**\*** This quota is shared by target groups for your Application Load Balancers and Network Load Balancers\.
++ Targets per target group \(instances or IP addresses\): 1,000
++ Targets per target group \(Application Load Balancers\): 1
