@@ -21,6 +21,8 @@ Listeners support the following protocols and ports:
 
 You can use a TLS listener to offload the work of encryption and decryption to your load balancer so that your applications can focus on their business logic\. If the listener protocol is TLS, you must deploy exactly one SSL server certificate on the listener\. For more information, see [TLS listeners for your Network Load Balancer](create-tls-listener.md)\.
 
+If you must ensure that the targets decrypt TLS traffic instead of the load balancer, you can create a TCP listener on port 443 instead of creating a TLS listener\. With a TCP listener, the load balancer passes encrypted traffic through to the targets without decrypting it\.
+
 To support both TCP and UDP on the same port, create a TCP\_UDP listener\. The target groups for a TCP\_UDP listener must use the TCP\_UDP protocol\. 
 
 For dualstack Network Load Balancers, only TCP and TLS protocols are supported\.

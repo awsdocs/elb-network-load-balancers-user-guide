@@ -74,11 +74,11 @@ To create a Network Load Balancer, you must first provide basic configuration in
 
 1. For **Scheme** and **IP address type**, keep the default values\.
 
-1. For **Network mappings**, select the VPC that you used for your EC2 instances\. For each Availability Zone that you used to launch your EC2 instances, select the Availability Zone and then select one public subnet for that Availability Zone\.
+1. For **Network mapping**, select the VPC that you used for your EC2 instances\. For each Availability Zone that you used to launch your EC2 instances, select the Availability Zone and then select one public subnet for that Availability Zone\.
 
    By default, AWS assigns an IPv4 address to each load balancer node from the subnet for its Availability Zone\. Alternatively, when you create an internet\-facing load balancer, you can select an Elastic IP address for each Availability Zone\. This provides your load balancer with static IP addresses\.
 
-1. For **Listeners and routing**, keep the default, which is a listener that accepts TCP traffic on port 80\.
+1. For **Listeners and routing**, keep the default protocol and port, and select your target group from the list\. This configures a listener that accepts TCP traffic on port 80 and forwards traffic to the selected target group by default\.
 
 1. For **Default action**, select the target group that you created and registered in step 1\. 
 

@@ -10,7 +10,7 @@ Deleting a load balancer also deletes its listeners\. Deleting a load balancer d
 
 **To delete a load balancer using the console**
 
-1. If you have a CNAME record for your domain that points to your load balancer, point it to a new location and wait for the DNS change to take effect before deleting your load balancer\.
+1. If you have a DNS record for your domain that points to your load balancer, point it to a new location and wait for the DNS change to take effect before deleting your load balancer\.
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 

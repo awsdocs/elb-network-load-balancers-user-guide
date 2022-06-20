@@ -65,7 +65,7 @@ Creating a target group allows you to register a new or existing Application Loa
 
 1. For **Health checks**, choose HTTP or HTTPS as the **Health check protocol**\. Health checks are sent to the Application Load Balancer and forwarded to its targets using the specified port, protocol, and ping path\. Ensure that your Application Load Balancer can receive these health checks by having a listener with a port and protocol that matches the health check port and protocol\.
 
-   For **Advanced health check settings**, you cannot modify **Unhealthy threshold**, **Timeout**, **Interval**, and **Success codes**\. For more information, see [Health checks for your target groups](target-group-health-checks.md)\. 
+   For **Advanced health check settings**, you cannot modify **Unhealthy threshold**, **Timeout**, or **Success codes**\. For more information, see [Health checks for your target groups](target-group-health-checks.md)\. 
 
 1. \(Optional\) Add one or more tags as required\.
 

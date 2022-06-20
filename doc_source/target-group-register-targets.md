@@ -12,12 +12,12 @@ If you are registering targets by instance ID, you can use your load balancer wi
 
 When you register EC2 instances as targets, you must ensure that the security groups for these instances allow traffic on both the listener port and the health check port\.
 
-**Limits**
+**Considerations**
 + Network Load Balancers do not have associated security groups\. Therefore, the security groups for your targets must use IP addresses to allow traffic\.
 + You cannot use the security groups for the clients as a source in the security groups for the targets\. Therefore, the security groups for your targets must use the IP addresses of the clients to allow traffic\.
 
-**Recommended rules with the instance target type**  
-The following are the recommended rules for the security groups for your targets when you register them by instance ID\.
+**Recommended rules with client IP preservation enabled**  
+The following are the recommended rules for the security groups for your targets with client IP preservation enabled\.
 
 
 | 
@@ -28,8 +28,8 @@ The following are the recommended rules for the security groups for your targets
 | Client CIDR | target | target | Allow traffic from your application, your network, or the internet | 
 | VPC CIDR | health check | health check | Allow health check traffic from the load balancer | 
 
-**Recommended rules with the ip target type**  
-The following are the recommended rules for the security groups for your targets when you register them by IP address\.
+**Recommended rules with client IP preservation disabled**  
+The following are the recommended rules for the security groups for your targets with client IP preservation disabled\.
 
 
 | 
@@ -37,8 +37,8 @@ The following are the recommended rules for the security groups for your targets
 | Inbound rules | 
 | --- |
 |  Source  |  Protocol  |  Port Range  |  Comment  | 
-| VPC CIDR | target | target | Allow traffic from the load balancer VPC | 
-| VPC CIDR | health check | health check | Allow health check traffic from the load balancer VPC | 
+| VPC CIDR  | target | target | Allow traffic from the load balancer VPC † | 
+| VPC CIDR | health check | health check | Allow health check traffic from the load balancer | 
 
 If you register targets by IP address but do not want to grant access to the entire VPC CIDR, you can grant access to the private IP addresses used by the load balancer nodes\. There is one IP address per load balancer subnet\. To find these addresses, use the following procedure\.
 
@@ -105,7 +105,7 @@ Each target group must have at least one registered target in each Availability 
 
 The target type of your target group determines how you register targets with that target group\. For more information, see [Target type](load-balancer-target-groups.md#target-type)\.
 
-**Requirements**
+**Considerations**
 + You cannot register instances by instance ID if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\.
 + You cannot register instances by instance ID if they are in a VPC that is peered to the load balancer VPC \(same Region or different Region\)\. You can register these instances by IP address\.
 + If you register a target by IP address and the IP address is in the same VPC as the load balancer, the load balancer verifies that it is from a subnet that it can reach\.

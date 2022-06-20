@@ -1,6 +1,6 @@
 # TLS listeners for your Network Load Balancer<a name="create-tls-listener"></a>
 
-To use a TLS listener, you must deploy at least one server certificate on your load balancer\. The load balancer uses a server certificate to terminate the front\-end connection and then to decrypt requests from clients before sending them to the targets\.
+To use a TLS listener, you must deploy at least one server certificate on your load balancer\. The load balancer uses a server certificate to terminate the front\-end connection and then to decrypt requests from clients before sending them to the targets\. Note that if you need to pass encrypted traffic through to the targets without the load balancer decrypting it, create a TCP listener on port 443 instead of creating a TLS listener\.
 
 Elastic Load Balancing uses a TLS negotiation configuration, known as a security policy, to negotiate TLS connections between a client and the load balancer\. A security policy is a combination of protocols and ciphers\. The protocol establishes a secure connection between a client and a server and ensures that all data passed between the client and your load balancer is private\. A cipher is an encryption algorithm that uses encryption keys to create a coded message\. Protocols use several ciphers to encrypt data over the internet\. During the connection negotiation process, the client and the load balancer present a list of ciphers and protocols that they each support, in order of preference\. The first cipher on the server's list that matches any one of the client's ciphers is selected for the secure connection\.
 
@@ -34,7 +34,6 @@ If you do not specify additional certificates but need to host multiple secure a
 After you create a TLS listener, it has a default certificate and an empty certificate list\. You can optionally add certificates to the certificate list for the listener\. Using a certificate list enables the load balancer to support multiple domains on the same port and provide a different certificate for each domain\. For more information, see [Add certificates to the certificate list](listener-update-certificates.md#add-certificates)\.
 
 The load balancer uses a smart certificate selection algorithm with support for SNI\. If the hostname provided by a client matches a single certificate in the certificate list, the load balancer selects this certificate\. If a hostname provided by a client matches multiple certificates in the certificate list, the load balancer selects the best certificate that the client can support\. Certificate selection is based on the following criteria in the following order:
-+ Public key algorithm \(prefer ECDSA over RSA\)
 + Hashing algorithm \(prefer SHA over MD5\)
 + Key length \(prefer the largest\)
 + Validity period

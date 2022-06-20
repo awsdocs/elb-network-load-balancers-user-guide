@@ -99,9 +99,9 @@ To create a Network Load Balancer, you must first provide basic configuration in
 
    1. For **Listeners**, the default is a listener that accepts TCP traffic on port 80\. You can keep the default listener settings, modify the protocol, or modify the port\. 
 
-   1. For **Default action**, select a target group to forward traffic\. If you don't have a default target group, go back to Step 2 to configure a target group\. Choose **Add listener** to add another listener\.
+   1. For **Default action**, select a target group to forward traffic\. If you didn't create a target group previously, you must create one now\. You can optionally choose **Add listener** to add another listener \(for example, a TLS listener\)\.
 
-   1. For **Secure listener settings** \(available only for secure listeners\), choose a **Security policy** that meets your requirements\.
+   1. For **Secure listener settings** \(available only for TLS listeners\), choose a **Security policy** that meets your requirements\.
 
    1. For **ALPN policy**, choose a policy to enable ALPN or choose **None** to disable ALPN\.
 

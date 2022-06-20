@@ -46,6 +46,12 @@ If there is at least one healthy registered target for your load balancer, the l
 
 The HTTP host header in the health check request contains the IP address of the load balancer node and the listener port, not the IP address of the target and the health check port\. If you are mapping incoming requests by host header, you must ensure that health checks match any HTTP host header\. Another option is to add a separate HTTP service on a different port and configure the target group to use that port for health checks instead\. Alternatively, consider using TCP health checks\.
 
+## Increase in TCP\_ELB\_Reset\_Count metric<a name="elb-reset-count-metric"></a>
+
+For each TCP request that a client makes through a Network Load Balancer, the state of that connection is tracked\. If no data is sent through the connection by either the client or the target for longer than the idle timeout, the connection is closed\. If a client or a target sends data after the idle timeout period elapses, it receives a TCP RST packet to indicate that the connection is no longer valid\. Additionally, if a target becomes unhealthy, the load balancer sends a TCP RST for packets received on the client connections associated with the target, unless the unhealthy target triggers the load balancer to fail open\.
+
+If you see a spike in the `TCP_ELB_Reset_Count` metric just before or just as the `UnhealthyHostCount` metric increases, it is likely that the TCP RST packets were sent because the target was starting to fail but hadn't been marked unhealthy\. If you see persistent increases in `TCP_ELB_Reset_Count` without targets being marked unhealthy, you can check the VPC flow logs for clients sending data on expired flows\.
+
 ## Connections time out for requests from a target to its load balancer<a name="loopback-timeout"></a>
 
 Check whether client IP preservation is enabled on your target group\. Load balancers with client IP preservation enabled do not support hairpinning or loopback\. If an instance is a client of a load balancer that it's registered with, and it has client IP preservation enabled, the connection succeeds only if the request is routed to a different instance\. Otherwise, the source and destination IP addresses are the same and the connection times out\.
@@ -60,7 +66,7 @@ Both Classic Load Balancers and Application Load Balancers use connection multip
 
 ## Port allocation errors connecting through AWS PrivateLink<a name="port-allocation-errors-privatelink"></a>
 
-If your Network Load Balancer is associated with a VPC endpoint service, it supports 55,000 simultaneous connections or about 55,000 connections per minute to each unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors\. To fix the port allocation errors, add more targets to the target group\.
+If your Network Load Balancer is associated with a VPC endpoint service, it supports 55,000 simultaneous connections or about 55,000 connections per minute to each unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors\. Port allocation errors can be tracked using the `PortAllocationErrorCount` metric\. To fix port allocation errors, add more targets to the target group\. For more information, see [CloudWatch metrics for your Network Load Balancer](load-balancer-cloudwatch-metrics.md)\.
 
 ## Intermittent connection failure when client IP preservation is enabled<a name="intermittent-connection-failure"></a>
 

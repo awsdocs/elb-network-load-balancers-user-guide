@@ -111,7 +111,7 @@ If demand on your application decreases, or if you need to service your targets,
 
 If you are registering targets by instance ID, you can use your load balancer with an Auto Scaling group\. After you attach a target group to an Auto Scaling group, Auto Scaling registers your targets with the target group for you when it launches them\. For more information, see [Attaching a load balancer to your Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-load-balancer-asg.html) in the *Amazon EC2 Auto Scaling User Guide*\.
 
-**Requirements**
+**Considerations**
 + You cannot register instances by instance ID if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\.
 + You cannot register instances by instance ID if they are in a VPC that is peered to the load balancer VPC \(same Region or different Region\)\. You can register these instances by IP address\.
 + If you register a target by IP address and the IP address is in the same VPC as the load balancer, the load balancer verifies that it is from a subnet that it can reach\.
@@ -142,16 +142,16 @@ The type of stickiness\. The possible value is `source_ip`\.
 
 ## Client IP preservation<a name="client-ip-preservation"></a>
 
-Network Load Balancers can preserve the source IP address of clients when routing requests to backend targets\. When you disable client IP preservation, the private IP address of the Network Load Balancer becomes the client IP address for all incoming traffic\. 
+Network Load Balancers can preserve the source IP address of clients when routing requests to backend targets\. When you disable client IP preservation, the private IP address of the Network Load Balancer becomes the client IP address for all incoming traffic\.
 
-By default, client IP preservation is enabled \(and cannot be disabled\) for instance and IP type target groups with UDP and TCP\_UDP protocols\. However, you can enable or disable client IP preservation for TCP and TLS target groups using the `preserve_client_ip.enabled` target group attribute\. 
+By default, client IP preservation is enabled \(and cannot be disabled\) for instance and IP type target groups with UDP and TCP\_UDP protocols\. However, you can enable or disable client IP preservation for TCP and TLS target groups using the `preserve_client_ip.enabled` target group attribute\.
 
 **Default settings**
 + Instance type target groups: Enabled
 + IP type target groups \(UDP, TCP\_UDP\): Enabled
 + IP type target groups \(TCP, TLS\): Disabled
 
-**Limitations and considerations**
+**Considerations**
 + When client IP preservation is enabled, targets must be in the same VPC as the Network Load Balancer, and traffic must flow directly from the Network Load Balancer to the target\.
 + Client IP preservation is not supported when traffic is routed through a Gateway Load Balancer endpoint, even if the target is in the same VPC as the Network Load Balancer\.
 + The following instance types do not support client IP preservation: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. We recommend that you register these instance types as IP addresses with client IP preservation disabled\.
@@ -159,8 +159,8 @@ By default, client IP preservation is enabled \(and cannot be disabled\) for ins
 + Client IP preservation has no effect on traffic converted from IPv6 to IPv4\. The source IP of this type of traffic is always the private IP address of the Network Load Balancer\.
 + When you specify targets by Application Load Balancer type, the client IP of all incoming traffic is preserved by the Network Load Balancer and is sent to the Application Load Balancer\. The Application Load Balancer then appends the client IP to the `X-Forwarded-For` request header before sending it to the target\.
 + Client IP preservation changes take effect only for new TCP connections\.
-
-When client IP preservation is enabled, you might encounter TCP/IP connection limitations related to observed socket reuse on the targets\. These connection limitations can occur when a client, or a NAT device in front of the client, uses the same source IP address and source port when connecting to multiple load balancer nodes simultaneously\. If the load balancer routes these connections to the same target, the connections appear to the target as if they come from the same source socket, which results in connection errors\. If this happens, the clients can retry \(if the connection fails\) or reconnect \(if the connection is interrupted\)\. You can reduce this type of connection error by increasing the number of source ephemeral ports or by increasing the number of targets for the load balancer\. You can prevent this type of connection error, by disabling client IP preservation or disabling cross\-zone load balancing\.
++ When client IP preservation is enabled, you might encounter TCP/IP connection limitations related to observed socket reuse on the targets\. These connection limitations can occur when a client, or a NAT device in front of the client, uses the same source IP address and source port when connecting to multiple load balancer nodes simultaneously\. If the load balancer routes these connections to the same target, the connections appear to the target as if they come from the same source socket, which results in connection errors\. If this happens, the clients can retry \(if the connection fails\) or reconnect \(if the connection is interrupted\)\. You can reduce this type of connection error by increasing the number of source ephemeral ports or by increasing the number of targets for the load balancer\. You can prevent this type of connection error, by disabling client IP preservation or disabling cross\-zone load balancing\.
++ Your Network Load Balancer supports 55,000 simultaneous connections or about 55,000 connections per minute to each unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors, resulting in failures to establish new connections\. Port allocation errors can be tracked using the `PortAllocationErrorCount` metric\. To fix port allocation errors, add more targets to the target group\. For more information, see [CloudWatch metrics for your Network Load Balancer](load-balancer-cloudwatch-metrics.md)\.
 
 ------
 #### [ New console ]
@@ -173,7 +173,7 @@ When client IP preservation is enabled, you might encounter TCP/IP connection li
 
 1. Choose the name of the target group to open its details page\.
 
-1. On the **Group details** page, in the **Attributes** section, choose **Edit**\.
+1. On the **Attributes** tab, choose **Edit**\.
 
 1. To enable client IP preservation, select **Preserve client IP addresses**\. To disable client IP preservation, clear **Preserve client IP addresses**\.
 
@@ -245,7 +245,7 @@ If you enable the target group attribute for connection termination, connections
 
 1. Choose the name of the target group to open its details page\.
 
-1. On the **Group details** page, in the **Attributes** section, choose **Edit**\.
+1. On **Attributes** tab, choose **Edit**\.
 
 1. To change the deregistration timeout, enter a new value for **Deregistration delay**\. To ensure that existing connections are closed after you deregister targets, select **Connection termination on deregistration**\.
 
@@ -310,7 +310,7 @@ Before you enable proxy protocol on a target group, make sure that your applicat
 
 1. Choose the name the target group to open its details page\.
 
-1. On the **Group details** page, in the **Attributes** section, choose **Edit**\.
+1. On the **Attributes** tab, choose **Edit**\.
 
 1. On the **Edit attributes** page, select **Proxy protocol v2**\.
 
@@ -358,7 +358,7 @@ Sticky sessions are a mechanism to route client traffic to the same target in a 
 
 1. Choose the name of the target group to open its details page\.
 
-1. On the **Group details** page, in the **Attributes** section, choose **Edit**\.
+1. On the **Attributes** tab, choose **Edit**\.
 
 1. On the **Edit attributes** page, select **Stickiness**\.
 

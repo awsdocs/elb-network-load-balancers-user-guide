@@ -23,16 +23,16 @@ For a UDP service, target availability can be tested using non\-UDP health check
 You configure active health checks for the targets in a target group using the following settings\. If the health checks exceed **UnhealthyThresholdCount** consecutive failures, the load balancer takes the target out of service\. When the health checks exceed **HealthyThresholdCount** consecutive successes, the load balancer puts the target back in service\.
 
 
-| Setting | Description | 
-| --- | --- | 
-| **HealthCheckProtocol** |  The protocol the load balancer uses when performing health checks on targets\. The possible protocols are HTTP, HTTPS, and TCP\. The default is the TCP protocol\. If the target type is `alb`, the supported health check protocols are HTTP and HTTPS\.  | 
-| **HealthCheckPort** |  The port the load balancer uses when performing health checks on targets\. The default is to use the port on which each target receives traffic from the load balancer\.  | 
-| **HealthCheckPath** |  \[HTTP/HTTPS health checks\] The ping path that is the destination on the targets for health checks\. The default is /\.  | 
-| **HealthCheckTimeoutSeconds** |  The amount of time, in seconds, during which no response from a target means a failed health check\. This value must be 6 seconds for HTTP health checks and 10 seconds for TCP and HTTPS health checks\.  | 
-| **HealthCheckIntervalSeconds** |  The approximate amount of time, in seconds, between health checks of an individual target\. This value can be 10 seconds or 30 seconds\. The default is 30 seconds\.  Health checks for a Network Load Balancer are distributed and use a consensus mechanism to determine target health\. Therefore, targets receive more than the configured number of health checks\. To reduce the impact to your targets if you are using HTTP health checks, use a simpler destination on the targets, such as a static HTML file, or switch to TCP health checks\.   | 
-| **HealthyThresholdCount** |  The number of consecutive successful health checks required before considering an unhealthy target healthy\. The range is 2 to 10\. The default is 3\.  | 
-| **UnhealthyThresholdCount** |  The number of consecutive failed health checks required before considering a target unhealthy\. This value must be the same as the healthy threshold count\.  | 
-| **Matcher** |  \[HTTP/HTTPS health checks\] The HTTP codes to use when checking for a successful response from a target\. This value must be 200 to 399\.  | 
+| Setting | Description | Default | 
+| --- | --- | --- | 
+|  **HealthCheckProtocol**  |  The protocol the load balancer uses when performing health checks on targets\. The possible protocols are HTTP, HTTPS, and TCP\. The default is the TCP protocol\. If the target type is `alb`, the supported health check protocols are HTTP and HTTPS\.  | TCP | 
+|  **HealthCheckPort**  |  The port the load balancer uses when performing health checks on targets\. The default is to use the port on which each target receives traffic from the load balancer\.  | Port on which each target receives traffic from the load balancer\. | 
+|  **HealthCheckPath**  |  \[HTTP/HTTPS health checks\] The ping path that is the destination on the targets for health checks\. The default is /\.  |  / | 
+|  **HealthCheckTimeoutSeconds**  |  The amount of time, in seconds, during which no response from a target means a failed health check\. This value must be 6 seconds for HTTP health checks and 10 seconds for TCP and HTTPS health checks\.  | 6 seconds for HTTP health checks and 10 seconds for TCP and HTTPS health checks\. | 
+|  **HealthCheckIntervalSeconds**  |  The approximate amount of time, in seconds, between health checks of an individual target\. This value can be 10 seconds or 30 seconds\. The default is 30 seconds\.  Health checks for a Network Load Balancer are distributed and use a consensus mechanism to determine target health\. Therefore, targets receive more than the configured number of health checks\. To reduce the impact to your targets if you are using HTTP health checks, use a simpler destination on the targets, such as a static HTML file, or switch to TCP health checks\.   | 30 seconds | 
+|  **HealthyThresholdCount**  |  The number of consecutive successful health checks required before considering an unhealthy target healthy\. The range is 2 to 10\. The default is 3\.  | 3 | 
+|  **UnhealthyThresholdCount**  |  The number of consecutive failed health checks required before considering a target unhealthy\. This value must be the same as the healthy threshold count\. The default is 3\.  | 3 | 
+|  **Matcher**  |  \[HTTP/HTTPS health checks\] The HTTP codes to use when checking for a successful response from a target\. This value must be 200 to 399\.  | 200\-399 | 
 
 ## Target health status<a name="target-health-states"></a>
 
