@@ -68,9 +68,9 @@ When the target type is `ip`, you can specify IP addresses from one of the follo
 You can't specify publicly routable IP addresses\.
 
 All of the supported CIDR blocks enable you to register the following targets with a target group: 
-+ ClassicLink instances
-+ AWS resources that are addressable by IP address and port \(for example, databases\)
-+ On\-premises resources linked to AWS through AWS Direct Connect or a Site\-to\-Site VPN connection
++ ClassicLink instances\. For more information, see [ClassicLink](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html), in the *Amazon EC2 User Guide for Linux Instances*\.
++ AWS resources that are addressable by IP address and port \(for example, databases\)\.
++ On\-premises resources linked to AWS through AWS Direct Connect or a Site\-to\-Site VPN connection\.
 
 When client IP preservation is disabled for your target groups, the load balancer can support about 55,000 connections per minute for each combination of Network Load Balancer IP address and unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors\. If you get port allocation errors, add more targets to the target group\.
 

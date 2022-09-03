@@ -40,7 +40,7 @@ The following are the recommended rules for the security groups for your targets
 | VPC CIDR  | target | target | Allow traffic from the load balancer VPC † | 
 | VPC CIDR | health check | health check | Allow health check traffic from the load balancer | 
 
-If you register targets by IP address but do not want to grant access to the entire VPC CIDR, you can grant access to the private IP addresses used by the load balancer nodes\. There is one IP address per load balancer subnet\. To find these addresses, use the following procedure\.
+† If you register targets by IP address but do not want to grant access to the entire VPC CIDR, you can grant access to the private IP addresses used by the load balancer nodes\. There is one IP address per load balancer subnet\. To find these addresses, use the following procedure\.
 
 **To find the private IP addresses to allow**
 

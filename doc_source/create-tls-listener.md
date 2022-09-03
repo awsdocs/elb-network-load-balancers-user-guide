@@ -1,10 +1,10 @@
 # TLS listeners for your Network Load Balancer<a name="create-tls-listener"></a>
 
-To use a TLS listener, you must deploy at least one server certificate on your load balancer\. The load balancer uses a server certificate to terminate the front\-end connection and then to decrypt requests from clients before sending them to the targets\. Note that if you need to pass encrypted traffic through to the targets without the load balancer decrypting it, create a TCP listener on port 443 instead of creating a TLS listener\.
+To use a TLS listener, you must deploy at least one server certificate on your load balancer\. The load balancer uses a server certificate to terminate the front\-end connection and then to decrypt requests from clients before sending them to the targets\. Note that if you need to pass encrypted traffic to the targets without the load balancer decrypting it, create a TCP listener on port 443 instead of creating a TLS listener\. The load balancer passes the request to the target as is, without decrypting it\.
 
 Elastic Load Balancing uses a TLS negotiation configuration, known as a security policy, to negotiate TLS connections between a client and the load balancer\. A security policy is a combination of protocols and ciphers\. The protocol establishes a secure connection between a client and a server and ensures that all data passed between the client and your load balancer is private\. A cipher is an encryption algorithm that uses encryption keys to create a coded message\. Protocols use several ciphers to encrypt data over the internet\. During the connection negotiation process, the client and the load balancer present a list of ciphers and protocols that they each support, in order of preference\. The first cipher on the server's list that matches any one of the client's ciphers is selected for the secure connection\.
 
-Network Load Balancers do not support TLS renegotiation\.
+Network Load Balancers do not support TLS renegotiation or mutual TLS authentication \(mTLS\)\. For mTLS support, create a TCP listener instead of a TLS listener\. The load balancer passes the request through as is, so you can implement mTLS on the target\.
 
 To create a TLS listener, see [Add a listener](create-listener.md#add-listener)\. For related demos, see [TLS Support on Network Load Balancer](https://exampleloadbalancer.com/nlbtls_demo.html) and [SNI Support on Network Load Balancer](https://exampleloadbalancer.com/nlbsni_demo.html)\.
 
