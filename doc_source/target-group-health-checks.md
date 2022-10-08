@@ -12,6 +12,8 @@ If a target becomes unhealthy, the load balancer sends a TCP RST for packets rec
 
 If target groups don't have a healthy target in an enabled Availability Zone, we remove the IP address for the corresponding subnet from DNS so that requests cannot be routed to targets in that Availability Zone\. If all targets fail health checks at the same time in all enabled Availability Zones, the load balancer fails open\. The effect of the fail open is to allow traffic to all targets in all enabled Availability Zones, regardless of their health status\.
 
+If a target group is configured with HTTPS health checks, its registered targets fail health checks if they support only TLS 1\.3\. These targets must support an earlier version of TLS, such as TLS 1\.2\.
+
 For HTTP or HTTPS health check requests, the host header contains the IP address of the load balancer node and the listener port, not the IP address of the target and the health check port\.
 
 If you add a TLS listener to your Network Load Balancer, we perform a listener connectivity test\. As TLS termination also terminates a TCP connection, a new TCP connection is established between your load balancer and your targets\. Therefore, you might see the TCP pings for this test sent from your load balancer to the targets that are registered with your TLS listener\. You can identify these TCP pings because they have the source IP address of your Network Load Balancer and the connections do not contain data packets\.

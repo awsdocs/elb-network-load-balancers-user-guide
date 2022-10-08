@@ -22,7 +22,7 @@ Your AWS account has the following quotas related to Network Load Balancers\.
 
 **\*** Each Network Load Balancer uses one network interface per zone\. The quota is set at the VPC level\. When sharing subnets or VPCs, the usage is calculated across all tenants\.
 
-† Each Application Load Balancer that is a target of the Network Load Balancer counts as 50 targets if cross\-zone load balancing is disabled or 100 targets if cross\-zone load balancing is enabled\.
+† If a target is registered with *N* target groups, it counts as *N* targets toward this limit\. Each Application Load Balancer that is a target of the Network Load Balancer counts as 50 targets if cross\-zone load balancing is disabled or 100 targets if cross\-zone load balancing is enabled\.
 
 **Target groups**  
 The following quotas are for target groups\.

@@ -1,10 +1,10 @@
 # Update a listener for your Network Load Balancer<a name="listener-update-rules"></a>
 
-You can update the listener port, listener protocol, or the default listener rule\.
-
-The default listener rule forwards requests to the specified target group\.
+You can update the listener port, listener protocol, or the default listener rule\. The default listener rule forwards requests to the specified target group\.
 
 If you change the protocol from TCP or UDP to TLS, you must specify a security policy and server certificate\. If you change the protocol from TLS to TCP or UDP, the security policy and server certificate are removed\.
+
+If you change the target group for the default action, it has no effect on any active connections to the targets in the original target group\. Connections are not drained or terminated as they would be when deregistering targets\.
 
 **To update your listener using the console**
 
