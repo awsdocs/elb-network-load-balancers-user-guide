@@ -44,7 +44,7 @@ The following table summarizes the supported combinations of listener protocol a
 
 ## Target type<a name="target-type"></a>
 
-When you create a target group, you specify its target type, which determines how you specify its targets\. After you create a target group, you cannot change its target type\.
+When you create a target group, you specify its target type, which determines how you specify its targets\. After you create a target group, you can't change its target type\.
 
 The following are the possible target types:
 
@@ -80,7 +80,7 @@ When the target type is `alb`, you can register a single Application Load Balanc
 
 Network Load Balancers do not support the `lambda` target type\. Application Load Balancers are the only load balancers that support the `lambda` target type\. For more information, see [Lambda functions as targets](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/lambda-functions.html) in the *User Guide for Application Load Balancers*\.
 
-If you have microservices on instances that are registered with a Network Load Balancer, you cannot use the load balancer to provide communication between them unless the load balancer is internet\-facing or the instances are registered by IP address\. For more information, see [Connections time out for requests from a target to its load balancer](load-balancer-troubleshooting.md#loopback-timeout)\.
+If you have microservices on instances that are registered with a Network Load Balancer, you can't use the load balancer to provide communication between them unless the load balancer is internet\-facing or the instances are registered by IP address\. For more information, see [Connections time out for requests from a target to its load balancer](load-balancer-troubleshooting.md#loopback-timeout)\.
 
 ### Request routing and IP addresses<a name="request-routing-ip-addresses"></a>
 
@@ -111,9 +111,9 @@ If demand on your application decreases, or if you need to service your targets,
 
 If you are registering targets by instance ID, you can use your load balancer with an Auto Scaling group\. After you attach a target group to an Auto Scaling group, Auto Scaling registers your targets with the target group for you when it launches them\. For more information, see [Attaching a load balancer to your Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-load-balancer-asg.html) in the *Amazon EC2 Auto Scaling User Guide*\.
 
-**Considerations**
-+ You cannot register instances by instance ID if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\.
-+ You cannot register instances by instance ID if they are in a VPC that is peered to the load balancer VPC \(same Region or different Region\)\. You can register these instances by IP address\.
+**Requirements and considerations**
++ You can't register instances by instance ID if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\.
++ You can't register instances by instance ID if they are in a VPC that is peered to the load balancer VPC \(same Region or different Region\)\. You can register these instances by IP address\.
 + If you register a target by IP address and the IP address is in the same VPC as the load balancer, the load balancer verifies that it is from a subnet that it can reach\.
 + The load balancer routes traffic to targets only in Availability Zones that are enabled\. Targets in zones that are not enabled are unused\.
 + For UDP and TCP\_UDP target groups, do not register instances by IP address if they reside outside of the load balancer VPC or if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\. Targets that reside outside the load balancer VPC or use an unsupported instance type might be able to receive traffic from the load balancer but then be unable to respond\.
@@ -129,7 +129,7 @@ The amount of time for Elastic Load Balancing to wait before changing the state 
 Indicates whether the load balancer terminates connections at the end of the deregistration timeout\. The value is `true` or `false`\. The default is `false`\.
 
 `preserve_client_ip.enabled`  
-Indicates whether client IP preservation is enabled\. The value is `true` or `false`\. The default is disabled if the target group type is IP address and the target group protocol is TCP or TLS\. Otherwise, the default is enabled\. Client IP preservation cannot be disabled for UDP and TCP\_UDP target groups\.
+Indicates whether client IP preservation is enabled\. The value is `true` or `false`\. The default is disabled if the target group type is IP address and the target group protocol is TCP or TLS\. Otherwise, the default is enabled\. Client IP preservation can't be disabled for UDP and TCP\_UDP target groups\.
 
 `proxy_protocol_v2.enabled`  
 Indicates whether proxy protocol version 2 is enabled\. By default, proxy protocol is disabled\.
@@ -144,18 +144,19 @@ The type of stickiness\. The possible value is `source_ip`\.
 
 Network Load Balancers can preserve the source IP address of clients when routing requests to backend targets\. When you disable client IP preservation, the private IP address of the Network Load Balancer becomes the client IP address for all incoming traffic\.
 
-By default, client IP preservation is enabled \(and cannot be disabled\) for instance and IP type target groups with UDP and TCP\_UDP protocols\. However, you can enable or disable client IP preservation for TCP and TLS target groups using the `preserve_client_ip.enabled` target group attribute\.
+By default, client IP preservation is enabled \(and can't be disabled\) for instance and IP type target groups with UDP and TCP\_UDP protocols\. However, you can enable or disable client IP preservation for TCP and TLS target groups using the `preserve_client_ip.enabled` target group attribute\.
 
 **Default settings**
 + Instance type target groups: Enabled
 + IP type target groups \(UDP, TCP\_UDP\): Enabled
 + IP type target groups \(TCP, TLS\): Disabled
 
-**Considerations**
+**Requirements and considerations**
 + When client IP preservation is enabled, targets must be in the same VPC as the Network Load Balancer, and traffic must flow directly from the Network Load Balancer to the target\.
 + Client IP preservation is not supported when traffic is routed through a Gateway Load Balancer endpoint, even if the target is in the same VPC as the Network Load Balancer\.
 + The following instance types do not support client IP preservation: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, and T1\. We recommend that you register these instance types as IP addresses with client IP preservation disabled\.
-+ Client IP preservation has no effect on AWS PrivateLink traffic\. The source IP of the AWS PrivateLink traffic is always the private IP address of the Network Load Balancer\.
++ Client IP preservation has no effect on inbound traffic from AWS PrivateLink\. The source IP of the AWS PrivateLink traffic is always the private IP address of the Network Load Balancer\.
++ Client IP preservation is not supported when a target group contains AWS PrivateLink ENIs, or the ENI of another Network Load Balancer\. This will cause loss of communication to those targets\.
 + Client IP preservation has no effect on traffic converted from IPv6 to IPv4\. The source IP of this type of traffic is always the private IP address of the Network Load Balancer\.
 + When you specify targets by Application Load Balancer type, the client IP of all incoming traffic is preserved by the Network Load Balancer and is sent to the Application Load Balancer\. The Application Load Balancer then appends the client IP to the `X-Forwarded-For` request header before sending it to the target\.
 + Client IP preservation changes take effect only for new TCP connections\.

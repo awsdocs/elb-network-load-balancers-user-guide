@@ -22,7 +22,7 @@ Network Load Balancers support connections from clients over VPC peering, AWS ma
 
 ## Load balancer state<a name="load-balancer-state"></a>
 
-A load balancer can be in one of the following states:
+A load balancer has one of the following states:
 
 `provisioning`  
 The load balancer is being set up\.
@@ -31,11 +31,11 @@ The load balancer is being set up\.
 The load balancer is fully set up and ready to route traffic\.
 
 `failed`  
-The load balancer could not be set up\.
+The load balancer couldn't be set up\.
 
 ## Load balancer attributes<a name="load-balancer-attributes"></a>
 
-The following are the load balancer attributes:
+A load balancer has the following attributes:
 
 `access_logs.s3.enabled`  
 Indicates whether access logs stored in Amazon S3 are enabled\. The default is `false`\.
@@ -50,16 +50,14 @@ The prefix for the location in the Amazon S3 bucket\.
 Indicates whether [deletion protection](#deletion-protection) is enabled\. The default is `false`\.
 
 `ipv6.deny_all_igw_traffic`  
-Blocks internet gateway \(IGW\) access to the load balancer, preventing unintended access to your internal load balancer through an internet gateway\. It is set to `false` for internet\-facing load balancers and `true` for internal load balancers\. This attribute does not prevent non\-IGW internet access \(such as, through peering, Transit Gateway, AWS Direct Connect, or AWS VPN\)\.
+Blocks internet gateway \(IGW\) access to the load balancer, preventing unintended access to your internal load balancer through an internet gateway\. It is set to `false` for internet\-facing load balancers and `true` for internal load balancers\. This attribute does not prevent non\-IGW internet access \(for example, through peering, Transit Gateway, AWS Direct Connect, or AWS VPN\)\.
 
 `load_balancing.cross_zone.enabled`  
 Indicates whether [cross\-zone load balancing](#cross-zone-load-balancing) is enabled\. The default is `false`\.
 
 ## IP address type<a name="ip-address-type"></a>
 
-You can set the types of IP addresses that clients can use with your load balancer\. 
-
-The following are the IP address types:
+You can set the types of IP addresses that clients can use with your load balancer\. The following are the IP address types:
 
 `ipv4`  
 Clients must connect to the load balancer using IPv4 addresses \(for example, 192\.0\.2\.1\)\. IPv4 enabled load balancers \(both internet\-facing and internal\) support TCP, UDP, TCP\_UDP, and TLS listeners\.
@@ -76,13 +74,13 @@ For more information on load balancer IP address types, see [Update the address 
 
 ## Availability Zones<a name="availability-zones"></a>
 
-You enable one or more Availability Zones for your load balancer when you create it\. If you enable multiple Availability Zones for your load balancer, this increases the fault tolerance of your applications\. You cannot disable Availability Zones for a Network Load Balancer after you create it, but you can enable additional Availability Zones\.
+You enable one or more Availability Zones for your load balancer when you create it\. If you enable multiple Availability Zones for your load balancer, this increases the fault tolerance of your applications\. You can't disable Availability Zones for a Network Load Balancer after you create it, but you can enable additional Availability Zones\.
 
-When you enable an Availability Zone, you specify one subnet from that Availability Zone\. Elastic Load Balancing creates a load balancer node in the Availability Zone and a network interface for the subnet \(the description starts with "ELB net" and includes the name of the load balancer\)\. Each load balancer node in the Availability Zone uses this network interface to get an IPv4 address\. Note that you can view this network interface but you cannot modify it\.
+When you enable an Availability Zone, you specify one subnet from that Availability Zone\. Elastic Load Balancing creates a load balancer node in the Availability Zone and a network interface for the subnet \(the description starts with "ELB net" and includes the name of the load balancer\)\. Each load balancer node in the Availability Zone uses this network interface to get an IPv4 address\. Note that you can view this network interface but you can't modify it\.
 
-When you create an internet\-facing load balancer, you can optionally specify one Elastic IP address per subnet\. If you do not choose one of your own Elastic IP addresses, Elastic Load Balancing provides one Elastic IP address per subnet for you\. These Elastic IP addresses provide your load balancer with static IP addresses that will not change during the life of the load balancer\. You cannot change these Elastic IP addresses after you create the load balancer\.
+When you create an internet\-facing load balancer, you can optionally specify one Elastic IP address per subnet\. If you do not choose one of your own Elastic IP addresses, Elastic Load Balancing provides one Elastic IP address per subnet for you\. These Elastic IP addresses provide your load balancer with static IP addresses that will not change during the life of the load balancer\. You can't change these Elastic IP addresses after you create the load balancer\.
 
-When you create an internal load balancer, you can optionally specify one private IP address per subnet\. If you do not specify an IP address from the subnet, Elastic Load Balancing chooses one for you\. These private IP addresses provide your load balancer with static IP addresses that will not change during the life of the load balancer\. You cannot change these private IP addresses after you create the load balancer\.
+When you create an internal load balancer, you can optionally specify one private IP address per subnet\. If you do not specify an IP address from the subnet, Elastic Load Balancing chooses one for you\. These private IP addresses provide your load balancer with static IP addresses that will not change during the life of the load balancer\. You can't change these private IP addresses after you create the load balancer\.
 
 **Requirements**
 + For internet\-facing load balancers, the subnets that you specify must have at least 8 available IP addresses\. For internal load balancers, this is only required if you let AWS select a private IPv4 address from the subnet\.
@@ -169,7 +167,7 @@ Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/lat
 
 For each TCP request that a client makes through a Network Load Balancer, the state of that connection is tracked\. If no data is sent through the connection by either the client or target for longer than the idle timeout, the connection is closed\. If a client or a target sends data after the idle timeout period elapses, it receives a TCP RST packet to indicate that the connection is no longer valid\.
 
-We set the idle timeout value for TCP flows to 350 seconds\. You can't modify this value\. Clients or targets can use TCP keepalive packets to reset the idle timeout\. Keepalive packets sent to maintain TLS connections cannot contain data or payload\.
+We set the idle timeout value for TCP flows to 350 seconds\. You can't modify this value\. Clients or targets can use TCP keepalive packets to reset the idle timeout\. Keepalive packets sent to maintain TLS connections can't contain data or payload\.
 
 When a TLS listener receives a TCP keepalive packet from either a client or a target, the load balancer generates TCP keepalive packets and sends them to both the front\-end and back\-end connections every 20 seconds\. You can't modify this behavior\.
 

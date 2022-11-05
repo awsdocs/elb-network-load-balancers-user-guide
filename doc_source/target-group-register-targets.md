@@ -14,7 +14,7 @@ When you register EC2 instances as targets, you must ensure that the security gr
 
 **Considerations**
 + Network Load Balancers do not have associated security groups\. Therefore, the security groups for your targets must use IP addresses to allow traffic\.
-+ You cannot use the security groups for the clients as a source in the security groups for the targets\. Therefore, the security groups for your targets must use the IP addresses of the clients to allow traffic\.
++ You can't use the security groups for the clients as a source in the security groups for the targets\. Therefore, the security groups for your targets must use the IP addresses of the clients to allow traffic\.
 
 **Recommended rules with client IP preservation enabled**  
 The following are the recommended rules for the security groups for your targets with client IP preservation enabled\.
@@ -105,9 +105,9 @@ Each target group must have at least one registered target in each Availability 
 
 The target type of your target group determines how you register targets with that target group\. For more information, see [Target type](load-balancer-target-groups.md#target-type)\.
 
-**Considerations**
-+ You cannot register instances by instance ID if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\.
-+ You cannot register instances by instance ID if they are in a VPC that is peered to the load balancer VPC \(same Region or different Region\)\. You can register these instances by IP address\.
+**Requirements and considerations**
++ You can't register instances by instance ID if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\.
++ You can't register instances by instance ID if they are in a VPC that is peered to the load balancer VPC \(same Region or different Region\)\. You can register these instances by IP address\.
 + If you register a target by IP address and the IP address is in the same VPC as the load balancer, the load balancer verifies that it is from a subnet that it can reach\.
 + For UDP and TCP\_UDP target groups, do not register instances by IP address if they reside outside of the load balancer VPC or if they use one of the following instance types: C1, CC1, CC2, CG1, CG2, CR1, G1, G2, HI1, HS1, M1, M2, M3, or T1\. Targets that reside outside the load balancer VPC or use an unsupported instance type might be able to receive traffic from the load balancer but then be unable to respond\.
 
@@ -169,13 +169,13 @@ An IP address that you register must be from one of the following CIDR blocks:
 + 172\.16\.0\.0/12 \(RFC 1918\)
 + 192\.168\.0\.0/16 \(RFC 1918\)
 
-The IP address type cannot be changed after the target group is created\.
+The IP address type can't be changed after the target group is created\.
 
 When launching a Network Load Balancer in a shared Amazon VPC as a participant, you can only register targets in subnets that have been shared with you\.
 
 **IPv6 targets**
 + The IP addresses that you register must be within the VPC CIDR block or within a peered VPC CIDR block\.
-+ The IP address type cannot be changed after the target group is created\.
++ The IP address type can't be changed after the target group is created\.
 + You can associate IPv6 target groups only to a dualstack load balancer with TCP or a TLS listeners\.
 
 ------

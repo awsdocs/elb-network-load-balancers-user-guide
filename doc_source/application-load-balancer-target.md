@@ -65,7 +65,7 @@ Creating a target group allows you to register a new or existing Application Loa
 
 1. For **Health checks**, choose HTTP or HTTPS as the **Health check protocol**\. Health checks are sent to the Application Load Balancer and forwarded to its targets using the specified port, protocol, and ping path\. Ensure that your Application Load Balancer can receive these health checks by having a listener with a port and protocol that matches the health check port and protocol\.
 
-   For **Advanced health check settings**, you cannot modify **Unhealthy threshold**, **Timeout**, or **Success codes**\. For more information, see [Health checks for your target groups](target-group-health-checks.md)\. 
+   For **Advanced health check settings**, you can't modify **Unhealthy threshold**, **Timeout**, or **Success codes**\. For more information, see [Health checks for your target groups](target-group-health-checks.md)\. 
 
 1. \(Optional\) Add one or more tags as required\.
 
@@ -76,7 +76,7 @@ Creating a target group allows you to register a new or existing Application Loa
 1. Choose **Create target group**\.
 
 **Important**  
-If at any point you need to delete an Application Load Balancer, be aware that you cannot delete an Application Load Balancer that has been registered as a target in a target group\. To delete it, you must first deregister it from all target groups\. 
+If at any point you need to delete an Application Load Balancer, be aware that you can't delete an Application Load Balancer that has been registered as a target in a target group\. To delete it, you must first deregister it from all target groups\. 
 
 **To create a target group and register the Application Load Balancer as a target, using the AWS CLI**  
 Use the [create\-target\-group](https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-target-group.html) and [register\-targets](https://docs.aws.amazon.com/cli/latest/reference/elbv2/register-targets.html) command\.
@@ -115,7 +115,7 @@ Use the following steps to create the Network Load Balancer and then configure t
 
       This setup allows you to use HTTPS listeners on the Application Load Balancer to terminate the TLS protocol\.
 
-   1. For **Default action**, select the Application Load Balancer target group that you want to forward traffic to\. If you don't see it in the list, or cannot select a target group \(because it is already in use by another Network Load Balancer\), you can create a new Application Load Balancer target group as shown in [Step 2: Create the target group with the Application Load Balancer as the target](#register-application-load-balancer-target)\. 
+   1. For **Default action**, select the Application Load Balancer target group that you want to forward traffic to\. If you don't see it in the list, or can't select a target group \(because it is already in use by another Network Load Balancer\), you can create a new Application Load Balancer target group as shown in [Step 2: Create the target group with the Application Load Balancer as the target](#register-application-load-balancer-target)\. 
 
 1. Add tags \(optional\), review your configuration, and choose **Create load balancer**\. 
 
