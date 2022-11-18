@@ -16,15 +16,13 @@ You configure a listener with a protocol and a port for connections from clients
 
 1. In the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
 
-1. Select the load balancer and choose **Listeners**\.
+1. Select the name of the load balancer to open its details page\.
 
-1. Choose **Add listener**\.
+1. On the **Listeners** tab, choose **Add listener**\.
 
-1. For **Protocol : port**, choose **TCP**, **UDP**, **TCP\_UDP**, or **TLS**\. Keep the default port or type a different port\. For dualstack Network Load Balancers, only TCP and TLS protocols are supported\.
+1. For **Protocol**, choose **TCP**, **UDP**, **TCP\_UDP**, or **TLS**\. Keep the default port or type a different port\. For dualstack Network Load Balancers, only the TCP and TLS protocols are supported\.
 
-1. \[TLS listeners\] For **ALPN policy**, choose a policy to enable ALPN or choose **None** to disable ALPN\. For more information, see [ALPN policies](create-tls-listener.md#alpn-policies)\.
-
-1. For **Default actions**, choose **Add action**, **Forward to** and then choose an available target group\.
+1. For **Default action**, choose an available target group\.
 
 1. \[TLS listeners\] For **Security policy**, we recommend that you keep the default security policy\.
 
@@ -32,7 +30,9 @@ You configure a listener with a protocol and a port for connections from clients
    + If you created or imported a certificate using AWS Certificate Manager, choose **From ACM** and choose the certificate\.
    + If you uploaded a certificate using IAM, choose **From IAM** and choose the certificate\.
 
-1. Choose **Save**\.
+1. \[TLS listeners\] For **ALPN policy**, choose a policy to enable ALPN or choose **None** to disable ALPN\. For more information, see [ALPN policies](create-tls-listener.md#alpn-policies)\.
+
+1. Choose **Add**\.
 
 1. \[TLS listeners\] To add an optional certificate list for use with the SNI protocol, see [Add certificates to the certificate list](listener-update-certificates.md#add-certificates)\.
 

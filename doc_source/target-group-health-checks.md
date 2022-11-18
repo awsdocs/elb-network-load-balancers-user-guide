@@ -30,11 +30,11 @@ You configure active health checks for the targets in a target group using the f
 |  **HealthCheckProtocol**  |  The protocol the load balancer uses when performing health checks on targets\. The possible protocols are HTTP, HTTPS, and TCP\. The default is the TCP protocol\. If the target type is `alb`, the supported health check protocols are HTTP and HTTPS\.  | TCP | 
 |  **HealthCheckPort**  |  The port the load balancer uses when performing health checks on targets\. The default is to use the port on which each target receives traffic from the load balancer\.  | Port on which each target receives traffic from the load balancer\. | 
 |  **HealthCheckPath**  |  \[HTTP/HTTPS health checks\] The ping path that is the destination on the targets for health checks\. The default is /\.  |  / | 
-|  **HealthCheckTimeoutSeconds**  |  The amount of time, in seconds, during which no response from a target means a failed health check\. This value must be 6 seconds for HTTP health checks and 10 seconds for TCP and HTTPS health checks\.  | 6 seconds for HTTP health checks and 10 seconds for TCP and HTTPS health checks\. | 
-|  **HealthCheckIntervalSeconds**  |  The approximate amount of time, in seconds, between health checks of an individual target\. This value can be 10 seconds or 30 seconds\. The default is 30 seconds\.  Health checks for a Network Load Balancer are distributed and use a consensus mechanism to determine target health\. Therefore, targets receive more than the configured number of health checks\. To reduce the impact to your targets if you are using HTTP health checks, use a simpler destination on the targets, such as a static HTML file, or switch to TCP health checks\.   | 30 seconds | 
-|  **HealthyThresholdCount**  |  The number of consecutive successful health checks required before considering an unhealthy target healthy\. The range is 2 to 10\. The default is 3\.  | 3 | 
-|  **UnhealthyThresholdCount**  |  The number of consecutive failed health checks required before considering a target unhealthy\. This value must be the same as the healthy threshold count\. The default is 3\.  | 3 | 
-|  **Matcher**  |  \[HTTP/HTTPS health checks\] The HTTP codes to use when checking for a successful response from a target\. This value must be 200 to 399\.  | 200\-399 | 
+|  **HealthCheckTimeoutSeconds**  |  The amount of time, in seconds, during which no response from a target means a failed health check\. The range is 2–120 seconds\. The default values are 6 seconds for HTTP and 10 seconds for TCP and HTTPS health checks\.  | 6 seconds for HTTP health checks and 10 seconds for TCP and HTTPS health checks\. | 
+|  **HealthCheckIntervalSeconds**  |  The approximate amount of time, in seconds, between health checks of an individual target\. The range is 5–300 seconds\. The default is 30 seconds\.  Health checks for a Network Load Balancer are distributed and use a consensus mechanism to determine target health\. Therefore, targets receive more than the configured number of health checks\. To reduce the impact to your targets if you are using HTTP health checks, use a simpler destination on the targets, such as a static HTML file, or switch to TCP health checks\.   | 30 seconds | 
+|  **HealthyThresholdCount**  |  The number of consecutive successful health checks required before considering an unhealthy target healthy\. The range is 2–10\. The default is 5\.  | 5 | 
+|  **UnhealthyThresholdCount**  |  The number of consecutive failed health checks required before considering a target unhealthy\. The range is 2–10\. The default is 2\.  | 2 | 
+|  **Matcher**  |  \[HTTP/HTTPS health checks\] The HTTP codes to use when checking for a successful response from a target\. The range is 200 to 599\. The default is 200\-399\.  | 200\-399 | 
 
 ## Target health status<a name="target-health-states"></a>
 
@@ -84,9 +84,11 @@ You can check the health status of the targets registered with your target group
 
 1. Choose the name of the target group to open its details page\.
 
-1. On the **Targets** tab, the **Status** column indicates the status of each target\.
+1. The **Details** pane displays the total number of targets, plus the number of targets for each health status\.
 
-1. If the target status is any value other than `Healthy`, the **Status details** column contains more information\.
+1. On the **Targets** tab, the **Health status** column indicates the status of each target\.
+
+1. If the status of a target is any value other than `Healthy`, the **Health status details** column contains more information\.
 
 ------
 #### [ Old console ]
@@ -111,7 +113,7 @@ Use CloudWatch alarms to trigger a Lambda function to send details about unhealt
 
 ## Modify the health check settings of a target group<a name="modify-health-check-settings"></a>
 
-You can modify some of the health check settings for your target group\. If the protocol of the target group is TCP, TLS, UDP, or TCP\_UDP, you can't modify the health check protocol, interval, timeout, or success codes\.
+You can modify the health check settings for your target group at any time\.
 
 ------
 #### [ New console ]
@@ -124,7 +126,7 @@ You can modify some of the health check settings for your target group\. If the 
 
 1. Choose the name of the target group to open its details page\.
 
-1. On the **Group details** tab, in the **Health check settings** section, choose **Edit**\.
+1. On the **Health checks** tab, choose **Edit**\.
 
 1. On the **Edit health check settings** page, modify the settings as needed, and then choose **Save changes**\.
 

@@ -31,6 +31,8 @@ sponsored by Amazon.
 + [Target groups for your Network Load Balancers](load-balancer-target-groups.md)
    + [Create a target group for your Network Load Balancer](create-target-group.md)
    + [Health checks for your target groups](target-group-health-checks.md)
+   + [Cross-zone load balancing for target groups](target-group-cross-zone.md)
+   + [Target group health](target-group-health.md)
    + [Register targets with your target group](target-group-register-targets.md)
    + [Application Load Balancers as targets](application-load-balancer-target.md)
    + [Tags for your target group](target-group-tags.md)

@@ -4,6 +4,9 @@ The following table describes the releases for Network Load Balancers\.
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Target group health](#doc-history) | This release adds support to configure the minimum count or percentage of targets that must be healthy, and what actions the load balancer takes when the threshold is not met\. | November 17, 2022 | 
+| [Health check configuration](#doc-history) | This release provides improvements to health check configuration\. | November 17, 2022 | 
+| [Cross\-zone load balancing](#doc-history) | This release adds support to configure cross\-zone load balancing at the level group level\. | November 17, 2022 | 
 | [TLS 1\.3](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html#describe-ssl-policies) | This release adds security policies supporting TLS version 1\.3\. | October 14, 2021 | 
 | [Application Load Balancers as targets](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/application-load-balancer-target.html) | This release adds support to configure an Application Load Balancer as the target of a Network Load Balancer\. | September 27, 2021 | 
 | [Client IP preservation](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html#client-ip-preservation) | This release adds support to configure client IP preservation\. | February 4, 2021 | 

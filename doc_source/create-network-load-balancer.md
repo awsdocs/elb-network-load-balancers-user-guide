@@ -26,9 +26,9 @@ Configuring a target group allows you to register targets such as EC2 instances\
 
 1. Choose **Create target group**\.
 
-1. In the **Basic configuration** section, set the following parameters:
+1. On the **Basic configuration** pane, do the following:
 
-   1. For **Choose a target type**, select **Instance** to register targets by instance ID, **IP addresses** to register targets by IP address, or **Application Load Balancer** to register an Application Load Balancer as a target\.
+   1. For **Choose a target type**, select **Instances** to register targets by instance ID, **IP addresses** to register targets by IP address, or **Application Load Balancer** to register an Application Load Balancer as a target\.
 
    1. For **Target group name**, enter a name for the target group\.
 
@@ -40,7 +40,7 @@ Configuring a target group allows you to register targets such as EC2 instances\
 
    1. \(Optional\) For **Port**, modify the default value as needed\.
 
-   1. For **VPC**, select a virtual private cloud \(VPC\) with the targets that you want to include in your target group\.
+   1. For **VPC**, select a virtual private cloud \(VPC\) with the targets that you want to register with your target group\.
 
    1. For **Protocol version**, select **HTTP1** when the request protocol is HTTP/1\.1 or HTTP/2; select **HTTP2**, when the request protocol is HTTP/2 or gRPC; and select **gRPC**, when the request protocol is gRPC\. 
 
@@ -131,4 +131,4 @@ After creating your load balancer, you can verify that your EC2 instances have p
 
 1. Select the newly created load balancer\.
 
-1. Choose **Description** and copy the DNS name of the load balancer \(for example, my\-load\-balancer\-1234567890abcdef\.elb\.us\-east\-2\.amazonaws\.com\)\. Paste the DNS name into the address field of an internet\-connected web browser\. If everything is working, the browser displays the default page of your server\.
+1. Copy the DNS name of the load balancer \(for example, my\-load\-balancer\-1234567890abcdef\.elb\.us\-east\-2\.amazonaws\.com\)\. Paste the DNS name into the address field of an internet\-connected web browser\. If everything is working, the browser displays the default page of your server\.

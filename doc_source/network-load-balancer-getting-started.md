@@ -28,13 +28,13 @@ Create a target group, which is used in request routing\. The rule for your list
 
 1. Choose **Create target group**\.
 
-1. Keep **Target type** as instance\. 
+1. Keep the target type as **instances**\.
 
 1. For **Target group name**, enter a name for the new target group\.
 
-1. Keep **Protocol** as TCP, and **Port** as 80\.
+1. For **Protocol**, choose **TCP**, and for **Port**, choose **80**\.
 
-1. Select the **VPC** containing your instances\. Keep the protocol version as **HTTP1**\.
+1. For **VPC** select the VPC that contains your instances\. Keep **Protocol version** as **HTTP1**\.
 
 1. For **Health checks**, keep the default settings\.
 
@@ -60,7 +60,7 @@ Elastic Load Balancing supports different types of load balancers\. For this tut
 
 1. In the navigation pane, under **Load Balancing**, choose **Load Balancers**\.
 
-1. Choose **Create Load Balancer**\.
+1. Choose **Create load balancer**\.
 
 1. For **Network Load Balancer**, choose **Create**\.
 
@@ -82,7 +82,7 @@ To create a Network Load Balancer, you must first provide basic configuration in
 
 1. For **Default action**, select the target group that you created and registered in step 1\. 
 
-1. Add an optional tag to categorize your load balancer\. Tag keys must be unique for each load balancer\. Allowed characters are letters, spaces, numbers \(in UTF\-8\), and the following special characters: \+ \- = \. \_ : / @\. Do not use leading or trailing spaces\. Tag values are case\-sensitive\.
+1. \(Optional\) Add tags to categorize your load balancer\. Tag keys must be unique for each load balancer\. Allowed characters are letters, spaces, numbers \(in UTF\-8\), and the following special characters: \+ \- = \. \_ : / @\. Do not use leading or trailing spaces\. Tag values are case\-sensitive\.
 
 1. Review your configuration, and choose **Create load balancer**\. A few default attributes are applied to your load balancer during creation\. You can view and edit them after creating the load balancer\. For more information, see [Load balancer attributes](network-load-balancers.md#load-balancer-attributes)\.
 
@@ -102,9 +102,9 @@ After creating the load balancer, verify that it's sending traffic to your EC2 i
 
 1. In the navigation pane, under **Load Balancing**, choose **Load Balancers**\.
 
-1. Select the newly created load balancer\.
+1. Select the name of the newly created load balancer to open its details page\.
 
-1. Choose **Description** and copy the DNS name of the load balancer \(for example, my\-load\-balancer\-1234567890abcdef\.elb\.us\-east\-2\.amazonaws\.com\)\. Paste the DNS name into the address field of an internet\-connected web browser\. If everything is working, the browser displays the default page of your server\.
+1. Copy the DNS name of the load balancer \(for example, my\-load\-balancer\-1234567890abcdef\.elb\.us\-east\-2\.amazonaws\.com\)\. Paste the DNS name into the address field of an internet\-connected web browser\. If everything is working, the browser displays the default page of your server\.
 
 ## Step 5: \(Optional\) Delete your load balancer<a name="delete-load-balancer"></a>
 
@@ -116,6 +116,6 @@ As soon as your load balancer becomes available, you are billed for each hour or
 
 1. In the navigation pane, under **Load Balancing**, choose **Load Balancers**\.
 
-1. Select the load balancer and choose **Actions**, **Delete**\.
+1. Select the checkbox for the load balancer, and choose **Actions**, **Delete**\.
 
-1. When prompted for confirmation, choose **Yes, Delete**\.
+1. When prompted for confirmation, enter **confirm** and choose **Delete**\.

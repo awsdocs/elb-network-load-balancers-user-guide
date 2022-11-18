@@ -16,11 +16,11 @@ Before you begin, configure the target groups that this Application Load Balance
 
 1. On the navigation pane, under **Load Balancing**, choose **Load Balancers**\.
 
-1. Choose **Create Load Balancer**\.
+1. Choose **Create load balancer**\.
 
 1. Under **Application Load Balancer**, choose **Create**\.
 
-1. On the **Create Application Load Balancer** page, enter **Basic configuration** information such as **Name**, **Scheme**, and **IP address type**\. 
+1. On the **Create Application Load Balancer** page, under **Basic configuration**, specify the **Load balancer name**, **Scheme**, and **IP address type**\.
 
 1. For **Listeners**, you can create an HTTP or HTTPS listener on any port\. However, you must ensure that the port number of this listener matches the port of the target group in which this Application Load Balancer will reside\.
 
@@ -61,11 +61,9 @@ Creating a target group allows you to register a new or existing Application Loa
 
 1. For **Protocol**, only TCP is allowed\. Select the **Port** for your target group\. This target group port must match the listener port of the Application Load Balancer\. Alternatively, you can add or edit the listener port on the Application Load Balancer to match this port\.
 
-1. For VPC, select the virtual private cloud \(VPC\) with the Application Load Balancer that you want to include in the target group\.
+1. For **VPC**, select the virtual private cloud \(VPC\) with the Application Load Balancer to register with the target group\.
 
 1. For **Health checks**, choose HTTP or HTTPS as the **Health check protocol**\. Health checks are sent to the Application Load Balancer and forwarded to its targets using the specified port, protocol, and ping path\. Ensure that your Application Load Balancer can receive these health checks by having a listener with a port and protocol that matches the health check port and protocol\.
-
-   For **Advanced health check settings**, you can't modify **Unhealthy threshold**, **Timeout**, or **Success codes**\. For more information, see [Health checks for your target groups](target-group-health-checks.md)\. 
 
 1. \(Optional\) Add one or more tags as required\.
 
@@ -76,7 +74,7 @@ Creating a target group allows you to register a new or existing Application Loa
 1. Choose **Create target group**\.
 
 **Important**  
-If at any point you need to delete an Application Load Balancer, be aware that you can't delete an Application Load Balancer that has been registered as a target in a target group\. To delete it, you must first deregister it from all target groups\. 
+If at any point you need to delete an Application Load Balancer, be aware that you can't delete an Application Load Balancer that is registered as a target\. To delete the Application Load Balancer, you must first deregister it from all target groups\. 
 
 **To create a target group and register the Application Load Balancer as a target, using the AWS CLI**  
 Use the [create\-target\-group](https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-target-group.html) and [register\-targets](https://docs.aws.amazon.com/cli/latest/reference/elbv2/register-targets.html) command\.

@@ -95,40 +95,22 @@ After you enable an Availability Zone, the load balancer starts routing requests
 
 1. In the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
 
-1. Select the load balancer\.
+1. Select the name of the load balancer to open its details page\.
 
-1. On the **Description** tab, under **Basic Configuration**, choose **Edit subnets**\.
+1. On the **Network mapping** tab, choose **Edit subnets**\.
 
 1. To enable an Availability Zone, select the check box for that Availability Zone\. If there is one subnet for that Availability Zone, it is selected\. If there is more than one subnet for that Availability Zone, select one of the subnets\. Note that you can select only one subnet per Availability Zone\.
 
    For an internet\-facing load balancer, you can select an Elastic IP address for each Availability Zone\. For an internal load balancer, you can assign a private IP address from the IPv4 range of each subnet instead of letting Elastic Load Balancing assign one\.
 
-1. Choose **Save**\.
+1. Choose **Save changes**\.
 
 **To add Availability Zones using the AWS CLI**  
 Use the [set\-subnets](https://docs.aws.amazon.com/cli/latest/reference/elbv2/set-subnets.html) command\.
 
 ## Cross\-zone load balancing<a name="cross-zone-load-balancing"></a>
 
-By default, each load balancer node distributes traffic across the registered targets in its Availability Zone only\. If you enable cross\-zone load balancing, each load balancer node distributes traffic across the registered targets in all enabled Availability Zones\. For more information, see [Cross\-zone load balancing](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#cross-zone-load-balancing) in the *Elastic Load Balancing User Guide*\.
-
-**To enable cross\-zone load balancing using the console**
-
-1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
-
-1. In the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
-
-1. Select the load balancer\.
-
-1. Choose **Description**, **Edit attributes**\.
-
-1. In the **Edit load balancer attributes** dialog, select **Enable** for **Cross\-zone load balancing**, and choose **Save**\.
-
-**To disable cross\-zone load balancing using the console**  
-Use the steps above from step 1 to step 4\. Then, in the **Edit load balancer attributes** dialog, clear **Enable** from **Cross\-zone load balancing**, and choose **Save**\. 
-
-**To enable or disable cross\-zone load balancing using the AWS CLI**  
-Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-load-balancer-attributes.html) command with the `load_balancing.cross_zone.enabled` attribute, where the possible values are `true` \(to enable cross\-zone load balancing\), and `false` \(to disable cross\-zone load balancing\)\. The default is `false`\.
+By default, each load balancer node distributes traffic across the registered targets in its Availability Zone only\. If you turn on cross\-zone load balancing, each load balancer node distributes traffic across the registered targets in all enabled Availability Zones\. You can also turn on cross\-zone load balancing at the target group level\. For more information, see [Cross\-zone load balancing for target groups](target-group-cross-zone.md) and [Cross\-zone load balancing](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#cross-zone-load-balancing) in the *Elastic Load Balancing User Guide*\.
 
 ## Deletion protection<a name="deletion-protection"></a>
 
@@ -142,11 +124,11 @@ If you enable deletion protection for your load balancer, you must disable it be
 
 1. In the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
 
-1. Select the load balancer\.
+1. Select the name of the load balancer to open its details page\.
 
-1. Choose **Description**, **Edit attributes**\.
+1. On the **Attributes** tab, choose **Edit**\.
 
-1. On the **Edit load balancer attributes** page, select **Enable** for **Delete Protection**, and choose **Save**\.
+1. On the **Edit load balancer attributes** page, turn **Deletion protection** on, and then choose **Save changes**\.
 
 **To disable deletion protection using the console**
 
@@ -154,11 +136,11 @@ If you enable deletion protection for your load balancer, you must disable it be
 
 1. In the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
 
-1. Select the load balancer\.
+1. Select the name of the load balancer to open its details page\.
 
-1. Choose **Description**, **Edit attributes**\.
+1. On the **Attributes** tab, choose **Edit**\.
 
-1. On the **Edit load balancer attributes** page, clear **Enable delete protection** and choose **Save**\.
+1. On the **Edit load balancer attributes** page, turn **Deletion protection** off, and then choose **Save changes**\.
 
 **To enable or disable deletion protection using the AWS CLI**  
 Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-load-balancer-attributes.html) command with the `deletion_protection.enabled` attribute\.
