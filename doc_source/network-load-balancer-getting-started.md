@@ -34,7 +34,7 @@ Create a target group, which is used in request routing\. The rule for your list
 
 1. For **Protocol**, choose **TCP**, and for **Port**, choose **80**\.
 
-1. For **VPC** select the VPC that contains your instances\. Keep **Protocol version** as **HTTP1**\.
+1. For **VPC** select the VPC that contains your instances\.
 
 1. For **Health checks**, keep the default settings\.
 
