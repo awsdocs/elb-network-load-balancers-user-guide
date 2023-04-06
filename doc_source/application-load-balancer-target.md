@@ -2,13 +2,20 @@
 
 You can create a target group with a single Application Load Balancer as the target, and configure your Network Load Balancer to forward traffic to it\. In this scenario, the Application Load Balancer takes over the load balancing decision as soon as traffic reaches it\. This configuration combines the features of both load balancers and offers the following advantages:
 + You can use the layer 7 request\-based routing feature of the Application Load Balancer in combination with features that the Network Load Balancer supports, such as endpoint services \(AWS PrivateLink\) and static IP addresses\.
-+ The configuration works well for applications that use multi\-protocol connections, such as media services using HTTP for signaling, and RTP to stream content\.
++ You can use this configuration for applications that need a single endpoint for multi\-protocols, such as media services using HTTP for signaling and RTP to stream content\.
 
 You can use this feature with an internal or internet\-facing Application Load Balancer as the target of an internal or internet\-facing Network Load Balancer\.
 
+**Considerations**
++ You can associate an Application Load Balancer as a target of up two Network Load Balancers\. To do this, register the Application Load Balancer with two separate target groups, used by two different Network Load Balancers\.
++ The Network Load Balancer and the Application Load Balancer must have the same configuration for cross\-zone load balancing\. A mismatch in the cross\-zone load balancing settings for the load balancers can lead to intermittent 503 errors\.
++ Each Application Load Balancer that you register with a Network Load Balancer decreases the maximum number of targets per Availability Zone per Network Load Balancer by 50 \(if cross\-zone load balancing is disabled\) or 100 \(if cross\-zone load balancing is enabled\)\. You can disable cross\-zone load balancing in both load balancers to minimize latency and avoid Regional data transfer charges\. For more information, see [Quotas for your Network Load Balancers](load-balancer-limits.md)\.
++ When the target group type is `alb`, you can't modify the target group attributes\. These attributes always use their default values\.
++ After you register an Application Load Balancer as a target, you can't delete the Application Load Balancer until you deregister it from all target groups\.
+
 ## Step 1: Create the Application Load Balancer<a name="create-new-application-load-balancer-target"></a>
 
-Before you begin, configure the target groups that this Application Load Balancer will route traffic to\. Ensure that you have a virtual private cloud \(VPC\) with the instances that you want to include in the target group, and at least one public subnet in each of the Availability Zones used by your targets\. 
+Before you begin, configure the target groups that this Application Load Balancer will use\. Ensure that you have a virtual private cloud \(VPC\) with the targets that you will register with the target group\. This VPC must have at least one public subnet in each of the Availability Zones used by your targets\.
 
 **To create the Application Load Balancer using the console**
 
@@ -32,7 +39,7 @@ Before you begin, configure the target groups that this Application Load Balance
 
 1. You can **Assign a security group** to your load balancer by creating a new security group or by selecting an existing one\. 
 
-   The security group that you select should contain a rule that allows traffic to the listener port for this load balancer\. Use the CIDR blocks \(IP address range\) of the client's computers as the traffic source in the inbound rules for security groups\. This allows clients to send traffic through this Application Load Balancer\. For more information on configuring security groups for an Application Load Balancer as a target of a Network Load Balancer, see [Security groups for your Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-update-security-groups.html) in the *User Guide for Application Load Balancers*\.
+   The security group that you select should contain a rule that allows traffic to the listener port for this load balancer\. Use the CIDR blocks \(IP address range\) of the client's computers as the traffic source in the inbound rules for security groups\. This allows clients to send traffic through this Application Load Balancer\. For more information about configuring security groups for an Application Load Balancer as a target of a Network Load Balancer, see [Security groups for your Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-update-security-groups.html) in the *User Guide for Application Load Balancers*\.
 
 1. For **Configure Routing**, select the target group that you configured for this Application Load Balancer\. If you don't have an available target group, and want to configure a new one, see [Create a target group](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-target-group.html) in the *User Guide for Application Load Balancers*\.
 
@@ -73,9 +80,6 @@ Creating a target group allows you to register a new or existing Application Loa
 
 1. Choose **Create target group**\.
 
-**Important**  
-If at any point you need to delete an Application Load Balancer, be aware that you can't delete an Application Load Balancer that is registered as a target\. To delete the Application Load Balancer, you must first deregister it from all target groups\. 
-
 **To create a target group and register the Application Load Balancer as a target, using the AWS CLI**  
 Use the [create\-target\-group](https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-target-group.html) and [register\-targets](https://docs.aws.amazon.com/cli/latest/reference/elbv2/register-targets.html) command\.
 
@@ -91,52 +95,51 @@ Use the following steps to create the Network Load Balancer and then configure t
 
 1. On the navigation pane, under **Load Balancing**, choose **Load Balancers**\.
 
-1. Choose **Create Load Balancer**\.
+1. Choose **Create load balancer**\.
 
 1. Under **Network Load Balancer**, choose **Create**\.
 
 1. **Basic configuration**
 
-   On the **Create Network Load Balancer** page, enter **Basic configuration** information such as **Name**, **Scheme**, and **IP address type**\. 
+   On the **Basic configuration** pane, configure **Load balancer name**, **Scheme**, and **IP address type**\. 
 
-1. **Network and security**
+1. **Network mapping**
 
    1. For **VPC**, select the same VPC that you used for your Application Load Balancer target\. If you selected **Internet\-facing** for **Scheme**, only VPCs with an internet gateway are available for selection\.
 
    1. For **Mappings**, select one or more Availability Zones and corresponding subnets\. We recommend that you select the same Availability Zones as your Application Load Balancer target to optimize availability, scaling, and performance\.
 
-      \(Optional\) To use static IP addresses, choose **Use an Elastic IP address** in the **IPv4 settings** for each Availability Zone\. With static IP addresses you can add certain IPs to an allow list for firewalls, or you can hardcode IPs with clients\. 
+      \(Optional\) To use static IP addresses, choose **Use an Elastic IP address** in the **IPv4 settings** for each Availability Zone\. With static IP addresses you can add certain IP addresses to an allow list for firewalls, or you can hard code IP addresses with clients\. 
 
 1. **Listeners and routing**
 
-   1. For **Listeners**, the default is a listener that accepts TCP traffic on port 80\. Only TCP listeners can forward traffic to an Application Load Balancer target group\. Keep the listener protocol set to TCP, but you can modify the port as required\. 
+   1. The default is a listener that accepts TCP traffic on port 80\. Only TCP listeners can forward traffic to an Application Load Balancer target group\. You must keep **Protocol** as **TCP**, but you can modify **Port** as needed\. 
 
-      This setup allows you to use HTTPS listeners on the Application Load Balancer to terminate the TLS protocol\.
+      With this configuration, you can use HTTPS listeners on the Application Load Balancer to terminate TLS traffic\.
 
-   1. For **Default action**, select the Application Load Balancer target group that you want to forward traffic to\. If you don't see it in the list, or can't select a target group \(because it is already in use by another Network Load Balancer\), you can create a new Application Load Balancer target group as shown in [Step 2: Create the target group with the Application Load Balancer as the target](#register-application-load-balancer-target)\. 
+   1. For **Default action**, select the Application Load Balancer target group to forward traffic\. If you don't see it in the list, or can't select a target group \(because it is already in use by another Network Load Balancer\), you can create an Application Load Balancer target group as shown in [Step 2: Create the target group with the Application Load Balancer as the target](#register-application-load-balancer-target)\.
 
-1. Add tags \(optional\), review your configuration, and choose **Create load balancer**\. 
+1. **Tags**
 
-**Important**  
-You can associate an Application Load Balancer as a target of a maximum of two Network Load Balancers\. To do this, the Application Load Balancer must reside in separate target groups, and be assigned to two different Network Load Balancers\.
+   \(Optional\) Add tags to categorize your load balancer\. For more information, see [Tags](load-balancer-tags.md)\.
 
-Note that each Application Load Balancer you put behind a Network Load Balancer decreases the maximum number of targets by 50 \(if cross\-zone load balancing is disabled\) or 100 \(if cross\-zone load balancing is enabled\)\. We recommend keeping cross\-zone load balancing disabled to minimize latency and avoid regional data transfer charges\. Refer to [Quotas for your Network Load Balancers](load-balancer-limits.md) for baseline limits\.
+1. **Summary**
+
+   Review your configuration, and choose **Create load balancer**\.
 
 **To create the Network Load Balancer using the AWS CLI**  
 Use the [create\-load\-balancer](https://docs.aws.amazon.com/cli/latest/reference/elbv2/create-load-balancer.html) command\.
 
-## Step 4 \(Optional\): Enable VPC endpoint services \(AWS PrivateLink\)<a name="enable-privatelink"></a>
+## Step 4: \(Optional\) Create a VPC endpoint service<a name="enable-privatelink"></a>
 
 To use the Network Load Balancer that you set up in the previous step as an endpoint for private connectivity, you can enable AWS PrivateLink\. This establishes a private connection to your load balancer as an endpoint service\. 
 
-****To enable AWS PrivateLink on your Network Load Balancer****
+**To create a VPC endpoint service using your Network Load Balancer**
 
-1. On the navigation pane, under **Load Balancing**, choose **Load Balancers**\. 
+1. On the navigation pane, choose **Load Balancers**\. 
 
-1. On the load balancers list page, select the Network Load Balancer to enable AWS PrivateLink\. 
+1. Select the name of the Network Load Balancer to open its details page\.
 
-1. In the load balancer details section \(below the list\), choose the **Integrated services** tab\. 
+1. On the **Integrations** tab, expand **VPC Endpoint Services \(AWS PrivateLink\)**\.
 
-1. Scroll down to **VPC Endpoint Services \(AWS PrivateLink\)**\.
-
-1. Choose **Create Endpoint Services**\. For the remaining steps, see [Create a VPC endpoint service configuration for interface endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/create-endpoint-service.html) in the *AWS PrivateLink Guide*\.
+1. Choose **Create endpoint services** to open the **Endpoint services** page\. For the remaining steps, see [Create an endpoint service](https://docs.aws.amazon.com/vpc/latest/privatelink/create-endpoint-service.html#create-endpoint-service-nlb) in the *AWS PrivateLink Guide*\.

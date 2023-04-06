@@ -22,6 +22,7 @@ sponsored by Amazon.
    + [IP address types for your Network Load Balancer](load-balancer-ip-address-type.md)
    + [Tags for your Network Load Balancer](load-balancer-tags.md)
    + [Delete a Network Load Balancer](load-balancer-delete.md)
+   + [Zonal shift](zonal-shift.md)
 + [Listeners for your Network Load Balancers](load-balancer-listeners.md)
    + [Create a listener for your Network Load Balancer](create-listener.md)
    + [TLS listeners for your Network Load Balancer](create-tls-listener.md)

@@ -14,7 +14,7 @@ You configure a listener with a protocol and a port for connections from clients
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. In the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
+1. In the navigation pane, choose **Load Balancers**\.
 
 1. Select the name of the load balancer to open its details page\.
 

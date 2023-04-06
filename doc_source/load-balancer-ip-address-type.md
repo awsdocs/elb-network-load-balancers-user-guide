@@ -16,15 +16,15 @@ Configure settings as described in [Create a load balancer](create-network-load-
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. On the navigation pane, under **Load Balancing**, choose **Load Balancers**\.
+1. In the navigation pane, choose **Load Balancers**\.
 
-1. Select the load balancer\.
+1. Select the check box for the load balancer\.
 
 1. Choose **Actions**, **Edit IP address type**\.
 
-1. For **IP address type**, choose **ipv4** to support IPv4 addresses only or **dualstack** to support both IPv4 and IPv6 addresses\.
+1. For **IP address type**, choose **IPv4** to support IPv4 addresses only or **Dualstack** to support both IPv4 and IPv6 addresses\.
 
-1. Choose **Save**\.
+1. Choose **Save changes**\.
 
 **To update the IP address type using the AWS CLI**  
 Use the [set\-ip\-address\-type](https://docs.aws.amazon.com/cli/latest/reference/elbv2/set-ip-address-type.html) command\.

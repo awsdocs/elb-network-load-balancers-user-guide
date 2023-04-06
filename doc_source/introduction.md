@@ -13,9 +13,9 @@ A *listener* checks for connection requests from clients, using the protocol and
 Each *target group* routes requests to one or more registered targets, such as EC2 instances, using the TCP protocol and the port number that you specify\. You can register a target with multiple target groups\. You can configure health checks on a per target group basis\. Health checks are performed on all targets registered to a target group that is specified in a listener rule for your load balancer\.
 
 For more information, see the following documentation:
-+ [Load Balancers](network-load-balancers.md)
++ [Load balancers](network-load-balancers.md)
 + [Listeners](load-balancer-listeners.md)
-+ [Target Groups](load-balancer-target-groups.md)
++ [Target groups](load-balancer-target-groups.md)
 
 ## Network Load Balancer overview<a name="network-load-balancer-overview"></a>
 
@@ -31,7 +31,7 @@ For UDP traffic, the load balancer selects a target using a flow hash algorithm 
 
 Elastic Load Balancing creates a network interface for each Availability Zone you enable\. Each load balancer node in the Availability Zone uses this network interface to get a static IP address\. When you create an Internet\-facing load balancer, you can optionally associate one Elastic IP address per subnet\.
 
-When you create a target group, you specify its target type, which determines how you register targets\. For example, you can register instance IDs, IP addresses, or an Application Load Balancer\. If you register targets by instance ID, the source IP addresses of the clients are preserved and provided to your applications\. If you register targets by IP address, the source IP addresses are the private IP addresses of the load balancer nodes\. If you register an Application Load Balancer as a target, the source IP addresses of the clients are preserved and provided to your applications\. For more information, see [Client IP preservation](load-balancer-target-groups.md#client-ip-preservation)\.
+When you create a target group, you specify its target type, which determines how you register targets\. For example, you can register instance IDs, IP addresses, or an Application Load Balancer\. The target type also affects whether the client IP addresses are preserved\. For more information, see [Client IP preservation](load-balancer-target-groups.md#client-ip-preservation)\.
 
 You can add and remove targets from your load balancer as your needs change, without disrupting the overall flow of requests to your application\. Elastic Load Balancing scales your load balancer as traffic to your application changes over time\. Elastic Load Balancing can scale to the vast majority of workloads automatically\.
 

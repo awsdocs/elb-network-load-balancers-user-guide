@@ -14,15 +14,17 @@ Your AWS account has the following quotas related to Network Load Balancers\.
 | --- | --- | --- | 
 | Certificates per Network Load Balancer |  25  | [Yes](https://console.aws.amazon.com/servicequotas/home/services/elasticloadbalancing/quotas/L-52964454) | 
 | Listeners per Network Load Balancer |  50  | No | 
-| Network Load Balancer ENIs per VPC  |  1,200 \* | [Yes](https://console.aws.amazon.com/servicequotas/home/services/elasticloadbalancing/quotas/L-23568085) | 
+| Network Load Balancer ENIs per VPC  |  1,200 ₁ | [Yes](https://console.aws.amazon.com/servicequotas/home/services/elasticloadbalancing/quotas/L-23568085) | 
 | Network Load Balancers per Region |  50  | [Yes](https://console.aws.amazon.com/servicequotas/home/services/elasticloadbalancing/quotas/L-69A177A2) | 
 | Target Groups per Action per Network Load Balancer |  1  | No | 
-| Targets per Availability Zone per Network Load Balancer  |  500 † | [Yes](https://console.aws.amazon.com/servicequotas/home/services/elasticloadbalancing/quotas/L-B211E961) | 
-| Targets per Network Load Balancer |  3,000  | [Yes](https://console.aws.amazon.com/servicequotas/home/services/elasticloadbalancing/quotas/L-EEF1AD04) | 
+| Targets per Availability Zone per Network Load Balancer |  500 ₂, ₃ | [Yes](https://console.aws.amazon.com/servicequotas/home/services/elasticloadbalancing/quotas/L-B211E961) | 
+| Targets per Network Load Balancer |  3,000 ₃ | [Yes](https://console.aws.amazon.com/servicequotas/home/services/elasticloadbalancing/quotas/L-EEF1AD04) | 
 
-**\*** Each Network Load Balancer uses one network interface per zone\. The quota is set at the VPC level\. When sharing subnets or VPCs, the usage is calculated across all tenants\.
+¹ Each Network Load Balancer uses one network interface per zone\. The quota is set at the VPC level\. When sharing subnets or VPCs, the usage is calculated across all tenants\.
 
-† If a target is registered with *N* target groups, it counts as *N* targets toward this limit\. Each Application Load Balancer that is a target of the Network Load Balancer counts as 50 targets if cross\-zone load balancing is disabled or 100 targets if cross\-zone load balancing is enabled\.
+² If a target is registered with *N* target groups, it counts as *N* targets toward this limit\. Each Application Load Balancer that is a target of the Network Load Balancer counts as 50 targets if cross\-zone load balancing is disabled or 100 targets if cross\-zone load balancing is enabled\.
+
+³ If cross\-zone load balancing is enabled, the maximum is 500 targets per load balancer, regardless of the number of Availability Zones\.
 
 **Target groups**  
 The following quotas are for target groups\.
@@ -30,8 +32,8 @@ The following quotas are for target groups\.
 
 | Name | Default | Adjustable | 
 | --- | --- | --- | 
-| Target Groups per Region |  3,000 \*\* | [Yes](https://console.aws.amazon.com/servicequotas/home/services/elasticloadbalancing/quotas/L-B22855CB) | 
+| Target Groups per Region |  3,000 ₁ | [Yes](https://console.aws.amazon.com/servicequotas/home/services/elasticloadbalancing/quotas/L-B22855CB) | 
 | Targets per Target Group per Region \(instances or IP addresses\) |  1,000  | [Yes](https://console.aws.amazon.com/servicequotas/home/services/elasticloadbalancing/quotas/L-A0D0B863) | 
 | Targets per Target Group per Region \(Application Load Balancers\) | 1 | No | 
 
-**\*\*** This quota is shared by Application Load Balancers and Network Load Balancers\.
+¹ This quota is shared by Application Load Balancers and Network Load Balancers\.

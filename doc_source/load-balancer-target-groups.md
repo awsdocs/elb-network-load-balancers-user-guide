@@ -122,7 +122,7 @@ If you are registering targets by instance ID, you can use your load balancer wi
 
 ## Target group attributes<a name="target-group-attributes"></a>
 
-The following are the target group attributes:
+The following target group attributes are supported\. You can modify these attributes only if the target group type is `instance` or `ip`\. If the target group type is `alb`, these attributes always use their default values\.
 
 `deregistration_delay.timeout_seconds`  
 The amount of time for Elastic Load Balancing to wait before changing the state of a deregistering target from `draining` to `unused`\. The range is 0\-3600 seconds\. The default value is 300 seconds\.
@@ -178,7 +178,7 @@ By default, client IP preservation is enabled \(and can't be disabled\) for inst
 + When you specify targets by Application Load Balancer type, the client IP of all incoming traffic is preserved by the Network Load Balancer and is sent to the Application Load Balancer\. The Application Load Balancer then appends the client IP to the `X-Forwarded-For` request header before sending it to the target\.
 + Client IP preservation changes take effect only for new TCP connections\.
 + When client IP preservation is enabled, you might encounter TCP/IP connection limitations related to observed socket reuse on the targets\. These connection limitations can occur when a client, or a NAT device in front of the client, uses the same source IP address and source port when connecting to multiple load balancer nodes simultaneously\. If the load balancer routes these connections to the same target, the connections appear to the target as if they come from the same source socket, which results in connection errors\. If this happens, the clients can retry \(if the connection fails\) or reconnect \(if the connection is interrupted\)\. You can reduce this type of connection error by increasing the number of source ephemeral ports or by increasing the number of targets for the load balancer\. You can prevent this type of connection error, by disabling client IP preservation or disabling cross\-zone load balancing\.
-+ Your Network Load Balancer supports 55,000 simultaneous connections or about 55,000 connections per minute to each unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors, resulting in failures to establish new connections\. Port allocation errors can be tracked using the `PortAllocationErrorCount` metric\. To fix port allocation errors, add more targets to the target group\. For more information, see [CloudWatch metrics for your Network Load Balancer](load-balancer-cloudwatch-metrics.md)\.
++ When client IP preservation is enabled, a Network Load Balancer supports 55,000 simultaneous connections or about 55,000 connections per minute to each unique target \(IP address and port\)\. If you exceed these connections, there is an increased chance of port allocation errors, resulting in failures to establish new connections\. Port allocation errors can be tracked using the `PortAllocationErrorCount` metric\. To fix port allocation errors, add more targets to the target group\. For more information, see [CloudWatch metrics for your Network Load Balancer](load-balancer-cloudwatch-metrics.md)\.
 
 ------
 #### [ New console ]

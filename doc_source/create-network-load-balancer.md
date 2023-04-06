@@ -22,11 +22,11 @@ Configuring a target group allows you to register targets such as EC2 instances\
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. In the navigation pane, under **Load Balancing**, choose **Target Groups**\.
+1. In the navigation pane, choose **Target Groups**\.
 
 1. Choose **Create target group**\.
 
-1. On the **Basic configuration** pane, do the following:
+1. For the **Basic configuration** pane, do the following:
 
    1. For **Choose a target type**, select **Instances** to register targets by instance ID, **IP addresses** to register targets by IP address, or **Application Load Balancer** to register an Application Load Balancer as a target\.
 
@@ -40,19 +40,15 @@ Configuring a target group allows you to register targets such as EC2 instances\
 
    1. \(Optional\) For **Port**, modify the default value as needed\.
 
-   1. For **VPC**, select a virtual private cloud \(VPC\) with the targets that you want to register with your target group\.
+   1. For **IP address type**, choose **IPv4** or **IPv6**\. This option is available only if the target type is **IP addresses** and the protocol is TCP or TLS\.
 
-   1. For **Protocol version**, select **HTTP1** when the request protocol is HTTP/1\.1 or HTTP/2; select **HTTP2**, when the request protocol is HTTP/2 or gRPC; and select **gRPC**, when the request protocol is gRPC\. 
+      You must associate an IPv6 target group with a dualstack load balancer\. All targets in the target group must have the same IP address type\. You can't change the IP address type of a target group after you create it\.
 
-1. In the **Health checks** section, modify the default settings as needed\. For **Advanced health check settings**, choose the health check port, count, timeout, interval, and specify success codes\. If health checks consecutively exceed the **Unhealthy threshold** count, the load balancer takes the target out of service\. If health checks consecutively exceed the **Healthy threshold** count, the load balancer puts the target back in service\. For more information, see [Health checks for your target groups](target-group-health-checks.md)\.
+   1. For **VPC**, select the virtual private cloud \(VPC\) with the targets to register\.
 
-1. \(Optional\) Add one or more tags as follows:
+1. For the **Health checks** pane, modify the default settings as needed\. For **Advanced health check settings**, choose the health check port, count, timeout, interval, and success codes\. If health checks consecutively exceed the **Unhealthy threshold** count, the load balancer takes the target out of service\. If health checks consecutively exceed the **Healthy threshold** count, the load balancer puts the target back in service\. For more information, see [Health checks for your target groups](target-group-health-checks.md)\.
 
-   1. Expand the **Tags** section\.
-
-   1. Choose **Add tag**\.
-
-   1. Enter the tag **Key** and tag **Value**\. Allowed characters are letters, spaces, numbers \(in UTF\-8\), and the following special characters: \+ \- = \. \_ : / @\. Do not use leading or trailing spaces\. Tag values are case\-sensitive\.
+1. \(Optional\) To add a tag, expand **Tags**, choose **Add tag**, and enter a tag key and a tag value\.
 
 1. Choose **Next**\.
 
@@ -60,24 +56,24 @@ Configuring a target group allows you to register targets such as EC2 instances\
 
 You can register EC2 instances, IP addresses, or an Application Load Balancer with your target group\. This is an optional step to create a load balancer\. However, you must register your targets to ensure that your load balancer can route traffic to them\.
 
-1. In the **Register targets** page, add one or more targets as follows:
-   + If the target type is **Instances**, select one or more instances, enter one or more ports, and then choose **Include as pending below**\.
-   + If the target type is **IP addresses**, select the network, enter the IP address and ports, and then choose **Include as pending below**\.
+1. On the **Register targets** page, add one or more targets as follows:
+   + If the target type is **Instances**, select the instances, enter the ports, and then choose **Include as pending below**\.
+   + If the target type is **IP addresses**, select the network, enter the IP addresses and ports, and then choose **Include as pending below**\.
    + If the target type is **Application Load Balancer**, select an Application Load Balancer\.
 
 1. Choose **Create target group**\.
 
 ## Step 3: Configure a load balancer and a listener<a name="configure-load-balancer"></a>
 
-To create a Network Load Balancer, you must first provide basic configuration information for your load balancer, such as a name, scheme, and IP address type\. Then provide information about your network, and one or more listeners\. A listener is a process that checks for connection requests\. It is configured with a protocol and a port for connections from clients to the load balancer\. For more information about supported protocols and ports, see [Listener configuration](load-balancer-listeners.md#listener-configuration)\.
+To create a Network Load Balancer, you must first provide basic configuration information for your load balancer, such as a name, scheme, and IP address type\. Then provide information about your network and one or more listeners\. A listener is a process that checks for connection requests\. It is configured with a protocol and a port for connections from clients to the load balancer\. For more information about supported protocols and ports, see [Listener configuration](load-balancer-listeners.md#listener-configuration)\.
 
-****To configure your load balancer and listener****
+**To configure your load balancer and listener**
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. In the navigation pane, under **Load Balancing**, choose **Load Balancers**\.
+1. In the navigation pane, choose **Load Balancers**\.
 
-1. Choose **Create Load Balancer**\.
+1. Choose **Create load balancer**\.
 
 1. Under **Network Load Balancer**, choose **Create**\.
 
@@ -87,9 +83,9 @@ To create a Network Load Balancer, you must first provide basic configuration in
 
    1. For **Scheme**, choose **Internet\-facing** or **Internal**\. An internet\-facing load balancer routes requests from clients to targets over the internet\. An internal load balancer routes requests to targets using private IP addresses\.
 
-   1. For **IP address type**, choose **IPv4** or **Dualstack**\. Use **IPv4** if your clients use IPv4 addresses to communicate with the load balancer\. Use **Dualstack** if your clients use both IPv4 and IPv6 addresses to communicate with the load balancer\. 
+   1. For **IP address type**, choose **IPv4** if your clients use IPv4 addresses to communicate with the load balancer or **Dualstack** if your clients use both IPv4 and IPv6 addresses to communicate with the load balancer\.
 
-1. **Network and security**
+1. **Network mapping**
 
    1. For **VPC**, select the VPC that you used for your EC2 instances\. If you selected **Internet\-facing** for **Scheme**, only VPCs with an internet gateway are available for selection\.
 
@@ -97,38 +93,44 @@ To create a Network Load Balancer, you must first provide basic configuration in
 
 1. **Listeners and routing**
 
-   1. For **Listeners**, the default is a listener that accepts TCP traffic on port 80\. You can keep the default listener settings, modify the protocol, or modify the port\. 
+   1. The default is a listener that accepts TCP traffic on port 80\. You can keep the default listener settings, or modify **Protocol** and **Port** as needed\.
 
    1. For **Default action**, select a target group to forward traffic\. If you didn't create a target group previously, you must create one now\. You can optionally choose **Add listener** to add another listener \(for example, a TLS listener\)\.
 
-   1. For **Secure listener settings** \(available only for TLS listeners\), choose a **Security policy** that meets your requirements\.
+   1. \(Optional\) Add tags to categorize your listener\.
 
-   1. For **ALPN policy**, choose a policy to enable ALPN or choose **None** to disable ALPN\.
+   1. For **Secure listener settings** \(available only for TLS listeners\), do the following:
 
-   1. For **Default SSL certificate**, choose **From ACM** \(recommended\) and select a certificate\. If you don't have a certificate that is available to choose, you can import a certificate into ACM, or use ACM to provision one for you\. For more information, see [Issuing and Managing Certificates](https://docs.aws.amazon.com/acm/latest/userguide/gs.html) in the *ACM User Guide*\.
+      1. For **Security policy**, choose a security policy that meets your requirements\.
 
-1. **Tag and create**
+      1. For **ALPN policy**, choose a policy to enable ALPN or choose **None** to disable ALPN\.
 
-   1. \(Optional\) Add a tag to categorize your load balancer\. Tag keys must be unique for each load balancer\. Allowed characters are letters, spaces, numbers \(in UTF\-8\), and the following special characters: \+ \- = \. \_ : / @\. Do not use leading or trailing spaces\. Tag values are case\-sensitive\.
+      1. For **Default SSL certificate**, choose **From ACM** \(recommended\) and select a certificate\. If you don't have an available certificate, you can import a certificate into ACM or use ACM to provision one for you\. For more information, see [Issuing and managing certificates](https://docs.aws.amazon.com/acm/latest/userguide/gs.html) in the *AWS Certificate Manager User Guide*\.
 
-   1. Review your configuration, and choose **Create load balancer**\. A few default attributes are applied to your load balancer during creation\. You can view and edit them after creating the load balancer\. For more information, see [Load balancer attributes](network-load-balancers.md#load-balancer-attributes)\.
+1. **Tags**
+
+   \(Optional\) Add tags to categorize your load balancer\. For more information, see [Tags](load-balancer-tags.md)\.
+
+1. **Summary**
+
+   Review your configuration, and choose **Create load balancer**\. A few default attributes are applied to your load balancer during creation\. You can view and edit them after creating the load balancer\. For more information, see [Load balancer attributes](network-load-balancers.md#load-balancer-attributes)\.
 
 ## Step 4: Test the load balancer<a name="test-load-balancer"></a>
 
-After creating your load balancer, you can verify that your EC2 instances have passed the initial health check and then test that the load balancer is sending traffic to your EC2 instances\. To delete the load balancer, see [Delete a Network Load Balancer](load-balancer-delete.md)\.
+After creating your load balancer, you can verify that your EC2 instances have passed the initial health check, and then test that the load balancer is sending traffic to your EC2 instances\. To delete the load balancer, see [Delete a Network Load Balancer](load-balancer-delete.md)\.
 
 **To test the load balancer**
 
 1. After the load balancer is created, choose **Close**\.
 
-1. In the left navigation pane, under **Load Balancing**, choose **Target Groups**\.
+1. In the left navigation pane, choose **Target Groups**\.
 
-1. Select the newly created target group\.
+1. Select the new target group\.
 
-1. Choose **Targets** and verify that your instances are ready\. If the status of an instance is `initial`, it's probably because the instance is still in the process of being registered, or it has not passed the minimum number of health checks to be considered healthy\. After the status of at least one instance is healthy, you can test your load balancer\. For more information, see [Target health status](target-group-health-checks.md#target-health-states)\.
+1. Choose **Targets** and verify that your instances are ready\. If the status of an instance is `initial`, it's probably because the instance is still in the process of being registered or it has not passed the minimum number of health checks to be considered healthy\. After the status of at least one instance is healthy, you can test your load balancer\. For more information, see [Target health status](target-group-health-checks.md#target-health-states)\.
 
-1. In the navigation pane, under **Load Balancing**, choose **Load Balancers**\.
+1. In the navigation pane, choose **Load Balancers**\.
 
-1. Select the newly created load balancer\.
+1. Select the new load balancer\.
 
 1. Copy the DNS name of the load balancer \(for example, my\-load\-balancer\-1234567890abcdef\.elb\.us\-east\-2\.amazonaws\.com\)\. Paste the DNS name into the address field of an internet\-connected web browser\. If everything is working, the browser displays the default page of your server\.

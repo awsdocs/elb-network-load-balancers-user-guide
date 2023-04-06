@@ -4,7 +4,7 @@ This tutorial provides a hands\-on introduction to Network Load Balancers throug
 
 **Topics**
 + [Before you begin](#prerequisites)
-+ [Step 1: Configure your target group](#configure-target-group)
++ [Step 1: Configure your target group](#configure-target-group-getting-started)
 + [Step 2: Choose a load balancer type](#select-load-balancer-type)
 + [Step 3: Configure your load balancer and listener](#configure-load-balancer-listener)
 + [Step 4: Test your load balancer](#test-load-balancer)
@@ -16,7 +16,7 @@ For demos of common load balancer configurations, see [Elastic Load Balancing De
 + Decide which Availability Zones you will use for your EC2 instances\. Configure your virtual private cloud \(VPC\) with at least one public subnet in each of these Availability Zones\. These public subnets are used to configure the load balancer\. You can launch your EC2 instances in other subnets of these Availability Zones instead\.
 + Launch at least one EC2 instance in each Availability Zone\. Ensure that the security groups for these instances allow TCP access from clients on the listener port and health check requests from your VPC\. For more information, see [Target security groups](target-group-register-targets.md#target-security-groups)\.
 
-## Step 1: Configure your target group<a name="configure-target-group"></a>
+## Step 1: Configure your target group<a name="configure-target-group-getting-started"></a>
 
 Create a target group, which is used in request routing\. The rule for your listener routes requests to the registered targets in this target group\. The load balancer checks the health of targets in this target group using the health check settings defined for the target group\. 
 
@@ -34,7 +34,7 @@ Create a target group, which is used in request routing\. The rule for your list
 
 1. For **Protocol**, choose **TCP**, and for **Port**, choose **80**\.
 
-1. For **VPC** select the VPC that contains your instances\.
+1. For **VPC**, select the VPC that contains your instances\.
 
 1. For **Health checks**, keep the default settings\.
 

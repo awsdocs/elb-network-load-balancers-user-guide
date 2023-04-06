@@ -81,3 +81,7 @@ When both cross\-zone load balancing and client IP preservation are enabled, a c
 ## Potential failure when the load balancer is being provisioned<a name="load-balancer-provision-failure"></a>
 
 One of the reasons a Network Load Balancer could fail when it is being provisioned is if you use an IP address that is already assigned or allocated elsewhere \(for example, assigned as a secondary IP address for an EC2 instance\)\. This IP address prevents the load balancer from being set up, and its state is `failed`\. You can resolve this by de\-allocating the associated IP address and retrying the creation process\.
+
+## Intermittent 503 errors with an Application Load Balancer as a target<a name="intermittent-503-errors-alb"></a>
+
+You can get intermittent 503 errors while using an Application Load Balancer as a target of a Network Load Balancer if the Network Load Balancer has cross\-zone load balancing enabled and the Application Load Balancer has cross\-zone load balancing disabled\. You can prevent this issue by disabling cross\-zone load balancing on the Network Load Balancer, and enabling it on the Application Load Balancer\.

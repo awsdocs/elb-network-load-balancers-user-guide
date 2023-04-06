@@ -10,17 +10,21 @@ If you change the target group for the default action, it has no effect on any a
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. In the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
+1. In the navigation pane, choose **Load Balancers**\.
 
-1. Select the load balancer and choose **Listeners**\.
+1. Choose the name of the load balancer to open its detail page\.
 
-1. Select the check box for the listener and then choose **Edit**\.
+1. On the **Listeners** tab, choose the text in the **Protocol:Port** column to open the detail page for the listener\.
 
-1. \(Optional\) Change the specified values for **Protocol : port**\.
+1. Choose **Edit**\.
 
-1. \(Optional\) Click the pencil icon to select a different target group for **Default action**\.
+1. \(Optional\) Change the specified values for **Protocol** and **Port** as needed\.
 
-1. Choose **Update**\.
+1. \(Optional\) Choose a different target group for **Default action**\.
+
+1. \(Optional\) Add, update, or remove tags as needed\.
+
+1. Choose **Save changes**\.
 
 **To update your listener using the AWS CLI**  
 Use the [modify\-listener](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-listener.html) command\.

@@ -31,7 +31,7 @@ The prefix \(logical hierarchy\) in the bucket\. If you don't specify a prefix, 
 The AWS account ID of the owner\.
 
 *region*  
-The region for your load balancer and S3 bucket\.
+The Region for your load balancer and S3 bucket\.
 
 *yyyy*/*mm*/*dd*  
 The date that the log was delivered\.
@@ -113,40 +113,55 @@ h2 h2 "h2","http/1.1"
 When you enable access logging, you must specify an S3 bucket for the access logs\. The bucket can be owned by a different account than the account that owns the load balancer\. The bucket must meet the following requirements\. 
 
 **Requirements**
-+ The bucket must be located in the same region as the load balancer\.
++ The bucket must be located in the same Region as the load balancer\.
 + The prefix that you specify must not include AWSLogs\. We add the portion of the file name starting with AWSLogs after the bucket name and prefix that you specify\.
 + The bucket must have a bucket policy that grants permission to write the access logs to your bucket\. Bucket policies are a collection of JSON statements written in the access policy language to define access permissions for your bucket\. The following is an example policy\.
 
   ```
   {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Sid": "AWSLogDeliveryWrite",
-        "Effect": "Allow",
-        "Principal": {
-          "Service": "delivery.logs.amazonaws.com"
-        },
-        "Action": "s3:PutObject",
-        "Resource": "arn:aws:s3:::bucket_name/prefix/AWSLogs/aws-account-id/*",
-        "Condition": {
-          "StringEquals": {
-            "s3:x-amz-acl": "bucket-owner-full-control"
+      "Version": "2012-10-17",
+      "Id": "AWSLogDeliveryWrite",
+      "Statement": [
+          {
+              "Sid": "AWSLogDeliveryAclCheck",
+              "Effect": "Allow",
+              "Principal": {
+                  "Service": "delivery.logs.amazonaws.com"
+                  },
+              "Action": "s3:GetBucketAcl",
+              "Resource": "arn:aws:s3:::my-bucket",
+              "Condition": {
+                  "StringEquals": {
+                  "aws:SourceAccount": ["0123456789"]
+                  },
+                  "ArnLike": {
+                  "aws:SourceArn": ["arn:aws:logs:us-east-1:0123456789:*"]
+                  }
+              }
+          },
+          {
+              "Sid": "AWSLogDeliveryWrite",
+              "Effect": "Allow",
+              "Principal": {
+                  "Service": "delivery.logs.amazonaws.com"
+              },
+              "Action": "s3:PutObject",
+              "Resource": "arn:aws:s3:::my-bucket/AWSLogs/account-ID/*",
+              "Condition": {
+                  "StringEquals": {
+                      "s3:x-amz-acl": "bucket-owner-full-control",
+                      "aws:SourceAccount": ["0123456789"]
+                  },
+                  "ArnLike": {
+                      "aws:SourceArn": ["arn:aws:logs:us-east-1:0123456789:*"]
+                  }
+              }
           }
-        }
-      },
-      {
-        "Sid": "AWSLogDeliveryAclCheck",
-        "Effect": "Allow",
-        "Principal": {
-          "Service": "delivery.logs.amazonaws.com"
-        },
-        "Action": "s3:GetBucketAcl",
-        "Resource": "arn:aws:s3:::bucket_name"
-      }
-    ]
+      ]
   }
-  ```<a name="access-log-bucket-encryption"></a>
+  ```
+
+In the previous policy, for `aws:SourceAccount`, specify the list of account numbers for which logs are being delivered to this bucket\. For `aws:SourceArn`, specify the list of ARNs of the resource that generates the logs, in the form `arn:aws:logs:source-region:source-account-id:*`\.<a name="access-log-bucket-encryption"></a>
 
 **Encryption**
 
@@ -184,7 +199,7 @@ The key policy must allow the service to encrypt and decrypt the logs\. The foll
 
 ## Enable access logging<a name="enable-disable-access-logging"></a>
 
-When you enable access logging for your load balancer, you must specify the name of the S3 bucket where the load balancer will store the logs\. For more information, see [Bucket requirements](#access-logging-bucket-requirements)\.
+When you enable access logging for your load balancer, you must specify the S3 bucket where the load balancer will store the logs\. Be sure that you own this bucket and that you configured the required bucket policy for this bucket\. For more information, see [Bucket requirements](#access-logging-bucket-requirements)\.
 
 **To enable access logging using the console**
 
@@ -198,9 +213,9 @@ When you enable access logging for your load balancer, you must specify the name
 
 1. On the **Edit load balancer attributes** page, do the following:
 
-   1. Turn **Access logs** on\.
+   1. For **Monitoring**, turn on **Access logs**\.
 
-   1. For **S3 URI**, type the name of your S3 bucket, including any prefix \(for example, `my-loadbalancer-logs/my-app`\)\. You can specify the name of an existing bucket or a name for a new bucket\. If you specify an existing bucket, be sure that you own this bucket and that you configured the required bucket policy\.
+   1. Choose **Browse S3** and select a bucket to use\. Alternatively, enter the location of your S3 bucket, including any prefix\. 
 
    1. Choose **Save changes**\.
 
@@ -221,7 +236,7 @@ You can disable access logging for your load balancer at any time\. After you di
 
 1. On the **Attributes** tab, choose **Edit**\.
 
-1. Turn **Access logs** off\.
+1. For **Monitoring**, turn off **Access logs**\.
 
 1. Choose **Save changes**\.
 

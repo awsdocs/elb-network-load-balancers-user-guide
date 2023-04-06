@@ -1,6 +1,6 @@
 # Tags for your Network Load Balancer<a name="load-balancer-tags"></a>
 
-Tags help you to categorize your load balancers in different ways, for example, by purpose, owner, or environment\.
+Tags help you to categorize your load balancers in different ways\. For example, you can tag a resource by purpose, owner, or environment\.
 
 You can add multiple tags to each load balancer\. If you add a tag with a key that is already associated with the load balancer, it updates the value of that tag\.
 
@@ -17,19 +17,19 @@ When you are finished with a tag, you can remove it from your load balancer\.
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. In the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
+1. In the navigation pane, choose **Load Balancers**\.
 
-1. Select the load balancer\.
+1. Select the name of the load balancer to open its details page\.
 
-1. Choose **Tags**, **Add/Edit Tags**, and then do one or more of the following:
+1. On the **Tags** tab, choose **Manage tags**\.
 
-   1. To update a tag, edit the values of **Key** and **Value**\.
+1. To add a tag, choose **Add tag** and enter the tag key and tag value\. Allowed characters are letters, spaces, numbers \(in UTF\-8\), and the following special characters: \+ \- = \. \_ : / @\. Do not use leading or trailing spaces\. Tag values are case\-sensitive\.
 
-   1. To add a new tag, choose **Create Tag**\. For **Key** and **Value**, enter values\. Allowed characters are letters, spaces, numbers \(in UTF\-8\), and the following special characters: \+ \- = \. \_ : / @\. Do not use leading or trailing spaces\. Tag values are case\-sensitive\.
+1. To update a tag, enter new values in **Key** and **Value**\.
 
-   1. To delete a tag, choose the delete icon \(X\) next to the tag\.
+1. To delete a tag, choose the **Remove** button next to the tag\.
 
-1. When you have finished updating tags, choose **Save**\.
+1. When you have finished, choose **Save changes**\.
 
 **To update the tags for a load balancer using the AWS CLI**  
 Use the [add\-tags](https://docs.aws.amazon.com/cli/latest/reference/elbv2/add-tags.html) and [remove\-tags](https://docs.aws.amazon.com/cli/latest/reference/elbv2/remove-tags.html) commands\.

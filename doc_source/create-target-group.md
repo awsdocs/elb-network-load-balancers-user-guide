@@ -15,53 +15,39 @@ You can add or remove targets from your target group at any time\. For more info
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. In the navigation pane, under **Load Balancing**, choose **Target Groups**\.
+1. In the navigation pane, choose **Target Groups**\.
 
 1. Choose **Create target group**\.
 
-1. For **Choose a target type**, select **Instances** to register targets by instance ID; **IP addresses** to register targets by IP address; or **Application Load Balancer** to register an Application Load Balancer as a target\.
+1. For the **Basic configuration** pane, do the following:
 
-1. For **Target group name**, enter a name for the target group\. This name must be unique per Region per account, can have a maximum of 32 characters, must contain only alphanumeric characters or hyphens, and must not begin or end with a hyphen\.
+   1. For **Choose a target type**, select **Instances** to register targets by instance ID, **IP addresses** to register targets by IP address, or **Application Load Balancer** to register an Application Load Balancer as a target\.
 
-1. For **Protocol**, choose a protocol as follows:
-   + If the listener protocol is TCP, choose **TCP** or **TCP\_UDP**\.
-   + If the listener protocol is TLS, choose **TCP** or **TLS**\.
-   + If the listener protocol is UDP, choose **UDP** or **TCP\_UDP**\.
-   + If the listener protocol is TCP\_UDP, choose **TCP\_UDP**\.
+   1. For **Target group name**, enter a name for the target group\. This name must be unique per Region per account, can have a maximum of 32 characters, must contain only alphanumeric characters or hyphens, and must not begin or end with a hyphen\.
 
-1. \(Optional\) For **Port**, modify the default value as needed\.
+   1. For **Protocol**, choose a protocol as follows:
+      + If the listener protocol is TCP, choose **TCP** or **TCP\_UDP**\.
+      + If the listener protocol is TLS, choose **TCP** or **TLS**\.
+      + If the listener protocol is UDP, choose **UDP** or **TCP\_UDP**\.
+      + If the listener protocol is TCP\_UDP, choose **TCP\_UDP**\.
 
-1. If the target type is **IP addresses**, choose **IPv4** or **IPv6** as the **IP address type**, otherwise skip to the next step\.
+   1. \(Optional\) For **Port**, modify the default value as needed\.
 
-   Note that you can associate IPv6 target groups only to a dualstack load balancer with TCP or TLS listeners\. All targets in the target group must have the same IP address type\. You can't change the IP address type once a target group is created\.
+   1. For **IP address type**, choose **IPv4** or **IPv6**\. This option is available only if the target type is **IP addresses** and the protocol is TCP or TLS\.
 
-1. For **VPC**, select a virtual private cloud \(VPC\)\.
+      You must associate an IPv6 target group with a dualstack load balancer\. All targets in the target group must have the same IP address type\. You can't change the IP address type of a target group after you create it\.
 
-1. In the **Health checks** section, modify the default settings as needed\. Note that for IP address type targets, **Health checks** use the same IP address type as that of the target group\. 
+   1. For **VPC**, select the virtual private cloud \(VPC\) with the targets to register\.
 
-   For **Advanced health check settings**, choose the health check port, count, timeout, interval, and specify success codes\. If health checks consecutively exceed the **Unhealthy threshold** count, the load balancer takes the target out of service\. If health checks consecutively exceed the **Healthy threshold** count, the load balancer puts the target back in service\. For more information, see [Health checks for your target groups](target-group-health-checks.md)\.
+1. For the **Health checks** pane, modify the default settings as needed\. For **Advanced health check settings**, choose the health check port, count, timeout, interval, and specify success codes\. If health checks consecutively exceed the **Unhealthy threshold** count, the load balancer takes the target out of service\. If health checks consecutively exceed the **Healthy threshold** count, the load balancer puts the target back in service\. For more information, see [Health checks for your target groups](target-group-health-checks.md)\.
 
-1. \(Optional\) Add one or more tags as follows:
-
-   1. Expand the **Tags** section\.
-
-   1. Choose **Add tag**\.
-
-   1. Enter the tag **Key** and **Value**\. Allowed characters are letters, spaces, numbers \(in UTF\-8\), and the following special characters: \+ \- = \. \_ : / @\. Do not use leading or trailing spaces\. Tag values are case\-sensitive\.
+1. \(Optional\) To add a tag, expand **Tags**, choose **Add tag**, and enter a tag key and a tag value\.
 
 1. Choose **Next**\.
 
-1. In the **Register targets** page, add one or more targets as follows:
-   + If the target type is **Instances**, select one or more instances, enter one or more ports, and then choose **Include as pending below**\.
-   + If the target type is **IP addresses**, do the following:
-
-     1. Select a network **VPC** from the list, or choose **Other private IP addresses**\.
-
-     1. Enter the IP address manually, or find the IP address using instance details\. You can enter up to five IP addresses at a time\.
-
-     1. Enter the ports for routing traffic to the specified IP addresses\. 
-
-     1. Choose **Include as pending below**\. 
+1. On the **Register targets** page, add one or more targets as follows:
+   + If the target type is **Instances**, select the instances, enter the ports, and then choose **Include as pending below**\.
+   + If the target type is **IP addresses**, select the network, enter the IP addresses and ports, and then choose **Include as pending below**\.
 
 1. Choose **Create target group**\.
 

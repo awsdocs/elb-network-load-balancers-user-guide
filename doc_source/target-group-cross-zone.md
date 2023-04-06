@@ -32,7 +32,9 @@ Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/lat
 
 ## Modify cross\-zone load balancing for a target group<a name="modify-target-group-cross-zone"></a>
 
-You can turn cross\-zone load balancing on or off at the target group level at any time\. The cross\-zone load balancing setting at the target group level overrides the setting at the load balancer level\.
+The cross\-zone load balancing setting at the target group level overrides the setting at the load balancer level\.
+
+You can turn cross\-zone load balancing on or off at the target group level if the target group type is `instance` or `ip`\. If the target group type is `alb`, the target group always inherits the cross\-zone load balancing setting from the load balancer\.
 
 **To modify cross\-zone load balancing for a target group using the console**
 

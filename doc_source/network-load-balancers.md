@@ -19,6 +19,7 @@ Network Load Balancers support connections from clients over VPC peering, AWS ma
 + [IP address types for your Network Load Balancer](load-balancer-ip-address-type.md)
 + [Tags for your Network Load Balancer](load-balancer-tags.md)
 + [Delete a Network Load Balancer](load-balancer-delete.md)
++ [Zonal shift](zonal-shift.md)
 
 ## Load balancer state<a name="load-balancer-state"></a>
 
@@ -70,7 +71,7 @@ Clients can connect to the load balancer using both IPv4 addresses \(for example
 + When you enable dualstack mode for the load balancer, Elastic Load Balancing provides an AAAA DNS record for the load balancer\. Clients that communicate with the load balancer using IPv4 addresses resolve the A DNS record\. Clients that communicate with the load balancer using IPv6 addresses resolve the AAAA DNS record\.
 + Access to your internal dualstack load balancers through the internet gateway is blocked to prevent unintended internet access\. However, this does not prevent other internet access \(for example, through peering, Transit Gateway, AWS Direct Connect, or AWS VPN\)\. 
 
-For more information on load balancer IP address types, see [Update the address type](load-balancer-ip-address-type.md)\.
+For more information about load balancer IP address types, see [Update the address type](load-balancer-ip-address-type.md)\.
 
 ## Availability Zones<a name="availability-zones"></a>
 
@@ -93,7 +94,7 @@ After you enable an Availability Zone, the load balancer starts routing requests
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. In the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
+1. In the navigation pane, choose **Load Balancers**\.
 
 1. Select the name of the load balancer to open its details page\.
 
@@ -122,38 +123,42 @@ If you enable deletion protection for your load balancer, you must disable it be
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. In the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
+1. In the navigation pane, choose **Load Balancers**\.
 
 1. Select the name of the load balancer to open its details page\.
 
 1. On the **Attributes** tab, choose **Edit**\.
 
-1. On the **Edit load balancer attributes** page, turn **Deletion protection** on, and then choose **Save changes**\.
+1. Under **Configuration**, turn on **Deletion protection**\.
+
+1. Choose **Save changes**\.
 
 **To disable deletion protection using the console**
 
 1. Open the Amazon EC2 console at [https://console\.aws\.amazon\.com/ec2/](https://console.aws.amazon.com/ec2/)\.
 
-1. In the navigation pane, under **LOAD BALANCING**, choose **Load Balancers**\.
+1. In the navigation pane, choose **Load Balancers**\.
 
 1. Select the name of the load balancer to open its details page\.
 
 1. On the **Attributes** tab, choose **Edit**\.
 
-1. On the **Edit load balancer attributes** page, turn **Deletion protection** off, and then choose **Save changes**\.
+1. Under **Configuration**, turn on **Deletion protection**\.
+
+1. Choose **Save changes**\.
 
 **To enable or disable deletion protection using the AWS CLI**  
 Use the [modify\-load\-balancer\-attributes](https://docs.aws.amazon.com/cli/latest/reference/elbv2/modify-load-balancer-attributes.html) command with the `deletion_protection.enabled` attribute\.
 
 ## Connection idle timeout<a name="connection-idle-timeout"></a>
 
-For each TCP request that a client makes through a Network Load Balancer, the state of that connection is tracked\. If no data is sent through the connection by either the client or target for longer than the idle timeout, the connection is closed\. If a client or a target sends data after the idle timeout period elapses, it receives a TCP RST packet to indicate that the connection is no longer valid\.
+For each TCP request that a client makes through a Network Load Balancer, the state of that connection is tracked\. If no data is sent through the connection by either the client or target for longer than the idle timeout, the connection is closed\. If a client or target sends data after the idle timeout period elapses, it receives a TCP RST packet to indicate that the connection is no longer valid\.
 
 We set the idle timeout value for TCP flows to 350 seconds\. You can't modify this value\. Clients or targets can use TCP keepalive packets to reset the idle timeout\. Keepalive packets sent to maintain TLS connections can't contain data or payload\.
 
 When a TLS listener receives a TCP keepalive packet from either a client or a target, the load balancer generates TCP keepalive packets and sends them to both the front\-end and back\-end connections every 20 seconds\. You can't modify this behavior\.
 
-While UDP is connectionless, the load balancer maintains UDP flow state based on the source and destination IP addresses and ports, ensuring that packets that belong to the same flow are consistently sent to the same target\. After the idle timeout period elapses, the load balancer considers the incoming UDP packet as a new flow and routes it to a new target\. Elastic Load Balancing sets the idle timeout value for UDP flows to 120 seconds\.
+While UDP is connectionless, the load balancer maintains UDP flow state based on the source and destination IP addresses and ports\. This ensures that packets that belong to the same flow are consistently sent to the same target\. After the idle timeout period elapses, the load balancer considers the incoming UDP packet as a new flow and routes it to a new target\. Elastic Load Balancing sets the idle timeout value for UDP flows to 120 seconds\.
 
 EC2 instances must respond to a new request within 30 seconds in order to establish a return path\.
 
@@ -165,7 +170,7 @@ If you'd prefer to use a DNS name that is easier to remember, you can create a c
 
 First, register a domain name with an accredited domain name registrar\. Next, use your DNS service, such as your domain registrar, to create a DNS record to route requests to your load balancer\. For more information, see the documentation for your DNS service\. For example, if you use Amazon Route 53 as your DNS service, you create an alias record that points to your load balancer\. For more information, see [Routing traffic to an ELB load balancer](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-elb-load-balancer.html) in the *Amazon Route 53 Developer Guide*\.
 
-The load balancer has one IP address per enabled Availability Zone\. These are the addresses of the load balancer nodes\. The DNS name of the load balancer resolves to these addresses\. For example, suppose that the custom domain name for your load balancer is `example.networkloadbalancer.com`\. Use the following dig or nslookup command to determine the IP addresses of the load balancer nodes\.
+The load balancer has one IP address per enabled Availability Zone\. These are the IP addresses of the load balancer nodes\. The DNS name of the load balancer resolves to these addresses\. For example, suppose that the custom domain name for your load balancer is `example.networkloadbalancer.com`\. Use the following dig or nslookup command to determine the IP addresses of the load balancer nodes\.
 
 **Linux or Mac**
 
