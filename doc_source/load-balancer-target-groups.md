@@ -363,7 +363,7 @@ Sticky sessions are a mechanism to route client traffic to the same target in a 
 **Considerations**
 + Using sticky sessions can lead to an uneven distribution of connections and flows, which might impact the availability of your targets\. For example, all clients behind the same NAT device have the same source IP address\. Therefore, all traffic from these clients is routed to the same target\.
 + The load balancer might reset the sticky sessions for a target group if the health state of any of its targets changes or if you register or deregister targets with the target group\.
-+ Sticky sessions are not supported with TLS listeners and TLS target groups\.
++ Sticky sessions are not supported for TLS listeners that use TLS target groups\.
 
 ------
 #### [ New console ]
