@@ -68,7 +68,7 @@ Clients can connect to the load balancer using both IPv4 addresses \(for example
 **Dualstack load balancer considerations**
 + The load balancer communicates with targets based on the IP address type of the target group\.
 + When you enable dualstack mode for the load balancer, Elastic Load Balancing provides an AAAA DNS record for the load balancer\. Clients that communicate with the load balancer using IPv4 addresses resolve the A DNS record\. Clients that communicate with the load balancer using IPv6 addresses resolve the AAAA DNS record\.
-+ Access to your internal dualstack load balancers through the internet gateway is blocked to prevent unintended internet access\. However, this does not prevent non\-IWG internet access \(such as, through peering, Transit Gateway, AWS Direct Connect, or AWS VPN\)\. 
++ Access to your internal dualstack load balancers through the internet gateway is blocked to prevent unintended internet access\. However, this does not prevent other internet access \(for example, through peering, Transit Gateway, AWS Direct Connect, or AWS VPN\)\. 
 
 For more information on load balancer IP address types, see [Update the address type](load-balancer-ip-address-type.md)\.
 
