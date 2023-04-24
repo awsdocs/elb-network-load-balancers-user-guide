@@ -92,6 +92,18 @@ If you specify targets using IP addresses, you can route traffic to an instance 
 
 For more information about allowing traffic to your instances, see [Target security groups](target-group-register-targets.md#target-security-groups)\.
 
+### On-premises resources<a name="on-premises-resources"></a>
+
+On\-premises resources linked to AWS through AWS Direct Connect or a Site\-to\-Site VPN connection can serve as a target when the target type is `ip`. 
+
+![ELB On-Premises](https://user-images.githubusercontent.com/5304256/234129579-7878967a-bcf6-465d-a3e9-dc644471c65e.png)
+
+In this case the IP addresses of these target must still come from one of the following CIDR blocks:
++ 10\.0\.0\.0/8 \([RFC 1918](https://tools.ietf.org/html/rfc1918)\)
++ 100\.64\.0\.0/10 \([RFC 6598](https://tools.ietf.org/html/rfc6598)\)
++ 172\.16\.0\.0/12 \(RFC 1918\)
++ 192\.168\.0\.0/16 \(RFC 1918\)
+
 ## IP address type<a name="target-group-ip-address-type"></a>
 
 When creating a new target group, you can select the IP address type of your target group\. This controls the IP version used to communicate with targets and check their health status\. 
